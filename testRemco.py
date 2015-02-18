@@ -1,9 +1,38 @@
 import graphIO
 import basicgraphs
 
+colors=[]
+
+def createDisjointUnion(graphs):
+	G=basicgraphs.graph()
+	for i in range(len(graphs)):
+		for j in range(len(graphs[i].V())):
+			G.addvertex(graphs[i].V()[j])
+		# for j in range(len(graphs[i].E())):
+		# 	e=basicgraphs.edge()
+		# 	print(graphs[i].E()[j].tail(), graphs[i].E()[j].head())
+		# 	# G.addedge(graphs[i].E()[j].tail(), graphs[i].E()[j].head())
+	print(G)
+
+
 def setColorAsNrNeighbors(graph):
-	for i in range(len(graph.V())):
-		graph[i].colornum = graph[i].deg()
+	colors=[[]]
+	graph[0].colornum=0
+	colors[0].append(graph[0])
+	for i in range(1, len(graph.V())):
+		added = False
+		for x in range(len(colors)):
+			if colors[x][0].deg() == graph[i].deg():
+				colors[x].append(graph[i])
+				added = True
+				break
+		if not added:
+			graph[i].colornum=len(colors)
+			colors.append([graph[i]])
+
+		# graph[i].colornum = graph[i].deg()
+		# colors[graph[i].deg()].append(i)
+	return colors
 
 def loadGraphs(file):
 	L = graphIO.loadgraph(file, readlist=True)
@@ -15,9 +44,10 @@ def loadGraphs(file):
 ## MAIN
 
 G=loadGraphs('week1/crefBM_4_7.grl')
-
-for i in range(len(G)):
-	setColorAsNrNeighbors(G[i])
+createDisjointUnion(G)
+# for i in range(len(G)):
+# 	colors = setColorAsNrNeighbors(G[i])
+# 	print(colors)
 
 ################
 ################
