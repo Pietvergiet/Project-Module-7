@@ -17,7 +17,7 @@ def createDisjointUnion(graphs):
 				nbs = graphs[i].V()[j].nbs()	# alle neighbours van vertex j in graaf i
 				#print("NBS: ", nbs)
 				try: 														# maakt dezlefde egdes met tussen de vertex en zijn neighbours als in de originele graaf
-					G.addedge(G[j+index], G[nbs[x]._label+index])	# Waarom werkt dit? Het klopt nog steeds wel. Ik heb iig geen idee. print(H.V()[nbs[0]._label+1]) faalt namelijk. (Frank)
+					G.addedge(G[j+index], G[nbs[x]._label+index])	
 					break
 				except basicgraphs.GraphError:
 					#pass
@@ -59,7 +59,7 @@ G=loadGraphs('week1/crefBM_4_7.grl')
 print("aantal graphs: ", len(G))
 H = createDisjointUnion(G)
 nbs = H.V()[0].nbs()
-print(H.V()[nbs[0]._label+1])
+print(H[nbs[0]._label])
 # graphIO.writeDOT(G[0], 'graph1.dot')
 # graphIO.writeDOT(G[1], 'graph2.dot')
 # graphIO.writeDOT(G[2], 'graph3.dot')
