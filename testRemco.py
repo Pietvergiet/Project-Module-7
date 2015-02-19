@@ -3,31 +3,29 @@ import basicgraphs
 
 colors=[]
 
+# Maakt de disjoint union van een lijst met graven
 def createDisjointUnion(graphs):
 	G=basicgraphs.graph()
 	for i in range(len(graphs)):
 		index = len(G.V())
 		for j in range(len(graphs[i].V())):
-			G.addvertex(graphs[i].V()[j])
+			G.addvertex(graphs[i].V()[j])		# Gooi de vertices van graaf i in de graaf
+			G.V()[j+index].newLabel(j+index)
 		for j in range(len(graphs[i].V())):
-			print("Graph: ", i, "Vertex: ", j)
+			#print("Graph: ", i, "Vertex: ", j)
 			for x in range(len(graphs[i].V()[j].nbs())):
-				nbs = graphs[i].V()[j].nbs()
-				print("NBS: ", nbs)
-				try: 
-					G.addedge(G.V()[j+index], G.V()[int(str(nbs[x]))+index])
+				nbs = graphs[i].V()[j].nbs()	# alle neighbours van vertex j in graaf i
+				#print("NBS: ", nbs)
+				try: 														# maakt dezlefde egdes met tussen de vertex en zijn neighbours als in de originele graaf
+					G.addedge(G.V()[j+index], G.V()[nbs[x]._label+index])	# Waarom werkt dit? Het klopt nog steeds wel. Ik heb iig geen idee. print(H.V()[nbs[0]._label+1]) faalt namelijk. (Frank)
 					break
 				except basicgraphs.GraphError:
-					print("Egde is dubbel want logica* \n *previous statement not to be taken sarcastic")
-					# G.addedge(G.V()[int(str(nbs[x]))], G.V()[j])
-			# print("tail: ", graphs[i].E()[j].tail(), "head: ", graphs[i].E()[j].head())
-			# print(e.tail())
-			# G.addedge(e.tail(),e.head())
-	
+					#pass
+					print("Egde is dubbel want logica* \n *previous statement not to be taken sarcastic")		# elke neigbour komt 2 keer voor dus hiermee worden de dubbele gevallen afgevangen
 	print(G)
 	return G
 
-
+# Geeft elke vertex in de graaf een kleur die correspondeert aan zijn degree
 def setColorAsNrNeighbors(graph):
 	colors=[[]]
 	graph[0].colornum=0
@@ -59,14 +57,16 @@ def loadGraphs(file):
 G=loadGraphs('week1/crefBM_4_7.grl')
 print("aantal graphs: ", len(G))
 H = createDisjointUnion(G)
+nbs = H.V()[0].nbs()
+print(H.V()[nbs[0]._label+1])
 # graphIO.writeDOT(G[0], 'graph1.dot')
 # graphIO.writeDOT(G[1], 'graph2.dot')
 # graphIO.writeDOT(G[2], 'graph3.dot')
 # graphIO.writeDOT(G[3], 'graph4.dot')
-graphIO.writeDOT(H, 'graph.dot')
+# graphIO.writeDOT(H, 'graph.dot')
 # for i in range(len(G)):
-# 	colors = setColorAsNrNeighbors(G[i])
-# 	print(colors)
+colors = setColorAsNrNeighbors(H)
+print("Colors: \n",colors)
 
 ################
 ################

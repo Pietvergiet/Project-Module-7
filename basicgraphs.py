@@ -71,6 +71,12 @@ class vertex():
 		Returns the degree of vertex <self>.
 		"""
 		return len(self.inclist())
+
+	def newLabel(self, nLabel):
+		"""
+		Changes the label of the vertex.
+		"""
+		self._label = nLabel
 		
 class edge():
 	"""
