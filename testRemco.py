@@ -59,6 +59,10 @@ def loadGraphs(file):
 G=loadGraphs('week1/crefBM_4_7.grl')
 print("aantal graphs: ", len(G))
 H = createDisjointUnion(G)
+# graphIO.writeDOT(G[0], 'graph1.dot')
+# graphIO.writeDOT(G[1], 'graph2.dot')
+# graphIO.writeDOT(G[2], 'graph3.dot')
+# graphIO.writeDOT(G[3], 'graph4.dot')
 graphIO.writeDOT(H, 'graph.dot')
 # for i in range(len(G)):
 # 	colors = setColorAsNrNeighbors(G[i])
