@@ -6,13 +6,26 @@ colors=[]
 def createDisjointUnion(graphs):
 	G=basicgraphs.graph()
 	for i in range(len(graphs)):
+		index = len(G.V())
 		for j in range(len(graphs[i].V())):
 			G.addvertex(graphs[i].V()[j])
-		# for j in range(len(graphs[i].E())):
-		# 	e=basicgraphs.edge()
-		# 	print(graphs[i].E()[j].tail(), graphs[i].E()[j].head())
-		# 	# G.addedge(graphs[i].E()[j].tail(), graphs[i].E()[j].head())
+		for j in range(len(graphs[i].V())):
+			print("Graph: ", i, "Vertex: ", j)
+			for x in range(len(graphs[i].V()[j].nbs())):
+				nbs = graphs[i].V()[j].nbs()
+				print("NBS: ", nbs)
+				try: 
+					G.addedge(G.V()[j+index], G.V()[int(str(nbs[x]))+index])
+					break
+				except basicgraphs.GraphError:
+					print("Egde is dubbel want logica* \n *previous statement not to be taken sarcastic")
+					# G.addedge(G.V()[int(str(nbs[x]))], G.V()[j])
+			# print("tail: ", graphs[i].E()[j].tail(), "head: ", graphs[i].E()[j].head())
+			# print(e.tail())
+			# G.addedge(e.tail(),e.head())
+	
 	print(G)
+	return G
 
 
 def setColorAsNrNeighbors(graph):
@@ -44,7 +57,9 @@ def loadGraphs(file):
 ## MAIN
 
 G=loadGraphs('week1/crefBM_4_7.grl')
-createDisjointUnion(G)
+print("aantal graphs: ", len(G))
+H = createDisjointUnion(G)
+graphIO.writeDOT(H, 'graph.dot')
 # for i in range(len(G)):
 # 	colors = setColorAsNrNeighbors(G[i])
 # 	print(colors)
