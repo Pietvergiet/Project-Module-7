@@ -10,14 +10,14 @@ def createDisjointUnion(graphs):
 		index = len(G.V())
 		for j in range(len(graphs[i].V())):
 			G.addvertex(graphs[i].V()[j])		# Gooi de vertices van graaf i in de graaf
-			G.V()[j+index].newLabel(j+index)
+			G[j+index].newLabel(j+index)
 		for j in range(len(graphs[i].V())):
 			#print("Graph: ", i, "Vertex: ", j)
 			for x in range(len(graphs[i].V()[j].nbs())):
 				nbs = graphs[i].V()[j].nbs()	# alle neighbours van vertex j in graaf i
 				#print("NBS: ", nbs)
 				try: 														# maakt dezlefde egdes met tussen de vertex en zijn neighbours als in de originele graaf
-					G.addedge(G.V()[j+index], G.V()[nbs[x]._label+index])	# Waarom werkt dit? Het klopt nog steeds wel. Ik heb iig geen idee. print(H.V()[nbs[0]._label+1]) faalt namelijk. (Frank)
+					G.addedge(G[j+index], G[nbs[x]._label+index])	# Waarom werkt dit? Het klopt nog steeds wel. Ik heb iig geen idee. print(H.V()[nbs[0]._label+1]) faalt namelijk. (Frank)
 					break
 				except basicgraphs.GraphError:
 					#pass
@@ -34,6 +34,7 @@ def setColorAsNrNeighbors(graph):
 		added = False
 		for x in range(len(colors)):
 			if colors[x][0].deg() == graph[i].deg():
+				graph[i].colornum=x
 				colors[x].append(graph[i])
 				added = True
 				break
@@ -67,7 +68,6 @@ print(H.V()[nbs[0]._label+1])
 # for i in range(len(G)):
 colors = setColorAsNrNeighbors(H)
 print("Colors: \n",colors)
-
 ################
 ################
 ################
