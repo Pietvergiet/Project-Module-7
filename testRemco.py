@@ -4,28 +4,88 @@ import copy
 import operator
 
 colors=[]
+nrOfGraphs = 0;
+nrOfNodes = 0;
 
 # Maakt de disjoint union van een lijst met graven
 def createDisjointUnion(graphs):
 	G=basicgraphs.graph()
+	global nrOfGraphs
+	nrOfGraphs = len(graphs)
+	global nrOfNodes
+	nrOfNodes = len(graphs[0].V())
+	# print(nrOfGraphs, nrOfNodes)
 	for i in range(len(graphs)):
+	# for i in range(0, 1):
+		# print("Graph ", i)
 		index = len(G.V())
 		for j in range(len(graphs[i].V())):
 			G.addvertex(graphs[i].V()[j])		# Gooi de vertices van graaf i in de graaf
 			G[j+index].newLabel(j+index)
+
 		for j in range(len(graphs[i].V())):
 			#print("Graph: ", i, "Vertex: ", j)
-			for x in range(len(graphs[i].V()[j].nbs())):
-				nbs = graphs[i].V()[j].nbs()	# alle neighbours van vertex j in graaf i
-				#print("NBS: ", nbs)
+			nbs = graphs[i].V()[j].nbs()	# alle neighbours van vertex j in graaf i
+			# print("NBS: ", j, nbs)
+			for x in range(len(nbs)):
+				# print(x)
 				try: 														# maakt dezlefde egdes met tussen de vertex en zijn neighbours als in de originele graaf
-					G.addedge(G[j+index], G[nbs[x]._label+index])	
-					break
+					G.addedge(G[j+index], G[nbs[x]._label+index])
+					# print("Edge from ", j, "to ", nbs[x]._label)	
+					
 				except basicgraphs.GraphError:
 					pass
 					#print("Egde is dubbel want logica* \n *previous statement not to be taken sarcastic")		# elke neigbour komt 2 keer voor dus hiermee worden de dubbele gevallen afgevangen
 	#print(G)
+	print("Disjoint created!")
 	return G
+
+def checkIsomorph(graph, colors):
+	graphs = []
+	for i in range(nrOfGraphs):
+		graphs.append([])
+
+	nodes = graph.V()
+	for j in range(nrOfGraphs):
+		for i in range(nrOfNodes):
+			# print("i", (i+(j*nrOfNodes)))
+			graphs[j].append(nodes[(i+(j*nrOfNodes))].colornum)
+			# print((i+(j*nrOfNodes)))
+
+	for i in range(len(graphs)):
+		merge_sort(graphs[i])
+		# print(i, ":", graphs[i])
+
+	isomorphs = [[]]
+	for i in range(len(graphs)):
+		if len(graphs[i]) != len(set(graphs[i])):
+			isomorphs[0].append(i)
+		else:
+			added = False
+			for j in range(1, len(isomorphs)):
+				# print(j, i, graphs[isomorphs[j][0]], graphs[i])
+				if(graphs[isomorphs[j][0]] == graphs[i]):
+					isomorphs[j].append(i)
+					added = True
+			if not added:
+				isomorphs.append([i])
+
+	if len(isomorphs[0]) != 0:
+		print("Unable to check: ", isomorphs[0])
+	for i in range(1, len(isomorphs)):
+		if len(isomorphs[i]) == 1:
+			print("Not isomorph: ", isomorphs[i])
+		else:
+			print("Isomorph: ", isomorphs[i])
+
+
+
+
+
+
+
+
+
 
 # Geeft elke vertex in de graaf een kleur die correspondeert aan zijn degree
 def setColorAsNrNeighbors(graph):
@@ -46,6 +106,7 @@ def setColorAsNrNeighbors(graph):
 
 		# graph[i].colornum = graph[i].deg()
 		# colors[graph[i].deg()].append(i)
+	print("Nodes colored")
 	return colors
 
 
@@ -64,7 +125,7 @@ def colorRefinement(graph, colors):
 	for i in range(len(rColors)):				# KLEUR
 	# for i in range(0, 2):
 		nbss = len(rColors[i][0].nbs())
-		print("amount of nbs:", nbss)
+		# print("amount of nbs:", nbss)
 		nodes=copy.copy(rColors[i])
 		first = True
 		while(len(nodes) != 0):
@@ -74,7 +135,7 @@ def colorRefinement(graph, colors):
 				rColors.append([nodes[0]])
 			first = False
 			checkednodes=[]
-			print("nodes", nodes)
+			# print("nodes", nodes)
 			for q in range(1, len(nodes)): 		# nodes
 				if getNeighborsColors(nodes[0]) == getNeighborsColors(nodes[q]):				# color neighbors 1 = color neighbors q
 					rColors[nodes[q].colornum].remove(nodes[q])
@@ -168,21 +229,24 @@ def merge_sort(alist):
 
 ## MAIN
 
-G=loadGraphs('week1/crefBM_4_7.grl')
-#print("aantal graphs: ", len(G))
+G=loadGraphs('week1/crefBM_2_49.grl')
+#print("aantal graphs: ", len(G))-
 H = createDisjointUnion(G)
 nbs = H.V()[0].nbs()
 #print(H[nbs[0]._label])
-# graphIO.writeDOT(G[0], 'graph1.dot')
-# graphIO.writeDOT(G[1], 'graph2.dot')
+graphIO.writeDOT(G[0], 'graph1.dot')
+graphIO.writeDOT(G[1], 'graph2.dot')
 # graphIO.writeDOT(G[2], 'graph3.dot')
 # graphIO.writeDOT(G[3], 'graph4.dot')
 # graphIO.writeDOT(H, 'graph.dot')
 # for i in range(len(G)):
 colors = setColorAsNrNeighbors(H)
-print("Colors: ", colors)
+# print("Colors: ", colors)
 colors = colorRefinement(H, colors)
-print("rColors: ", colors)
+# print("rColors: ", colors)
+
+checkIsomorph(H, colors)
+
 #print("Colors: \n",colors)
 graphIO.writeDOT(H, 'graph_colors.dot')
 ################
