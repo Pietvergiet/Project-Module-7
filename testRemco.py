@@ -1,5 +1,7 @@
 import graphIO
 import basicgraphs
+import copy
+import operator
 
 colors=[]
 
@@ -46,28 +48,84 @@ def setColorAsNrNeighbors(graph):
 		# colors[graph[i].deg()].append(i)
 	return colors
 
+
+def getNeighborsColors(node):
+	result=[]
+	for i in range(len(node.nbs())):
+		result.append(node.nbs()[i].colornum)
+
+	merge_sort(result)
+	# print("nbs", result) 
+	return result
+
 # Gaat verder kleuren toekennen aan de graven tot het niet meer mogelijk is.
 def colorRefinement(graph, colors):
-	rColors = colors
-	for i in range(len(rColors)):
+	rColors = copy.copy(colors)
+	for i in range(len(rColors)):				# KLEUR
+	# for i in range(0, 2):
 		nbss = len(rColors[i][0].nbs())
 		print("amount of nbs:", nbss)
-		for q in range(len(rColors[i])):
-			x = 1
-			for j in range(x, 0, -1):
-				same = False
-				for k in range(nbss):
-					for l in range(nbss):
-						if rColors[i][j].nbs()[k].colornum == rColors[i][j].nbs()[l] or same:
-							same = True
-					if not same :
-						rColors[i][j].colornum=len(rColors)
-						colors.append(rColors[i][j])
-						break
-			x+=1			
+		nodes=copy.copy(rColors[i])
+		first = True
+		while(len(nodes) != 0):
+			if not first:
+				rColors[nodes[0].colornum].remove(nodes[0])
+				nodes[0].colornum = len(rColors)
+				rColors.append([nodes[0]])
+			first = False
+			checkednodes=[]
+			print("nodes", nodes)
+			for q in range(1, len(nodes)): 		# nodes
+				if getNeighborsColors(nodes[0]) == getNeighborsColors(nodes[q]):				# color neighbors 1 = color neighbors q
+					rColors[nodes[q].colornum].remove(nodes[q])
+					nodes[q].colornum = nodes[0].colornum
+					rColors[nodes[0].colornum].append(nodes[q])
+					# print("rColors append, ", nodes[0].colornum, nodes[q], "q: ", q)
+					checkednodes.append(nodes[q])
+					# nodes.remove(nodes[q])
+				# else:
+				# 	print("rCOlors", rColors)
+				# 	print("remove from", nodes[q].colornum, nodes[q])
+				# 	rColors[nodes[q].colornum].remove(nodes[q])
+				# 	nodes[q].colornum = len(rColors)
+				# 	rColors.append([nodes[q]])
+				# 	# print("rColors append new, ", nodes[q], "q: ", q)
 
+			for i in range(len(checkednodes)):
+				nodes.remove(checkednodes[i])
+			nodes.remove(nodes[0])
 
+			while [] in rColors:
+				rColors.remove([])
+			
+	if(rColors != colors):
+		colorRefinement(graph, rColors)
 	return rColors
+
+
+
+
+
+
+			# print(q)
+			# x = 1
+			# while x <= nbss:
+			# 	# print(x, nbss)
+			# 	for j in range(x, 0, -1):
+			# 		for k in range(nbss):
+			# 			same = False
+			# 			for l in range(nbss):
+			# 				if rColors[i][x].nbs()[k].colornum == rColors[i][j].nbs()[l].colornum or same:
+			# 					same = True
+			# 			if not same :
+			# 				print(q, j, k, l)
+			# 				rColors[i][j].colornum=len(rColors)
+			# 				colors.append([rColors[i][j]])
+			# 				break
+			# 	x+=1			
+
+
+	# return rColors
 
 def loadGraphs(file):
 	L = graphIO.loadgraph(file, readlist=True)
@@ -75,6 +133,38 @@ def loadGraphs(file):
 	for i in range(len(G)):
 		G[i] = L[0][i]
 	return G
+
+def merge_sort(alist):
+    if len(alist)>1:
+        mid = len(alist)//2
+        lefthalf = alist[:mid]
+        righthalf = alist[mid:]
+
+        merge_sort(lefthalf)
+        merge_sort(righthalf)
+
+        i=0
+        j=0
+        k=0
+        while i<len(lefthalf) and j<len(righthalf):
+            if lefthalf[i] < righthalf[j]:
+                alist[k]=lefthalf[i]
+                i=i+1
+            else:
+                alist[k]=righthalf[j]
+                j=j+1
+            k=k+1
+
+        while i<len(lefthalf):
+            alist[k]=lefthalf[i]
+            i=i+1
+            k=k+1
+
+        while j<len(righthalf):
+            alist[k]=righthalf[j]
+            j=j+1
+            k=k+1
+
 
 ## MAIN
 
@@ -94,6 +184,7 @@ print("Colors: ", colors)
 colors = colorRefinement(H, colors)
 print("rColors: ", colors)
 #print("Colors: \n",colors)
+graphIO.writeDOT(H, 'graph_colors.dot')
 ################
 ################
 ################
