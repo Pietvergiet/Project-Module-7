@@ -20,9 +20,9 @@ def createDisjointUnion(graphs):
 					G.addedge(G[j+index], G[nbs[x]._label+index])	
 					break
 				except basicgraphs.GraphError:
-					#pass
-					print("Egde is dubbel want logica* \n *previous statement not to be taken sarcastic")		# elke neigbour komt 2 keer voor dus hiermee worden de dubbele gevallen afgevangen
-	print(G)
+					pass
+					#print("Egde is dubbel want logica* \n *previous statement not to be taken sarcastic")		# elke neigbour komt 2 keer voor dus hiermee worden de dubbele gevallen afgevangen
+	#print(G)
 	return G
 
 # Geeft elke vertex in de graaf een kleur die correspondeert aan zijn degree
@@ -46,6 +46,29 @@ def setColorAsNrNeighbors(graph):
 		# colors[graph[i].deg()].append(i)
 	return colors
 
+# Gaat verder kleuren toekennen aan de graven tot het niet meer mogelijk is.
+def colorRefinement(graph, colors):
+	rColors = colors
+	for i in range(len(rColors)):
+		nbss = len(rColors[i][0].nbs())
+		print("amount of nbs:", nbss)
+		for q in range(len(rColors[i])):
+			x = 1
+			for j in range(x, 0, -1):
+				same = False
+				for k in range(nbss):
+					for l in range(nbss):
+						if rColors[i][j].nbs()[k].colornum == rColors[i][j].nbs()[l] or same:
+							same = True
+					if not same :
+						rColors[i][j].colornum=len(rColors)
+						colors.append(rColors[i][j])
+						break
+			x+=1			
+
+
+	return rColors
+
 def loadGraphs(file):
 	L = graphIO.loadgraph(file, readlist=True)
 	G=[0 for i in range(len(L[0]))]
@@ -56,10 +79,10 @@ def loadGraphs(file):
 ## MAIN
 
 G=loadGraphs('week1/crefBM_4_7.grl')
-print("aantal graphs: ", len(G))
+#print("aantal graphs: ", len(G))
 H = createDisjointUnion(G)
 nbs = H.V()[0].nbs()
-print(H[nbs[0]._label])
+#print(H[nbs[0]._label])
 # graphIO.writeDOT(G[0], 'graph1.dot')
 # graphIO.writeDOT(G[1], 'graph2.dot')
 # graphIO.writeDOT(G[2], 'graph3.dot')
@@ -67,7 +90,10 @@ print(H[nbs[0]._label])
 # graphIO.writeDOT(H, 'graph.dot')
 # for i in range(len(G)):
 colors = setColorAsNrNeighbors(H)
-print("Colors: \n",colors)
+print("Colors: ", colors)
+colors = colorRefinement(H, colors)
+print("rColors: ", colors)
+#print("Colors: \n",colors)
 ################
 ################
 ################
