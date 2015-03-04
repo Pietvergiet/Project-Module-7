@@ -5,11 +5,8 @@ output.png
 __pycache__/basicgraphs.cpython-33.pyc
 __pycache__/graphIO.cpython-33.pyc
 __pycache__/*
-graph1.dot
+*.dot
 graph1.png
-graph2.dot
 graph2.png
-graph3.dot
 graph3.png
-graph4.dot
 graph4.png
