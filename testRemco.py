@@ -80,8 +80,29 @@ def checkIsomorph(graph, colors):
 
 
 
+def ripGraphs(isomorphs, graphs, disUnion):
+	dUnion = copy.copy(disUnion)
+	print("Disjoint Union: ", dUnion)
+	print("morhps: ", isomorphs[0], "\n graphs: ", graphs)
+	if len(isomorphs[0]) < 2:
+		print("This graph is isomorph with itself.")
+		return None 
 
-
+	amountpopped = 0
+	for i in range(len(graphs)):
+		if i not in isomorphs[0]:
+			print("Removing graph: ", i)
+			nr = i * len(graphs[i].V()) - amountpopped
+			for x in range(len(graphs[i].V())):
+				E = []
+				for nbs in range(len(dUnion.V()[nr].nbs())):
+					E.append(dUnion.V()[nr].nbs()[nbs])
+				for e in range(len(E)):
+					dUnion._E.remove(dUnion.findedge(E[e], dUnion.V()[nr]))						
+				print("Removing: ", nr)
+				del dUnion._V[nr]
+				amountpopped += 1
+	return dUnion
 
 
 
@@ -229,26 +250,28 @@ def merge_sort(alist):
 
 ## MAIN
 
-G=loadGraphs('week1/crefBM_2_49.grl')
+G=loadGraphs('week1/crefBM_4_7.grl')
 #print("aantal graphs: ", len(G))-
 H = createDisjointUnion(G)
-nbs = H.V()[0].nbs()
-#print(H[nbs[0]._label])
-graphIO.writeDOT(G[0], 'graph1.dot')
-graphIO.writeDOT(G[1], 'graph2.dot')
-# graphIO.writeDOT(G[2], 'graph3.dot')
-# graphIO.writeDOT(G[3], 'graph4.dot')
-# graphIO.writeDOT(H, 'graph.dot')
-# for i in range(len(G)):
-colors = setColorAsNrNeighbors(H)
-# print("Colors: ", colors)
-colors = colorRefinement(H, colors)
-# print("rColors: ", colors)
+N = ripGraphs([[0,1]], G, H)
+print(N)
+# nbs = H.V()[0].nbs()
+# #print(H[nbs[0]._label])
+# graphIO.writeDOT(G[0], 'graph1.dot')
+# graphIO.writeDOT(G[1], 'graph2.dot')
+# # graphIO.writeDOT(G[2], 'graph3.dot')
+# # graphIO.writeDOT(G[3], 'graph4.dot')
+# # graphIO.writeDOT(H, 'graph.dot')
+# # for i in range(len(G)):
+# colors = setColorAsNrNeighbors(H)
+# # print("Colors: ", colors)
+# colors = colorRefinement(H, colors)
+# # print("rColors: ", colors)
 
-checkIsomorph(H, colors)
+# checkIsomorph(H, colors)
 
-#print("Colors: \n",colors)
-graphIO.writeDOT(H, 'graph_colors.dot')
+# #print("Colors: \n",colors)
+graphIO.writeDOT(N, 'ripGraph.dot')
 ################
 ################
 ################
