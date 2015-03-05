@@ -1,12 +1,3 @@
-crefBM_4_7.grl
-graph.png
-test.py
-output.png
-__pycache__/basicgraphs.cpython-33.pyc
-__pycache__/graphIO.cpython-33.pyc
 __pycache__/*
 *.dot
-graph1.png
-graph2.png
-graph3.png
-graph4.png
+*.png
