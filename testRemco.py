@@ -40,7 +40,8 @@ def createDisjointUnion(graphs):
 	print("Disjoint created!")
 	return G
 
-def checkIsomorph(graph):				# return a list with at index 0 graphs with duplicate colors, grouped by the colors, and at the other indices grouped isomorphs					
+# returns a list with the colors of the nodes of the graph, grouped by the graph and sorted. Graph 0 at index 0
+def getColors(graph):
 	colors=[[] for i in range(nrOfGraphs)]		# creates a list of len nrOfGraphes filled with empty lists
 
 	nodes = graph.V()					# fills the list with the colors, grouped per graph, graph 0 at index 0	
@@ -50,19 +51,17 @@ def checkIsomorph(graph):				# return a list with at index 0 graphs with duplica
 
 	for i in range(len(colors)):		# sorts the lists with colors from low to high
 		merge_sort(colors[i])
-		# print(i, ":", colors[i])
+
+	return colors
+
+# return a list with at index 0 graphs with duplicate colors, grouped by the colors, and at the other indices grouped isomorphs
+def checkIsomorph(graph):									
+	colors= getColors(graph)
 
 	isomorphs = [[]]					# list for the (possible) isomorphs
 
 	for i in range(len(colors)):						# loop through all lists with the colors of the graph
 		if len(colors[i]) != len(set(colors[i])):		# Check for duplicates. A set can not contain duplicates
-			# added = False
-			# for j in range(len(isomorphs[0])):			# loop through all possible pairs of isomorphs, but colors contain duplicates
-			# 	# print(i, j, len(isomorphs[0][0]))
-			# 	if len(isomorphs[0][j]) != 0 and colors[i] == colors[isomorphs[0][j][0]]:		# If a graph is added and colors of the graph i are the same as the colors of the graph already added
-			# 		isomorphs[0][j].append(i)			# add the graph to the pair of possible isomorphs
-			# 		added = True
-			# if not added:								# add graph at new index if no matching colors are found
 				isomorphs[0].append(i)
 		else:											# no duplicates found
 			added = False
@@ -145,7 +144,7 @@ def getNeighborsColors(node):
 	return result
 
 # Gaat verder kleuren toekennen aan de graven tot het niet meer mogelijk is.
-def colorRefinement(graph, colors):
+def colorRefinement(colors):
 	rColors = copy.copy(colors)
 	for i in range(len(rColors)):				# loop through all the colors
 		nodes=copy.copy(rColors[i])				# create a copy of the nodes
@@ -173,8 +172,53 @@ def colorRefinement(graph, colors):
 				rColors.remove([])
 			
 	if(rColors != colors):					# while the colors have changed in this function, do colorRefinement again
-		colorRefinement(graph, rColors)
+		rColors = colorRefinement(rColors)
 	return rColors
+
+
+def individualRef(graph, colors):
+	colorlist = getColors(graph)
+	rColors = copy.copy(colors)
+	# print(colorlist)
+	for i in range(len(colorlist)):
+		if colorlist[i] != set(colorlist[i]) :					# check for a dub
+			j = 0
+			dupColor = -1
+			while dupColor == -1 and j < len(colorlist[i]) -1:			# finding dup color
+				if colorlist[i][j] == colorlist[i][j+1]:
+					dupColor = colorlist[i][j]
+				j += 1
+
+			# print(dupColor, rColors)
+			# print("YOLO",rColors[dupColor])
+			graphsWithDup = {}
+			for i in range(len(rColors[dupColor])):
+				g = (int(rColors[dupColor][i]._label)//nrOfNodes)
+				graphsWithDup[g] = []
+			for i in range(len(rColors[dupColor])):
+				g = (int(rColors[dupColor][i]._label)//nrOfNodes)
+				graphsWithDup[g].append(rColors[dupColor][i])
+
+			print(graphsWithDup)
+
+			rColors[graphsWithDup[0][0].colornum].remove(graphsWithDup[0][0])
+			graphsWithDup[0][0].colornum = len(rColors)
+			rColors.append([graphsWithDup[0][0]])
+
+######################################
+			for key in iter(graphsWithDup):
+				if key is not graphsWithDup[0]:
+					for j in range(len(graphsWithDup[key])):
+						rColors[graphsWithDup[key][j].colornum].remove(graphsWithDup[key][j])
+						graphsWithDup[key][j].colornum = graphsWithDup[0][0].colornum
+						rColors[graphsWithDup[key][j].colornum].append(graphsWithDup[key][j])
+			
+
+
+
+
+
+
 
 # load the graphs into a list
 def loadGraphs(file):
@@ -233,10 +277,13 @@ graphIO.writeDOT(H, 'graph.dot')
 # for i in range(len(G)):
 colors = setColorAsNrNeighbors(H)
 # print("Colors: ", colors)
-colors = colorRefinement(H, colors)
-# print("rColors: ", colors)
+colors = colorRefinement(colors)
+# print("rColors: ", len(colors))
+# print("NODE 22", H.V()[22].colornum)
 
 checkIsomorph(H)
+
+individualRef(H, colors)
 
 #print("Colors: \n",colors)
 graphIO.writeDOT(H, 'graph_colors.dot')
