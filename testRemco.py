@@ -56,14 +56,14 @@ def checkIsomorph(graph):				# return a list with at index 0 graphs with duplica
 
 	for i in range(len(colors)):						# loop through all lists with the colors of the graph
 		if len(colors[i]) != len(set(colors[i])):		# Check for duplicates. A set can not contain duplicates
-			added = False
-			for j in range(len(isomorphs[0])):			# loop through all possible pairs of isomorphs, but colors contain duplicates
-				# print(i, j, len(isomorphs[0][0]))
-				if len(isomorphs[0][j]) != 0 and colors[i] == colors[isomorphs[0][j][0]]:		# If a graph is added and colors of the graph i are the same as the colors of the graph already added
-					isomorphs[0][j].append(i)			# add the graph to the pair of possible isomorphs
-					added = True
-			if not added:								# add graph at new index if no matching colors are found
-				isomorphs[0].append([i])
+			# added = False
+			# for j in range(len(isomorphs[0])):			# loop through all possible pairs of isomorphs, but colors contain duplicates
+			# 	# print(i, j, len(isomorphs[0][0]))
+			# 	if len(isomorphs[0][j]) != 0 and colors[i] == colors[isomorphs[0][j][0]]:		# If a graph is added and colors of the graph i are the same as the colors of the graph already added
+			# 		isomorphs[0][j].append(i)			# add the graph to the pair of possible isomorphs
+			# 		added = True
+			# if not added:								# add graph at new index if no matching colors are found
+				isomorphs[0].append(i)
 		else:											# no duplicates found
 			added = False
 			for j in range(1, len(isomorphs)):			# loop through all pairs of isomorphs
