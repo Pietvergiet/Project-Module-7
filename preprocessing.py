@@ -43,25 +43,38 @@ def loadGraphs(file):
 	return G
 
 # Check for number of vertices and edges
-def checkLength(graph):
+def checkLength(graphs):
 	indices = []
-	for i in range(len(G)-1):
-		for j in range(i, len(G)):
-			if i != j:
-				if len(G[i].V()) == len(G[j].V()) and len(G[i].E()) == len(G[j].E()):
-					indices.append(i)
-					indices.append(j)
+	for i in range(len(graphs)):
+		for j in range(i+1, len(graphs)):
+			print(i,j)
+			if len(graphs[i].V()) == len(graphs[j].V()) and len(graphs[i].E()) == len(graphs[j].E()):
+				indices.append(i)
+				indices.append(j)
 
 	result = []
 	indices = list(set(indices))
-	print(indices)
 	for i in range(len(indices)):
-		result.append(G[i])
+		result.append(graphs[i])
+	return result
+
+def checkConnected(graphs):
+	indices = []
+	for i in range(len(graphs)):
+		for j in range(i+1, len(graphs)):
+			# print(graphs[i].isConnected)
+			if graphs[i].isConnected() == graphs[j].isConnected():
+				indices.append(i)
+				indices.append(j)
+
+	result = []
+	indices = list(set(indices))
+	for i in range(len(indices)):
+		result.append(graphs[i])
+	print(indices)
 	return result
 
 
-			
-
-G = loadGraphs('week2/test.grl')[0]
-print(G.isConnected())
+G = loadGraphs('week2/test.grl')
+checkConnected(G)
 # print(G)

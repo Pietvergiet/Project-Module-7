@@ -244,10 +244,12 @@ class graph():
 		return self._directed
 		
 	def isConnected(self):
+		"""
+		Returns True if the graph is connected, returns False otherwise.
+		"""
 		x = self.V()[0]
 		L = [x]
 		K = [x]
-
 
 		while len(K) > 0:
 			y = K[0]
