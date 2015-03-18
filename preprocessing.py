@@ -43,8 +43,11 @@ def loadGraphs(file):
 	return G
 
 def preCheck(graph):
-	pass
+	for i in range(len(G)):
+		print("Number of vertices: ",len(G[0].V()))
+		print("Number of edges: ",len(G[0].E()))
 
-G = loadGraphs('week1/crefBM_2_49.grl')
-H = createDisjointUnion(G)
-graphIO.writeDOT(H, 'graph.dot')
+G = loadGraphs('week2/cubes4.grl')
+# H = createDisjointUnion(G)
+preCheck(G)
+# graphIO.writeDOT(G, 'graph.dot')
