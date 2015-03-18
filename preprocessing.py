@@ -59,9 +59,9 @@ def checkLength(graph):
 		result.append(G[i])
 	return result
 
-def checkConnected(graph):
-	
 
-G = loadGraphs('week2/test.grl')
-G = checkLength(G)
-print(G)
+			
+
+G = loadGraphs('week2/test.grl')[0]
+print(G.isConnected())
+# print(G)

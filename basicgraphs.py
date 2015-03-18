@@ -243,4 +243,22 @@ class graph():
 		"""
 		return self._directed
 		
+	def isConnected(self):
+		x = self.V()[0]
+		L = [x]
+		K = [x]
 
+
+		while len(K) > 0:
+			y = K[0]
+			K.pop(0)
+			for i in range(len(self.E())):
+				if self.E()[i].incident(y):
+					z = self.E()[i].otherend(y)
+					if z not in L:
+						L.append(z)
+						K.append(z)
+		if len(L) < len(self.V()):
+			return False
+		else:
+			return True
