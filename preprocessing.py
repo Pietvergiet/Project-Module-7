@@ -42,12 +42,26 @@ def loadGraphs(file):
 		G[i] = L[0][i]
 	return G
 
-def preCheck(graph):
-	for i in range(len(G)):
-		print("Number of vertices: ",len(G[0].V()))
-		print("Number of edges: ",len(G[0].E()))
+# Check for number of vertices and edges
+def checkLength(graph):
+	indices = []
+	for i in range(len(G)-1):
+		for j in range(i, len(G)):
+			if i != j:
+				if len(G[i].V()) == len(G[j].V()) and len(G[i].E()) == len(G[j].E()):
+					indices.append(i)
+					indices.append(j)
 
-G = loadGraphs('week2/cubes4.grl')
-# H = createDisjointUnion(G)
-preCheck(G)
-# graphIO.writeDOT(G, 'graph.dot')
+	result = []
+	indices = list(set(indices))
+	print(indices)
+	for i in range(len(indices)):
+		result.append(G[i])
+	return result
+
+def checkConnected(graph):
+	
+
+G = loadGraphs('week2/test.grl')
+G = checkLength(G)
+print(G)
