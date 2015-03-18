@@ -72,8 +72,6 @@ def checkIsomorph(graph):
 			if not added:								# add graph at new index if no matching colors are found
 				isomorphs.append([i])
 
-	printIsomorphs(isomorphs)
-
 	return isomorphs
 
 # prints the graphs, grouped by isomorphs
@@ -177,42 +175,58 @@ def colorRefinement(colors):
 
 
 def individualRef(graph, colors):
-	colorlist = getColors(graph)
+	
+	isDone = False
+
 	rColors = copy.copy(colors)
 	# print(colorlist)
-	for i in range(len(colorlist)):
-		if colorlist[i] != set(colorlist[i]) :					# check for a dub
-			j = 0
-			dupColor = -1
-			while dupColor == -1 and j < len(colorlist[i]) -1:			# finding dup color
-				if colorlist[i][j] == colorlist[i][j+1]:
-					dupColor = colorlist[i][j]
-				j += 1
+	while(not isDone):
+		for i in range(nrOfGraphs):
+		# for i in range(1):
+			colorlist = getColors(graph)
+			if len(colorlist[i]) != len(set(colorlist[i])) :					# check for a dub
+				print(colorlist[i], set(colorlist[i]))
 
-			# print(dupColor, rColors)
-			# print("YOLO",rColors[dupColor])
-			graphsWithDup = {}
-			for i in range(len(rColors[dupColor])):
-				g = (int(rColors[dupColor][i]._label)//nrOfNodes)
-				graphsWithDup[g] = []
-			for i in range(len(rColors[dupColor])):
-				g = (int(rColors[dupColor][i]._label)//nrOfNodes)
-				graphsWithDup[g].append(rColors[dupColor][i])
+				# print("dub i", i)
+				j = 0
+				dupColor = -1
+				# print(colorlist[i])
+				while dupColor == -1 and j < len(colorlist[i]) -1:			# finding dup color
+					if colorlist[i][j] == colorlist[i][j+1]:
+						dupColor = colorlist[i][j]
+					j += 1
 
-			print(graphsWithDup)
+				# print(dupColor, rColors)
+				# print("YOLO",rColors[dupColor])
+				graphsWithDup = {}
+				for x in range(len(rColors[dupColor])):
+					g = (int(rColors[dupColor][x]._label)//nrOfNodes)
+					graphsWithDup[g] = []
+				for x in range(len(rColors[dupColor])):
+					g = (int(rColors[dupColor][x]._label)//nrOfNodes)
+					graphsWithDup[g].append(rColors[dupColor][x])
 
-			rColors[graphsWithDup[0][0].colornum].remove(graphsWithDup[0][0])
-			graphsWithDup[0][0].colornum = len(rColors)
-			rColors.append([graphsWithDup[0][0]])
+				print("Graphs: ", graphsWithDup)
+				g = list(graphsWithDup.keys())[0]
+				node = graphsWithDup[g][0]
 
-######################################
-			for key in iter(graphsWithDup):
-				if key is not graphsWithDup[0]:
-					for j in range(len(graphsWithDup[key])):
-						rColors[graphsWithDup[key][j].colornum].remove(graphsWithDup[key][j])
-						graphsWithDup[key][j].colornum = graphsWithDup[0][0].colornum
-						rColors[graphsWithDup[key][j].colornum].append(graphsWithDup[key][j])
-			
+				rColors[node.colornum].remove(node)
+				node.colornum = len(rColors)
+				rColors.append([node])
+
+				for k in range(1, len(graphsWithDup.keys())):
+					g = list(graphsWithDup.keys())[k]
+					node = graphsWithDup[g][0]
+
+					rColors[node.colornum].remove(node)
+					node.colornum = len(rColors)-1
+					rColors[node.colornum].append(node)
+
+				# print("rColors: ", rColors)
+				rColors = colorRefinement(rColors)
+				print("yeey")
+		if len(checkIsomorph(graph)[0]) == 0:
+			isDone = True	
 
 
 
@@ -264,7 +278,7 @@ def merge_sort(alist):
 ## MAIN
 
 
-G=loadGraphs('week2/trees11.grl')
+G=loadGraphs('week2/torus24.grl')
 #print("aantal graphs: ", len(G))-
 H = createDisjointUnion(G)
 nbs = H.V()[0].nbs()
@@ -281,9 +295,10 @@ colors = colorRefinement(colors)
 # print("rColors: ", len(colors))
 # print("NODE 22", H.V()[22].colornum)
 
-checkIsomorph(H)
-
-individualRef(H, colors)
-
-#print("Colors: \n",colors)
+printIsomorphs(checkIsomorph(H))
 graphIO.writeDOT(H, 'graph_colors.dot')
+individualRef(H, colors)
+printIsomorphs(checkIsomorph(H))
+graphIO.writeDOT(H, 'graph_colors_2.dot')
+#print("Colors: \n",colors)
+
