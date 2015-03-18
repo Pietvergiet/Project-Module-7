@@ -143,35 +143,35 @@ def getNeighborsColors(node):
 
 # Gaat verder kleuren toekennen aan de graven tot het niet meer mogelijk is.
 def colorRefinement(colors):
-	rColors = copy.copy(colors)
-	for i in range(len(rColors)):				# loop through all the colors
-		nodes=copy.copy(rColors[i])				# create a copy of the nodes
+	crColors = copy.copy(colors)
+	for i in range(len(crColors)):				# loop through all the colors
+		nodes=copy.copy(crColors[i])				# create a copy of the nodes
 		first = True
 
 		while(len(nodes) != 0):					# while nodes have to be recolored
 			if not first:						# if not the first run ----- in the first run the first node doesn't need a new color. After the first run, it does. First node has to be a unique color
-				rColors[nodes[0].colornum].remove(nodes[0])			# remove first node
-				nodes[0].colornum = len(rColors)					# give first node new color
-				rColors.append([nodes[0]])							# add first node to new color index
+				crColors[nodes[0].colornum].remove(nodes[0])			# remove first node
+				nodes[0].colornum = len(crColors)					# give first node new color
+				crColors.append([nodes[0]])							# add first node to new color index
 			first = False
 			colorednodes=[nodes[0]]									# node 0 is always recolored
 
 			for q in range(1, len(nodes)): 									# loop through all the nodes that have to be recolored
 				if getNeighborsColors(nodes[0]) == getNeighborsColors(nodes[q]):	# if colors of the neighbors of 0 and q are the same
-					rColors[nodes[q].colornum].remove(nodes[q])				# remove node q from old color index
+					crColors[nodes[q].colornum].remove(nodes[q])				# remove node q from old color index
 					nodes[q].colornum = nodes[0].colornum					# give node q same color as node 0
-					rColors[nodes[0].colornum].append(nodes[q])				# add node q to new color index
+					crColors[nodes[0].colornum].append(nodes[q])				# add node q to new color index
 					colorednodes.append(nodes[q])							# add node q to list with recolored nodes
 
 			for i in range(len(colorednodes)):			# loop through all recolored nodes
 				nodes.remove(colorednodes[i])			# remove recolored nodes from nodes that need to be recolored
 
-			while [] in rColors:			# remove empty lists in the colorlist
-				rColors.remove([])
+			while [] in crColors:			# remove empty lists in the colorlist
+				crColors.remove([])
 			
-	if(rColors != colors):					# while the colors have changed in this function, do colorRefinement again
-		rColors = colorRefinement(rColors)
-	return rColors
+	if(crColors != colors):					# while the colors have changed in this function, do colorRefinement again
+		crColors = colorRefinement(crColors)
+	return crColors
 
 
 def individualRef(graph, colors):
@@ -214,16 +214,65 @@ def individualRef(graph, colors):
 				node.colornum = len(rColors)
 				rColors.append([node])
 
+
+
+				testColors = copy.deepcopy(rColors)
+				print("r", rColors)
+				print("t", testColors)
+				print(rColors is testColors)
 				for k in range(1, len(graphsWithDup.keys())):
 					g = list(graphsWithDup.keys())[k]
-					node = graphsWithDup[g][0]
+					n = 0
+					isIso = False
+					while not isIso and n < len(graphsWithDup[g]):
+						node = graphsWithDup[g][n]
+						print("color", rColors, node.colornum, node)
+						rColors[node.colornum].remove(node)
+						node.colornum = len(rColors)-1
+						rColors[node.colornum].append(node)
+						# print("print", testColors, node)
 
-					rColors[node.colornum].remove(node)
-					node.colornum = len(rColors)-1
-					rColors[node.colornum].append(node)
+						# print("rColors: ", rColors)
+						rColors = colorRefinement(rColors)
 
-				# print("rColors: ", rColors)
-				rColors = colorRefinement(rColors)
+
+
+						if getColors(graph)[i] == getColors(graph)[g]:
+							isIso = True
+						else:
+							# rColors = testColors
+							for y in range(len(rColors)):
+								
+
+								for z in range(len(rColors[y])):
+									# print(rColors[y][z]._label)
+									# print("print2", rColors, node)
+									
+									yy = 0
+									zz = 0
+									found = False
+
+									while not found and yy < len(testColors):
+										while not found and zz < len(testColors[yy]):
+											# print("--", found, y, z, yy, zz)
+											if rColors[y][z]._label == testColors[yy][zz]._label:
+												graph.V()[rColors[y][z]._label].colornum = testColors[yy][zz].colornum
+												# print("-------------------------------------")
+												found = True
+												z = -1
+											zz += 1
+										yy += 1
+
+
+							for y in range(2, len(rColors)):
+								# for z in range(len(rColors[y])):
+								while len(rColors[y]) > 0:
+									print(rColors, y)			
+									rColors[graph.V()[rColors[y][0]._label].colornum].append(graph.V()[rColors[y][0]._label])
+									rColors[y].remove(rColors[y][0])
+
+						n += 1
+						print("getColors", getColors(graph))
 				print("yeey")
 		if len(checkIsomorph(graph)[0]) == 0:
 			isDone = True	
