@@ -1,19 +1,15 @@
 %----------------------------------------------------------------------------------------
-%	PACKAGES AND DOCUMENT CONFIGURATIONS
+%	CONFIGURATIE VAN HET DOCUMENT
 %----------------------------------------------------------------------------------------
 
 \documentclass{article}
 
-\usepackage[version=3]{mhchem} % Package for chemical equation typesetting
-\usepackage{siunitx} % Provides the \SI{}{} and \si{} command for typesetting SI units
-\usepackage{graphicx} % Required for the inclusion of images
-\usepackage{natbib} % Required to change bibliography style to APA
-\usepackage{amsmath} % Required for some math elements 
+\usepackage{graphicx} 		% Voor het gebruik van afbeeldingen
+\usepackage{natbib} 		% Voor de stijl van het document
+\usepackage{amsmath} 		% Nodig voor het gebruik van bepaalde wiskunde-elementen
 \usepackage{wrapfig}
 
-\setlength\parindent{0pt} % Removes all indentation from paragraphs
-
-\renewcommand{\labelenumi}{\alph{enumi}.} % Make numbering in the enumerate environment by letter rather than number (e.g. section 6)
+\setlength\parindent{0pt} 	% Haalt indentaties van paragrafen weg
 
 %----------------------------------------------------------------------------------------
 %	TITELPAGINA
@@ -21,7 +17,7 @@
 
 \begin{document}
 
-\input{./title_page.tex}
+\input{./title_page.tex}	% Importeert title_page.tex
 
 %----------------------------------------------------------------------------------------
 %	SECTIE 1: HET GI PROBLEEM
@@ -52,6 +48,7 @@ Naast de wiskunde is het ook nuttig voor de informatica, omdat daar veel structu
 \subsection{Speciale gevallen}
 Er zijn een aantal speciale gevallen waarvan bewezen is dat het in polynomiale tijd opgelost kan worden. Het eerste geval is een graaf die een boomstructuur heeft, dat wil zeggen: elk punt is met een ander punt verbonden, zonder cycli.\\
 De tweede zijn de planaire grafen, dat zijn de grafen die zo in het platte vlak getekend kunnen worden dat geen van de randen een andere rand kruist. Ook als je een restrictie legt op het aantal keren dat de randen elkaar minimaal kruisen, of als je een restrictie legt op de maximale graad van alle hoekpunten is het in polynomiale tijd op te lossen.
+\pagebreak
 
 %----------------------------------------------------------------------------------------
 %	SECTIE 2: ONS ALGORITME
@@ -59,6 +56,7 @@ De tweede zijn de planaire grafen, dat zijn de grafen die zo in het platte vlak 
 
 \section{Ons algoritme}
 --Nog in te vullen--
+\pagebreak
 
 %----------------------------------------------------------------------------------------
 %	SECTIE 3: PREPROCESSING
@@ -78,6 +76,7 @@ We checken de grafen van tevoren op de volgende eigenschappen:
 
 \subsection{Validatie preprocessing methoden}
 --Nog in te vullen--
+\pagebreak
 
 %----------------------------------------------------------------------------------------
 %	SECTIE 4: TESTEN
@@ -85,6 +84,7 @@ We checken de grafen van tevoren op de volgende eigenschappen:
 
 \section{Testen}
 --Nog in te vullen--
+\pagebreak
 
 %----------------------------------------------------------------------------------------
 %	SECTIE 5: CONCLUSIE
@@ -92,5 +92,6 @@ We checken de grafen van tevoren op de volgende eigenschappen:
 
 \section{Conclusie}
 --Nog in te vullen--
+\pagebreak
 
 \end{document}
