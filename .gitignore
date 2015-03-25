@@ -2,5 +2,3 @@ __pycache__/*
 *.dot
 *.png
 graph.dot
-*.dot
-graph.dot
