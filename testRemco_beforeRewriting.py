@@ -132,15 +132,6 @@ def setColorAsNrNeighbors(graph):
 	return colors
 
 
-def getNeighborColors2(node, graph):
-	result=[]
-	nbs=graph[node].nbs()
-	for i in range(nbs):
-		result.append(nodes[i])
-	merge_sort(result)
-
-	return result
-
 def getNeighborsColors(node):
 	result=[]
 	for i in range(len(node.nbs())):
@@ -342,17 +333,16 @@ nbs = H.V()[0].nbs()
 # graphIO.writeDOT(G[3], 'graph4.dot')
 graphIO.writeDOT(H, 'graph.dot')
 # for i in range(len(G)):
-print("Nbs", H[2].nbs())
 colors = setColorAsNrNeighbors(H)
 # print("Colors: ", colors)
-# colors = colorRefinement(colors)
-# # print("rColors: ", len(colors))
-# # print("NODE 22", H.V()[22].colornum)
+colors = colorRefinement(colors)
+# print("rColors: ", len(colors))
+# print("NODE 22", H.V()[22].colornum)
 
-# printIsomorphs(checkIsomorph(H))
-# graphIO.writeDOT(H, 'graph_colors.dot')
-# individualRef(H, colors)
-# printIsomorphs(checkIsomorph(H))
-# graphIO.writeDOT(H, 'graph_colors_2.dot')
+printIsomorphs(checkIsomorph(H))
+graphIO.writeDOT(H, 'graph_colors.dot')
+individualRef(H, colors)
+printIsomorphs(checkIsomorph(H))
+graphIO.writeDOT(H, 'graph_colors_2.dot')
 #print("Colors: \n",colors)
 
