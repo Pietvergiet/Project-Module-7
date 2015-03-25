@@ -4,6 +4,7 @@ import copy
 import operator
 
 colors=[]
+nodes=[]
 nrOfGraphs = 0;
 nrOfNodes = 0;
 
@@ -109,27 +110,27 @@ def ripGraphs(isomorphs, graphs, disUnion):
 				amountpopped += 1
 	return dUnion
 
-# Geeft elke vertex in de graaf een kleur die correspondeert aan zijn degree
+# Geeft elke vertex in de graaf een kleur die correspondeert aan zijn degree #DONE
 def setColorAsNrNeighbors(graph):
 	colors=[[]]
-	graph[0].colornum=0
-	colors[0].append(graph[0])
+	nodes = [0 for i in range(len(graph.V()))]
+	colors[0].append(graph[0]._label)
 	for i in range(1, len(graph.V())):
 		added = False
 		for x in range(len(colors)):
-			if colors[x][0].deg() == graph[i].deg():
-				graph[i].colornum=x
-				colors[x].append(graph[i])
+			if graph[colors[x][0]].deg() == graph[i].deg():
+				nodes[i] = x
+				colors[x].append(graph[i]._label)
 				added = True
 				break
 		if not added:
-			graph[i].colornum=len(colors)
-			colors.append([graph[i]])
+			nodes[i] = len(colors)
+			colors.append([graph[i]._label])
 
 		# graph[i].colornum = graph[i].deg()
 		# colors[graph[i].deg()].append(i)
-	print("Nodes colored")
-	return colors
+	print("Nodes colored" , nodes)
+	return colors, nodes
 
 
 def getNeighborsColors(node):
@@ -142,29 +143,30 @@ def getNeighborsColors(node):
 	return result
 
 # Gaat verder kleuren toekennen aan de graven tot het niet meer mogelijk is.
-def colorRefinement(colors):
+def colorRefinement(colors, nodes):
 	crColors = copy.copy(colors)
 	for i in range(len(crColors)):				# loop through all the colors
-		nodes=copy.copy(crColors[i])				# create a copy of the nodes
+		nodesOfColor=copy.copy(crColors[i])				# create a copy of the nodesOfColor
 		first = True
 
-		while(len(nodes) != 0):					# while nodes have to be recolored
+		while(len(nodesOfColor) != 0):					# while nodesOfColor have to be recolored
 			if not first:						# if not the first run ----- in the first run the first node doesn't need a new color. After the first run, it does. First node has to be a unique color
-				crColors[nodes[0].colornum].remove(nodes[0])			# remove first node
-				nodes[0].colornum = len(crColors)					# give first node new color
-				crColors.append([nodes[0]])							# add first node to new color index
+				crColors[i].remove(nodesOfColor[0])			# remove first node
+				nodes[nodesOfColor[0]] = len(crColors)					# give first node new color
+				crColors.append([nodesOfColor[0]])							# add first node to new color index
 			first = False
-			colorednodes=[nodes[0]]									# node 0 is always recolored
+			colorednodes=[nodesOfColor[0]]									# node 0 is always recolored
 
-			for q in range(1, len(nodes)): 									# loop through all the nodes that have to be recolored
-				if getNeighborsColors(nodes[0]) == getNeighborsColors(nodes[q]):	# if colors of the neighbors of 0 and q are the same
-					crColors[nodes[q].colornum].remove(nodes[q])				# remove node q from old color index
-					nodes[q].colornum = nodes[0].colornum					# give node q same color as node 0
-					crColors[nodes[0].colornum].append(nodes[q])				# add node q to new color index
-					colorednodes.append(nodes[q])							# add node q to list with recolored nodes
+			for q in range(1, len(nodesOfColor)): 									# loop through all the nodesOfColor that have to be recolored
+				if getNeighborsColors(nodesOfColor[0]) == getNeighborsColors(nodesOfColor[q]):	# if colors of the neighbors of 0 and q are the same
+					crColors[nodes[nodesOfColor[q]]].remove(nodes[nodesOfColor[q]])	
+					nodes[nodesOfColor[q]] = nodes[nodesOfColor[0]]			# remove node q from old color index
+					# nodesOfColor[q].colornum = nodesOfColor[0].colornum					# give node q same color as node 0
+					crColors[nodes[nodesOfColor[0]]].append(nodesOfColor[q])				# add node q to new color index
+					colorednodes.append(nodesOfColor[q])							# add node q to list with recolored nodes
 
 			for i in range(len(colorednodes)):			# loop through all recolored nodes
-				nodes.remove(colorednodes[i])			# remove recolored nodes from nodes that need to be recolored
+				nodesOfColor.remove(colorednodes[i])			# remove recolored nodes from nodes that need to be recolored
 
 			while [] in crColors:			# remove empty lists in the colorlist
 				crColors.remove([])
@@ -327,7 +329,7 @@ def merge_sort(alist):
 ## MAIN
 
 
-G=loadGraphs('week2/torus24.grl')
+G=loadGraphs('week1/crefBM_2_49.grl')
 #print("aantal graphs: ", len(G))-
 H = createDisjointUnion(G)
 nbs = H.V()[0].nbs()
@@ -338,16 +340,17 @@ nbs = H.V()[0].nbs()
 # graphIO.writeDOT(G[3], 'graph4.dot')
 graphIO.writeDOT(H, 'graph.dot')
 # for i in range(len(G)):
-colors = setColorAsNrNeighbors(H)
+colors, nodes = setColorAsNrNeighbors(H)
+print("COLOR: ", colors, "NODES: ", nodes)
 # print("Colors: ", colors)
-colors = colorRefinement(colors)
-# print("rColors: ", len(colors))
-# print("NODE 22", H.V()[22].colornum)
+# colors = colorRefinement(colors)
+# # print("rColors: ", len(colors))
+# # print("NODE 22", H.V()[22].colornum)
 
-printIsomorphs(checkIsomorph(H))
-graphIO.writeDOT(H, 'graph_colors.dot')
-individualRef(H, colors)
-printIsomorphs(checkIsomorph(H))
-graphIO.writeDOT(H, 'graph_colors_2.dot')
+# printIsomorphs(checkIsomorph(H))
+# graphIO.writeDOT(H, 'graph_colors.dot')
+# individualRef(H, colors)
+# printIsomorphs(checkIsomorph(H))
+# graphIO.writeDOT(H, 'graph_colors_2.dot')
 #print("Colors: \n",colors)
 
