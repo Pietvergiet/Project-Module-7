@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2015.3.22)  25 MAR 2015 15:55
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2015.3.22)  25 MAR 2015 16:10
 entering extended mode
 **C:/Users/Admin/Documents/Universiteit/Year*2*Module*2A*-*Discrete*Structures*
 &*Efficient*Algorithms/Project/Project-Module-7/paper/paper.tex
@@ -544,34 +544,43 @@ Package: natbib 2010/09/13 8.31b (PWD, AO)
 LaTeX Info: Redefining \cite on input line 694.
 \c@NAT@ctr=\count195
 )
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\wrapfig\wrapfig.sty"
+\wrapoverhang=\dimen163
+\WF@size=\dimen164
+\c@WF@wrappedlines=\count196
+\WF@box=\box50
+\WF@everypar=\toks22
+Package: wrapfig 2003/01/31  v 3.6
+)
 ("C:\Users\Admin\Documents\Universiteit\Year 2 Module 2A - Discrete Structures 
 & Efficient Algorithms\Project\Project-Module-7\paper\paper.aux")
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\context\base\supp-pdf.mkii"
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count196
-\scratchdimen=\dimen163
-\scratchbox=\box50
-\nofMPsegments=\count197
-\nofMParguments=\count198
-\everyMPshowfont=\toks22
-\MPscratchCnt=\count199
-\MPscratchDim=\dimen164
-\MPnumerator=\count200
-\makeMPintoPDFobject=\count201
-\everyMPtoPDFconversion=\toks23
+\scratchcounter=\count197
+\scratchdimen=\dimen165
+\scratchbox=\box51
+\nofMPsegments=\count198
+\nofMParguments=\count199
+\everyMPshowfont=\toks23
+\MPscratchCnt=\count200
+\MPscratchDim=\dimen166
+\MPnumerator=\count201
+Normal \count register pool exhausted, switching to extended pool.
+\makeMPintoPDFobject=\count277
+\everyMPtoPDFconversion=\toks24
 )
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\beamer\base\translator\dicts\tran
 slator-basic-dictionary\translator-basic-dictionary-English.dict"
@@ -581,54 +590,31 @@ Dictionary: translator-basic-dictionary, Language: English
 "
 File: siunitx-abbreviations.cfg 2015/01/21 v2.6e siunitx: Abbreviated units
 )
-Normal \count register pool exhausted, switching to extended pool.
-\c__siunitx_mathsf_int=\count277
-\c__siunitx_mathtt_int=\count278
+\c__siunitx_mathsf_int=\count278
+\c__siunitx_mathtt_int=\count279
 
 ("C:\Users\Admin\Documents\Universiteit\Year 2 Module 2A - Discrete Structures 
 & Efficient Algorithms\Project\Project-Module-7\paper\title_page.tex" [1
 
 {C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}])
-Underfull \hbox (badness 10000) in paragraph at lines 33--34
-
- []
-
-
-! LaTeX Error: Environment wrapfigure undefined.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.35 \begin{wrapfigure}
-                       
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 36--37
+Underfull \hbox (badness 10000) in paragraph at lines 32--33
 
  []
 
 <img/isomorphic.png, id=10, 501.875pt x 351.3125pt>
 File: img/isomorphic.png Graphic file (type png)
  <use img/isomorphic.png>
-Package pdftex.def Info: img/isomorphic.png used on input line 38.
+Package pdftex.def Info: img/isomorphic.png used on input line 36.
 (pdftex.def)             Requested size: 165.59853pt x 115.91739pt.
 
+Underfull \hbox (badness 1178) in paragraph at lines 41--42
+\OT1/cmr/m/n/10 er-naast. Voor elke node van de
+ []
 
-! LaTeX Error: \begin{document} ended by \end{wrapfigure}.
 
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.39 \end{wrapfigure}
-                     
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
+Underfull \hbox (badness 10000) in paragraph at lines 41--42
+
+ []
 
 Missing character: There is no â in font cmr10!
 Missing character: There is no € in font cmr10!
@@ -637,32 +623,66 @@ Missing character: There is no â in font cmr10!
 Missing character: There is no € in font cmr10!
 Missing character: There is no ™ in font cmr10!
 
-Underfull \hbox (badness 10000) in paragraph at lines 45--46
+Underfull \hbox (badness 10000) in paragraph at lines 47--48
 
  []
 
 [1 <C:/Users/Admin/Documents/Universiteit/Year 2 Module 2A - Discrete Structure
 s & Efficient Algorithms/Project/Project-Module-7/paper/img/isomorphic.png>]
-[2]
+Missing character: There is no Ã in font cmr10!
+Missing character: There is no « in font cmr10!
+Missing character: There is no Ã in font cmr10!
+Missing character: There is no « in font cmr10!
+Missing character: There is no Ã in font cmr10!
+Missing character: There is no « in font cmr10!
+Missing character: There is no Ã in font cmr10!
+Missing character: There is no « in font cmr10!
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 74.
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\omscmr.fd"
+File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 74.
+Missing character: There is no Ã in font cmr10!
+Missing character: There is no © in font cmr10!
+Missing character: There is no Ã in font cmr10!
+Missing character: There is no © in font cmr10!
+Missing character: There is no â in font cmr10!
+Missing character: There is no € in font cmr10!
+Missing character: There is no ˜ in font cmr10!
+Missing character: There is no â in font cmr10!
+Missing character: There is no € in font cmr10!
+Missing character: There is no ™ in font cmr10!
+Missing character: There is no Ã in font cmr10!
+Missing character: There is no « in font cmr10!
+Missing character: There is no â in font cmr10!
+Missing character: There is no € in font cmr10!
+Missing character: There is no ˜ in font cmr10!
+Missing character: There is no â in font cmr10!
+Missing character: There is no € in font cmr10!
+Missing character: There is no ™ in font cmr10!
+ [2] [3]
 ("C:\Users\Admin\Documents\Universiteit\Year 2 Module 2A - Discrete Structures 
 & Efficient Algorithms\Project\Project-Module-7\paper\paper.aux") ) 
 Here is how much of TeX's memory you used:
- 12103 strings out of 493921
- 259146 string characters out of 3144876
- 269857 words of memory out of 3000000
- 15338 multiletter control sequences out of 15000+200000
+ 12185 strings out of 493921
+ 260273 string characters out of 3144876
+ 272073 words of memory out of 3000000
+ 15413 multiletter control sequences out of 15000+200000
  8569 words of font info for 32 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
- 42i,4n,39p,10564b,378s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 42i,5n,39p,10564b,440s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Program 
 Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Program Fi
 les (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><C:/Program Fil
 es (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files 
 (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Files (x8
-6)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on paper.pdf (3 pages, 110466 bytes).
+6)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files (x86)
+/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti12.pfb>
+Output written on paper.pdf (4 pages, 123505 bytes).
 PDF statistics:
- 33 PDF objects out of 1000 (max. 8388607)
+ 40 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  6 words of extra memory for PDF output out of 10000 (max. 10000000)
 

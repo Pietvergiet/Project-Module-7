@@ -9,15 +9,14 @@
 \usepackage{graphicx} % Required for the inclusion of images
 \usepackage{natbib} % Required to change bibliography style to APA
 \usepackage{amsmath} % Required for some math elements 
+\usepackage{wrapfig}
 
 \setlength\parindent{0pt} % Removes all indentation from paragraphs
 
 \renewcommand{\labelenumi}{\alph{enumi}.} % Make numbering in the enumerate environment by letter rather than number (e.g. section 6)
 
-%\usepackage{times} % Uncomment to use the Times New Roman font
-
 %----------------------------------------------------------------------------------------
-%	TITLE PAGE
+%	TITELPAGINA
 %----------------------------------------------------------------------------------------
 
 \begin{document}
@@ -25,18 +24,21 @@
 \input{./title_page.tex}
 
 %----------------------------------------------------------------------------------------
-%	SECTION 1
+%	SECTIE 1: HET GI PROBLEEM
 %----------------------------------------------------------------------------------------
 
 \section{Het Graaf Isomorfisme (GI) probleem}
 
 Het Graaf Isomorfisme probleem is het probleem dat gaat over het vaststellen of twee grafen isomorf zijn, dat wil zeggen structureel gelijk aan elkaar. Als twee wiskundige objecten isomorf zijn, dan is elke eigenschap, waarvan de structuur bewaard blijft door een isomorfisme en die geldt voor een van de twee wiskundige objecten, ook geldt voor het andere wiskundige object.\\
 
-\begin{wrapfigure}
-Hoewel het op het eerste gezicht niet zo lijkt te zijn, geldt er een isomorfisme tussen de twee grafen hiernaast. Voor elke node van de eerste graaf geldt dat de buren daarvan exact hetzelfde zijn als de buren van diezelfde node in de tweede graaf.\\
-
+\begin{wrapfigure}{r}{0.5\textwidth}
+\begin{center}
 \includegraphics[width=0.48\textwidth]{img/isomorphic.png}
+\end{center}
+\caption{Twee isomorfe grafen}
 \end{wrapfigure}
+
+Hoewel het op het eerste gezicht niet zo lijkt te zijn, geldt er een isomorfisme tussen de twee grafen hiernaast. Voor elke node van de eerste graaf geldt dat de buren daarvan exact hetzelfde zijn als de buren van diezelfde node in de tweede graaf.\\
 
 Een methode om isomorfisme vast te kunnen stellen tussen deze twee grafen is ‘color refinement’. Dit algoritme kent kleuren toe aan de verschillende nodes, die een indicatie geeft welke buren deze node heeft. De groene node bijvoorbeeld heeft in de eerste graaf drie buren: de lichtblauwe, de roze en de gele. Dit geldt ook voor de tweede graaf. Als dit voor elke node in de twee grafen geldt, zijn ze isomorf. Dit kan als volgt gecontroleerd worden: wanneer de lijst met alle kleuren (zonder duplicaten) van de eerste graaf gelijk is aan die van de tweede graaf, kan er gezegd worden dat ze isomorf zijn ten opzichte van elkaar. In de afbeelding hierboven is dat ook het geval.
 Dit is een goede manier om isomorfisme te controleren, omdat het op het eerste gezicht bij deze afbeelding lijkt alsof de twee grafen niet isomorf zijn. Ook is deze methode nuttig bij grotere grafen met veel nodes.
@@ -46,5 +48,49 @@ Nu duidelijk gemaakt is wat het GI probleem inhoudt en hoe het gecontroleerd kan
 
 Isomorfisme heeft al voor het oplossen van vele wiskundige problemen gezorgd. Dat kan als volgt gedaan worden: een nog op te lossen wiskundig probleem X kan herleid worden tot een eenvoudiger probleem Y, wat makkelijker te begrijpen is. Neem een reeds opgelost probleem Z. Als aangetoond kan worden dat Y en Z isomorf zijn ten opzichte van elkaar, kan de conclusie getrokken worden dat op dat moment probleem X ook opgelost is (omdat probleem X, Y en Z structureel hetzelfde zijn). In de Discrete Wiskunde zijn er al veel problemen met deze methode opgelost, wat het controleren op isomorfisme erg relevant maakt.
 Naast de wiskunde is het ook nuttig voor de informatica, omdat daar veel structuren als grafen weergegeven worden (denk aan netwerksystemen).
+
+\subsection{Speciale gevallen}
+Er zijn een aantal speciale gevallen waarvan bewezen is dat het in polynomiale tijd opgelost kan worden. Het eerste geval is een graaf die een boomstructuur heeft, dat wil zeggen: elk punt is met een ander punt verbonden, zonder cycli.\\
+De tweede zijn de planaire grafen, dat zijn de grafen die zo in het platte vlak getekend kunnen worden dat geen van de randen een andere rand kruist. Ook als je een restrictie legt op het aantal keren dat de randen elkaar minimaal kruisen, of als je een restrictie legt op de maximale graad van alle hoekpunten is het in polynomiale tijd op te lossen.
+
+%----------------------------------------------------------------------------------------
+%	SECTIE 2: ONS ALGORITME
+%----------------------------------------------------------------------------------------
+
+\section{Ons algoritme}
+--Nog in te vullen--
+
+%----------------------------------------------------------------------------------------
+%	SECTIE 3: PREPROCESSING
+%----------------------------------------------------------------------------------------
+
+\section{Preprocessing}
+Om het algoritme een handje te helpen bij het effeciënt oplossen van het GI probleem, kunnen er voor het color refinement-algoritme al stappen ondernomen worden, zodat het algoritme zelf minder tijd nodig heeft en dus het algoritme sneller en effeciënter wordt.
+Voor het algoritme kunnen er namelijk grafen geëlimineerd worden uit de lijst die niet in aanmerking komen om isomorf te zijn met een andere graaf uit de lijst. Als je van tevoren deze grafen uit de lijst haalt, hoeft het color refinement-algoritme minder grafen te behandelen, waardoor het effeciënter wordt. 
+
+\subsection{Methoden}
+We checken de grafen van tevoren op de volgende eigenschappen:
+\begin{itemize}
+\item De grootte van de graaf, d.w.z. het aantal vertices en het aantal edges. Als er in de lijst één graaf is met een ander aantal vertices of edges dan de andere grafen, kan deze graaf uit de lijst gehaald worden. Hij kan dan niet meer isomorf zijn met een andere graaf.
+\item De connectiviteit van de graaf. Als een graaf als enige in de lijst niet ‘connected’ is (en de andere grafen dus wel), kan deze ook geëlimineerd worden. Met een combinatie van deze eerste twee eigenschappen wordt ook gelijk gecontroleerd op het feit of een graaf een boom is of niet. Als twee ‘connected’ grafen een gelijk aantal vertices en edges hebben, zijn ze namelijk beide een boom of beide niet. Hier hoeft dus niet meer op gecontroleerd te worden.
+\item FALSE TWINS
+\end{itemize}
+
+\subsection{Validatie preprocessing methoden}
+--Nog in te vullen--
+
+%----------------------------------------------------------------------------------------
+%	SECTIE 4: TESTEN
+%----------------------------------------------------------------------------------------
+
+\section{Testen}
+--Nog in te vullen--
+
+%----------------------------------------------------------------------------------------
+%	SECTIE 5: CONCLUSIE
+%----------------------------------------------------------------------------------------
+
+\section{Conclusie}
+--Nog in te vullen--
 
 \end{document}
