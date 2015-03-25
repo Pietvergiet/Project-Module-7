@@ -133,32 +133,24 @@ def setColorAsNrNeighbors(graph):
 	return colors, nodes
 
 
-def getNeighborColors2(node, graph):
+def getNeighborsColors(node, graph):
 	result=[]
 	nbs=graph[node].nbs()
-	for i in range(nbs):
+	for i in range(len(nbs)):
 		result.append(nodes[i])
 	merge_sort(result)
 
 	return result
 
-def getNeighborsColors(node):
-	result=[]
-	for i in range(len(node.nbs())):
-		result.append(node.nbs()[i].colornum)
-
-	merge_sort(result)
-	# print("nbs", result) 
-	return result
-
 # Gaat verder kleuren toekennen aan de graven tot het niet meer mogelijk is.
-def colorRefinement(colors, nodes):
-	crColors = copy.copy(colors)
+def colorRefinement(graph, colors, nodes):
+	crColors = copy.deepcopy(colors)
 	for i in range(len(crColors)):				# loop through all the colors
-		nodesOfColor=copy.copy(crColors[i])				# create a copy of the nodesOfColor
+		nodesOfColor=copy.deepcopy(crColors[i])				# create a copy of the nodesOfColor
 		first = True
 
 		while(len(nodesOfColor) != 0):					# while nodesOfColor have to be recolored
+			print("MEANWHILE!!!!!!!", i, len(nodesOfColor))
 			if not first:						# if not the first run ----- in the first run the first node doesn't need a new color. After the first run, it does. First node has to be a unique color
 				crColors[i].remove(nodesOfColor[0])			# remove first node
 				nodes[nodesOfColor[0]] = len(crColors)					# give first node new color
@@ -167,22 +159,24 @@ def colorRefinement(colors, nodes):
 			colorednodes=[nodesOfColor[0]]									# node 0 is always recolored
 
 			for q in range(1, len(nodesOfColor)): 									# loop through all the nodesOfColor that have to be recolored
-				if getNeighborsColors(nodesOfColor[0]) == getNeighborsColors(nodesOfColor[q]):	# if colors of the neighbors of 0 and q are the same
-					crColors[nodes[nodesOfColor[q]]].remove(nodes[nodesOfColor[q]])	
+				if getNeighborsColors(nodesOfColor[0], graph) == getNeighborsColors(nodesOfColor[q], graph):	# if colors of the neighbors of 0 and q are the same
+					crColors[i].remove(nodesOfColor[q])	
 					nodes[nodesOfColor[q]] = nodes[nodesOfColor[0]]			# remove node q from old color index
 					# nodesOfColor[q].colornum = nodesOfColor[0].colornum					# give node q same color as node 0
 					crColors[nodes[nodesOfColor[0]]].append(nodesOfColor[q])				# add node q to new color index
 					colorednodes.append(nodesOfColor[q])							# add node q to list with recolored nodes
 
-			for i in range(len(colorednodes)):			# loop through all recolored nodes
-				nodesOfColor.remove(colorednodes[i])			# remove recolored nodes from nodes that need to be recolored
+			for x in range(len(colorednodes)):			# loop through all recolored nodes
+				nodesOfColor.remove(colorednodes[x])			# remove recolored nodes from nodes that need to be recolored
 
 			while [] in crColors:			# remove empty lists in the colorlist
 				crColors.remove([])
-			
+			print("MEANWHILE!!!!!!!222", i, len(nodesOfColor))
+	print("YOLOSWAGGINGSLOLROFLLMAOCOPTER", crColors, colors)
 	if(crColors != colors):					# while the colors have changed in this function, do colorRefinement again
-		crColors = colorRefinement(crColors)
-	return crColors
+		print("OPNIEUW!!")
+		crColors = colorRefinement(graph, crColors, nodes)
+	return crColors, nodes
 
 
 def individualRef(graph, colors):
@@ -344,13 +338,10 @@ nbs = H.V()[0].nbs()
 # graphIO.writeDOT(G[3], 'graph4.dot')
 graphIO.writeDOT(H, 'graph.dot')
 # for i in range(len(G)):
-<<<<<<< HEAD
 colors, nodes = setColorAsNrNeighbors(H)
+colors, nodes = colorRefinement(H, colors, nodes)
 print("COLOR: ", colors, "NODES: ", nodes)
-=======
-print("Nbs", H[2].nbs())
-colors = setColorAsNrNeighbors(H)
->>>>>>> 0489a33c7a0f57c5cc6a564670c702e91263f888
+
 # print("Colors: ", colors)
 # colors = colorRefinement(colors)
 # # print("rColors: ", len(colors))
