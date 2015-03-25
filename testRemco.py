@@ -42,22 +42,16 @@ def createDisjointUnion(graphs):
 	return G
 
 # returns a list with the colors of the nodes of the graph, grouped by the graph and sorted. Graph 0 at index 0
-def getColors(graph):
-	colors=[[] for i in range(nrOfGraphs)]		# creates a list of len nrOfGraphes filled with empty lists
-
-	nodes = graph.V()					# fills the list with the colors, grouped per graph, graph 0 at index 0	
-	for j in range(nrOfGraphs):
-		for i in range(nrOfNodes):
-			colors[j].append(nodes[(i+(j*nrOfNodes))].colornum)
-
-	for i in range(len(colors)):		# sorts the lists with colors from low to high
+def getColors(nodes):
+	colors=[[] for i in range(nrOfGraphs)]
+	for i in range(len(colors)):
+		colors[i] = nodes[i*nrOfNodes:(i+1)*nrOfNodes]
 		merge_sort(colors[i])
-
 	return colors
 
 # return a list with at index 0 graphs with duplicate colors, grouped by the colors, and at the other indices grouped isomorphs
-def checkIsomorph(graph):									
-	colors= getColors(graph)
+def checkIsomorph(nodes):									
+	colors= getColors(nodes)
 
 	isomorphs = [[]]					# list for the (possible) isomorphs
 
@@ -133,11 +127,11 @@ def setColorAsNrNeighbors(graph):
 	return colors, nodes
 
 
-def getNeighborsColors(node, graph):
+def getNeighborsColors(node, graph, nodes):
 	result=[]
 	nbs=graph[node].nbs()
 	for i in range(len(nbs)):
-		result.append(nodes[i])
+		result.append(nodes[nbs[i]._label])
 	merge_sort(result)
 
 	return result
@@ -159,7 +153,7 @@ def colorRefinement(graph, colors, nodes):
 			colorednodes=[nodesOfColor[0]]									# node 0 is always recolored
 
 			for q in range(1, len(nodesOfColor)): 									# loop through all the nodesOfColor that have to be recolored
-				if getNeighborsColors(nodesOfColor[0], graph) == getNeighborsColors(nodesOfColor[q], graph):	# if colors of the neighbors of 0 and q are the same
+				if getNeighborsColors(nodesOfColor[0], graph, nodes) == getNeighborsColors(nodesOfColor[q], graph, nodes):	# if colors of the neighbors of 0 and q are the same
 					crColors[i].remove(nodesOfColor[q])	
 					nodes[nodesOfColor[q]] = nodes[nodesOfColor[0]]			# remove node q from old color index
 					# nodesOfColor[q].colornum = nodesOfColor[0].colornum					# give node q same color as node 0
@@ -323,11 +317,16 @@ def merge_sort(alist):
             j=j+1
             k=k+1
 
+def giveColor(graph, nodes):
+	cGraph = copy.deepcopy(graph)
+	for i in range(len(nodes)):
+		cGraph[i].colornum = nodes[i]
 
+	return cGraph
 ## MAIN
 
 
-G=loadGraphs('week1/crefBM_2_49.grl')
+G=loadGraphs('week1/crefBM_4_9.grl')
 #print("aantal graphs: ", len(G))-
 H = createDisjointUnion(G)
 nbs = H.V()[0].nbs()
@@ -336,11 +335,14 @@ nbs = H.V()[0].nbs()
 # graphIO.writeDOT(G[1], 'graph2.dot')
 # graphIO.writeDOT(G[2], 'graph3.dot')
 # graphIO.writeDOT(G[3], 'graph4.dot')
-graphIO.writeDOT(H, 'graph.dot')
+
 # for i in range(len(G)):
 colors, nodes = setColorAsNrNeighbors(H)
 colors, nodes = colorRefinement(H, colors, nodes)
-print("COLOR: ", colors, "NODES: ", nodes)
+printIsomorphs(checkIsomorph(nodes))
+# Q = giveColor(H, nodes)
+# graphIO.writeDOT(Q, 'graph.dot')
+# print("COLOR: ", colors, "NODES: ", nodes)
 
 # print("Colors: ", colors)
 # colors = colorRefinement(colors)
