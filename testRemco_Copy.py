@@ -185,7 +185,7 @@ def individualRef(graph, colors):
 		# for i in range(1):
 			colorlist = getColors(graph)
 			if len(colorlist[i]) != len(set(colorlist[i])) :					# check for a dub
-				print(colorlist[i], set(colorlist[i]))
+				# print(colorlist[i], set(colorlist[i]))
 
 				# print("dub i", i)
 				j = 0
@@ -224,7 +224,7 @@ def individualRef(graph, colors):
 
 				# print("rColors: ", rColors)
 				rColors = colorRefinement(rColors)
-				print("yeey")
+				# print("yeey")
 		if len(checkIsomorph(graph)[0]) == 0:
 			isDone = True	
 
@@ -278,7 +278,7 @@ def merge_sort(alist):
 ## MAIN
 
 
-G=loadGraphs('week2/torus24.grl')
+G=loadGraphs('week2/cubes4.grl')
 #print("aantal graphs: ", len(G))-
 H = createDisjointUnion(G)
 nbs = H.V()[0].nbs()
@@ -296,6 +296,7 @@ colors = colorRefinement(colors)
 # print("NODE 22", H.V()[22].colornum)
 
 printIsomorphs(checkIsomorph(H))
+print("----")
 graphIO.writeDOT(H, 'graph_colors.dot')
 individualRef(H, colors)
 printIsomorphs(checkIsomorph(H))
