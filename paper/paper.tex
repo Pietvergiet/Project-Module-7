@@ -10,6 +10,7 @@
 \usepackage{wrapfig}		% Nodig voor het 'wrappen' van de tekst om de afbeelding heen
 \usepackage{algorithmic}	% Voor het schrijven van pseudo-code
 \usepackage[]{algorithm2e}	% "
+\setlength\parindent{0pt} 	% Haalt indentaties van paragrafen weg
 
 %----------------------------------------------------------------------------------------
 %	TITELPAGINA
@@ -42,10 +43,10 @@ Het Graaf Isomorfisme probleem is het probleem dat gaat over het vaststellen of 
 \caption{Twee isomorfe grafen}
 \end{wrapfigure}
 
-Hoewel het op het eerste gezicht niet zo lijkt te zijn, geldt er een isomorfisme tussen de twee grafen hiernaast. Voor elke node van de eerste graaf geldt dat de buren daarvan exact hetzelfde zijn als de buren van diezelfde node in de tweede graaf.\\
+Hoewel het op het eerste gezicht niet zo lijkt te zijn, geldt er een isomorfisme tussen de twee grafen hiernaast. Voor elke vertice van de eerste graaf geldt dat de buren daarvan exact hetzelfde zijn als de buren van diezelfde vertice in de tweede graaf.\\
 
-Een methode om isomorfisme vast te kunnen stellen tussen deze twee grafen is ‘color refinement’. Dit algoritme kent kleuren toe aan de verschillende nodes, die een indicatie geeft welke buren deze node heeft. De groene node bijvoorbeeld heeft in de eerste graaf drie buren: de lichtblauwe, de roze en de gele. Dit geldt ook voor de tweede graaf. Als dit voor elke node in de twee grafen geldt, zijn ze isomorf. Dit kan als volgt gecontroleerd worden: wanneer de lijst met alle kleuren (zonder duplicaten) van de eerste graaf gelijk is aan die van de tweede graaf, kan er gezegd worden dat ze isomorf zijn ten opzichte van elkaar. In de afbeelding hierboven is dat ook het geval.
-Dit is een goede manier om isomorfisme te controleren, omdat het op het eerste gezicht bij deze afbeelding lijkt alsof de twee grafen niet isomorf zijn. Ook is deze methode nuttig bij grotere grafen met veel nodes.
+Een methode om isomorfisme vast te kunnen stellen tussen deze twee grafen is ‘color refinement’. Dit algoritme kent kleuren toe aan de verschillende vertices, die een indicatie geeft welke buren deze vertice heeft. De groene vertice bijvoorbeeld heeft in de eerste graaf drie buren: de lichtblauwe, de roze en de gele. Dit geldt ook voor de tweede graaf. Als dit voor elke vertice in de twee grafen geldt, zijn ze isomorf. Dit kan als volgt gecontroleerd worden: wanneer de lijst met alle kleuren (zonder duplicaten) van de eerste graaf gelijk is aan die van de tweede graaf, kan er gezegd worden dat ze isomorf zijn ten opzichte van elkaar. In de afbeelding hierboven is dat ook het geval.
+Dit is een goede manier om isomorfisme te controleren, omdat het op het eerste gezicht bij deze afbeelding lijkt alsof de twee grafen niet isomorf zijn. Ook is deze methode nuttig bij grotere grafen met veel vertices.
 
 \subsection{Relevantie van het GI probleem}
 Nu duidelijk gemaakt is wat het GI probleem inhoudt en hoe het gecontroleerd kan worden, blijft de vraag hoe relevant dit probleem is voor de Discrete Wiskunde. Waarom willen we weten of twee grafen (of zelfs wiskundige problemen in het algemeen) isomorf zijn ten opzichte van elkaar?\\
@@ -63,7 +64,7 @@ De tweede zijn de planaire grafen, dat zijn de grafen die zo in het platte vlak 
 %----------------------------------------------------------------------------------------
 
 \section{Ons algoritme}
---Nog in te vullen--
+Voordat we het color refinement-algoritme toe gaan passen, beginnen we met het triviale kleuren van elke node van de graaf. Dit doen we door elke node een kleur te geven die correspondeert aan zijn degree. We kleuren de vertices door een lijst van de labels van de vertices met dezelfde kleur in een array de zetten. De kleur van de vertices in de lijst correspondeert met de index van de lijst in de array (alle vertices met kleur 0 staan op index 0 in de array). Tevens maken we een lijst met kleuren waarin de index in die lijst correspondeert met de label van de node (de kleur van node 17 staat op index 17 in de lijst). We zetten bewust geen vertices maar labels in de lijst omdat dat bij het maken van kopie\"en (met name deepcopies) veel ruimte scheelt. Ook hoeven we op deze manier nooit meer een node in de graven zelf aan te passen en kunnen we alle bewerking op de twee lijsten uitvoeren. Nu voeren we het color refinement-algoritme uit over de lijsten. In bepaalde gevallen kan het zijn dat alle elke graaf bestaat uit een set vertices met elke een andere kleur of duidelijk is dat geen enkele graaf isomorf is met elkaar. Helaas komt het vaak voor dat na het uitvoeren van color refinement het nog niet duidelijk is of 2 graven isomorf zijn of niet doordat de kleur van elke node binnen een graaf niet uniek is. Om dan toch uitsluitsel te geven over eventuele isomorfisme moet het zogeheten `individual refinement' toegepast worden. Dit algoritme zoekt van een graaf waarin een kleur twee of meer keer voor komt alle graven die ook dubbele vertices met dezelfde kleur op. Daarna vervangt hij de kleur van een van de dubbele vertices in een graaf door een nieuwe kleur en doet dit gebeurt ook voor een van de andere gevonden graven. Na het vervangen van de kleuren word color refinement weer toegepast op de twee aangepaste graven. Als hierna blijkt dat er nog steeds dubbele kleuren in de graven zitten word individual refinement nog een keer toegepast op deze twee graven. Als blijkt dat de twee graven isomorf zijn word er gekeken naar een ander graven paar met dubbele kleuren zijn ze niet isomorf dan wordt van de tweede graaf de kleur van een andere dubbel node aangepast en herhaald het algoritme zich opnieuw.
 \pagebreak
 
 %----------------------------------------------------------------------------------------
@@ -71,8 +72,8 @@ De tweede zijn de planaire grafen, dat zijn de grafen die zo in het platte vlak 
 %----------------------------------------------------------------------------------------
 
 \section{Preprocessing}
-Om het algoritme een handje te helpen bij het effeciënt oplossen van het GI probleem, kunnen er voor het color refinement-algoritme al stappen ondernomen worden, zodat het algoritme zelf minder tijd nodig heeft en dus het algoritme sneller en effeciënter wordt.
-Voor het algoritme kunnen er namelijk grafen geëlimineerd worden uit de lijst die niet in aanmerking komen om isomorf te zijn met een andere graaf uit de lijst. Als je van tevoren deze grafen uit de lijst haalt, hoeft het color refinement-algoritme minder grafen te behandelen, waardoor het effeciënter wordt.
+Om het algoritme een handje te helpen bij het effeci\"ent oplossen van het GI probleem, kunnen er voor het color refinement-algoritme al stappen ondernomen worden, zodat het algoritme zelf minder tijd nodig heeft en dus het algoritme sneller en effeci\"enter wordt.
+Voor het algoritme kunnen er namelijk grafen ge\"elimineerd worden uit de lijst die niet in aanmerking komen om isomorf te zijn met een andere graaf uit de lijst. Als je van tevoren deze grafen uit de lijst haalt, hoeft het color refinement-algoritme minder grafen te behandelen, waardoor het effeci\"enter wordt.
 
 Voor het testen gebruik je een lijst van grafen, bijvoorbeeld een lijst met 4 grafen. Als er \'e\'en graaf is in de lijst die een van de eigenschappen van het preprocessing niet heeft en de andere drie wel, kan deze graaf uit de lijst gehaald worden. Het is dan namelijk niet meer mogelijk dat deze graaf isomorf is met \'e\'en van de andere grafen. Maar als twee grafen de eigenschappen wel hebben en twee niet, zetten we deze paren van grafen in twee aparte lijsten, waar vervolgens het color refinement-algoritme op uitgevoerd kan worden.
 
@@ -115,24 +116,29 @@ Als een graaf als enige in de lijst niet ‘connected’ is (en de andere grafen
 \end{algorithm}
 
 \subsubsection{False twins}
-Na afloop van het (voor de eerste keer) uitvoeren van het color refinement-algoritme, kan er nog een stap ondernomen worden voordat we verder gaan met het ‘individual refinement’. Er kan namelijk gekeken worden of twee grafen ‘false twins’ hebben. Dit zijn twee nodes die in de graaf exact dezelfde buren hebben. Als er in de lijst een graaf is die als enige false twins heeft, kan deze niet meer isomorf zijn met \'e\'en van de andere grafen.
+Na afloop van het (voor de eerste keer) uitvoeren van het color refinement-algoritme, kan er nog een stap ondernomen worden voordat we verder gaan met het ‘individual refinement’. Er kan namelijk gekeken worden of twee grafen ‘false twins’ hebben. Dit zijn twee vertices die in de graaf exact dezelfde buren hebben. Als er in de lijst een graaf is die als enige false twins heeft, kan deze niet meer isomorf zijn met \'e\'en van de andere grafen.
 
 \subsection{Validatie preprocessing methoden}
 
-Een isomorfisme is een bijectieve afbeelding $f:V(G)\rightarrowV(H)$ zodanig dat \forall $u,v\inV(G)$ er geldt dat $uv\inE(G)\Leftrightarrowf(u)f(v)\inE(H)$.
+Een isomorfisme is een bijectieve afbeelding $f:V(G) \rightarrow V(H)$ zodanig dat $\forall u,v \in V(G)$ er geldt dat $uv \in E(G) \Leftrightarrow f(u)f(v)\in E(H)$.\\
 
 We hebben 3 preprocessing stappen gemaakt.
-1. Als $|V(G)|\neq|V(H)|$ dan kan er geen isomorfisme bestaan.
-2. Als $|E(G)|\neq|E(H)|$ dan kan er geen isomorfisme bestaan.
-3. Als een graaf wel `connected' is en de andere niet, dan kan er geen isomorfisme bestaan.
+\begin{enumerate}
+\item Als $|V(G)|\neq|V(H)|$ dan kan er geen isomorfisme bestaan.
+\item Als $|E(G)|\neq|E(H)|$ dan kan er geen isomorfisme bestaan.
+\item Als een graaf wel `connected' is en de andere niet, dan kan er geen isomorfisme bestaan.
+\end{enumerate}
 
-Nu volgt het bewijs dat twee grafen niet isomorf zijn als aan een van deze 3 voorwaarden niet wordt voldaan.
-Bewijs:
-1. Als $|V(G)|\neq|V(H)|$ dan kan je geen bijectie defini\"eren, want een bijectie moet one-to-one zijn, en daarvoor moeten beide sets evenveel elementen bevatten.
-2. Als $|E(G)|\neq|E(H)|$ dan is er een tegenspraak met de eis dat $uv\inE(G)\Leftrightarrowf(u)f(v)\inE(H)$.
-3. Neem aan dat $H$ connected is en $G$ niet. Zonder verlies van algemeenheid kunnen we aannemen dat $G$ bestaat uit twee delen die beide connected zijn, noem ze $G_1$ en $G_2$.
-Neem nu aan dat er een isomorfisme tussen $G$ en $H$ bestaat. Deel $H$ op in twee delen, $H_1$ en $H_2$, zodanig dat \forall $g_1\inV(G_1)$ geldt dat $f(g_1)\inV(H_1)$ en \forall $g_2\inV(G_2)$ geldt dat $f(g_2)\inV(H_2)$.
-Dan \exists $g_1$\in$G_1$ en $g_2$\in$G_2$ zodanig dat $g_1g_2\inE(G)$, terwijl $f(g_1)f(g_2)\notinE(H)$. Dit levert een tegenspraak op.
+Nu volgt het bewijs dat twee grafen niet isomorf zijn als aan een van de volgende 3 voorwaarden wordt voldaan:
+\begin{enumerate}
+\item Als $|V(G)|\neq|V(H)|$ dan kan je geen bijectie defini\"eren, want een bijectie moet one-to-one zijn, en daarvoor moeten beide sets evenveel elementen bevatten.
+\item Als $|E(G)|\neq|E(H)|$ dan is er een tegenspraak met de eis dat $uv\in E(G)\Leftrightarrow f(u)f(v)\in E(H)$.
+\item Neem aan dat $H$ connected is en $G$ niet. Zonder verlies van algemeenheid kunnen we aannemen dat $G$ bestaat uit twee delen die beide connected zijn, noem ze $G_1$ en $G_2$.
+
+Neem nu aan dat er een isomorfisme tussen $G$ en $H$ bestaat. Deel $H$ op in twee delen, $H_1$ en $H_2$, zodanig dat $\forall g_1\in V(G_1)$ geldt dat $f(g_1)\in V(H_1)$ en $\forall g_2\in V(G_2)$ geldt dat $f(g_2)\in V(H_2)$.
+Dan $\exists g_1\in G_1$ en $g_2\in G_2$ zodanig dat $g_1g_2\in E(G)$, terwijl $f(g_1)f(g_2)\notin E(H)$. Dit levert een tegenspraak op.\\
+Dus de grafen moeten beide wel of beide niet connected zijn.
+\end{enumerate}
 
 \pagebreak
 
