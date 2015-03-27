@@ -19,9 +19,14 @@
 
 \input{./title_page.tex}	% Importeert title_page.tex
 
+\renewcommand*\contentsname{Inhoudsopgave}
+\tableofcontents{}
+\pagebreak
+
 %----------------------------------------------------------------------------------------
 %	SECTIE 1: HET GI PROBLEEM
 %----------------------------------------------------------------------------------------
+
 
 \section{Het Graaf Isomorfisme (GI) probleem}
 
@@ -64,15 +69,18 @@ De tweede zijn de planaire grafen, dat zijn de grafen die zo in het platte vlak 
 
 \section{Preprocessing}
 Om het algoritme een handje te helpen bij het effeciënt oplossen van het GI probleem, kunnen er voor het color refinement-algoritme al stappen ondernomen worden, zodat het algoritme zelf minder tijd nodig heeft en dus het algoritme sneller en effeciënter wordt.
-Voor het algoritme kunnen er namelijk grafen geëlimineerd worden uit de lijst die niet in aanmerking komen om isomorf te zijn met een andere graaf uit de lijst. Als je van tevoren deze grafen uit de lijst haalt, hoeft het color refinement-algoritme minder grafen te behandelen, waardoor het effeciënter wordt. 
+Voor het algoritme kunnen er namelijk grafen geëlimineerd worden uit de lijst die niet in aanmerking komen om isomorf te zijn met een andere graaf uit de lijst. Als je van tevoren deze grafen uit de lijst haalt, hoeft het color refinement-algoritme minder grafen te behandelen, waardoor het effeciënter wordt.
+
+Voor het testen gebruik je een lijst van grafen, bijvoorbeeld een lijst met 4 grafen. Als er \'e\'en graaf is in de lijst die een van de eigenschappen van het preprocessing niet heeft en de andere drie wel, kan deze graaf uit de lijst gehaald worden. Het is dan namelijk niet meer mogelijk dat deze graaf isomorf is met \'e\'en van de andere grafen. Maar als twee grafen de eigenschappen wel hebben en twee niet, zetten we deze paren van grafen in twee aparte lijsten, waar vervolgens het color refinement-algoritme op uitgevoerd kan worden.
 
 \subsection{Methoden}
-We checken de grafen van tevoren op de volgende eigenschappen:
-\begin{itemize}
-\item De grootte van de graaf, d.w.z. het aantal vertices en het aantal edges. Als er in de lijst één graaf is met een ander aantal vertices of edges dan de andere grafen, kan deze graaf uit de lijst gehaald worden. Hij kan dan niet meer isomorf zijn met een andere graaf.
-\item De connectiviteit van de graaf. Als een graaf als enige in de lijst niet ‘connected’ is (en de andere grafen dus wel), kan deze ook geëlimineerd worden. Met een combinatie van deze eerste twee eigenschappen wordt ook gelijk gecontroleerd op het feit of een graaf een boom is of niet. Als twee ‘connected’ grafen een gelijk aantal vertices en edges hebben, zijn ze namelijk beide een boom of beide niet. Hier hoeft dus niet meer op gecontroleerd te worden.
-\item FALSE TWINS
-\end{itemize}
+We controleren de grafen van tevoren op de volgende eigenschappen:
+\subsubsection{Grootte}
+De grootte van de graaf, d.w.z. het aantal vertices en het aantal edges. Als er in de lijst één graaf is met een ander aantal vertices of edges dan de andere grafen, kan deze graaf uit de lijst gehaald worden. Hij kan dan niet meer isomorf zijn met een andere graaf.
+\subsubsection{Connectiviteit}
+Als een graaf als enige in de lijst niet ‘connected’ is (en de andere grafen dus wel), kan deze ook geëlimineerd worden. Met een combinatie van deze eerste twee eigenschappen wordt ook gelijk gecontroleerd op het feit of een graaf een boom is of niet. Als twee ‘connected’ grafen een gelijk aantal vertices en edges hebben, zijn ze namelijk beide een boom of beide niet. Hier hoeft dus niet meer op gecontroleerd te worden.
+\subsubsection{False twins}
+FALSE TWINS
 
 \subsection{Validatie preprocessing methoden}
 --Nog in te vullen--

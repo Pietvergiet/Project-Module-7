@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2015.3.22)  25 MAR 2015 15:42
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2015.3.22)  27 MAR 2015 11:56
 entering extended mode
 **C:/Users/Admin/Documents/Universiteit/Year*2*Module*2A*-*Discrete*Structures*
 &*Efficient*Algorithms/Project/Project-Module-7/paper/title_page.tex
@@ -37,7 +37,7 @@ Type  H <return>  for immediate help.
  ...                                              
                                                   
 l.9 \center
-            % Center everything on the page
+            		% Centreer alles op de pagina
 You're in trouble here.  Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
@@ -84,23 +84,10 @@ Missing character: There is no 0 in font nullfont!
 Missing character: There is no 4 in font nullfont!
 Missing character: There is no 3 in font nullfont!
 Missing character: There is no 3 in font nullfont!
-
-! LaTeX Error: There's no line here to end.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.16 Module 7 - 201400433\\\\
-                             
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
 ! Undefined control sequence.
 <recently read> \Large 
                        
-l.17 ...ete Structuren \& Effeci\"ente Algoritmes}
+l.18 ...ete Structuren \& Effeci\"ente Algoritmes}
                                                   \\[0.5cm]
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -109,52 +96,52 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 
-Overfull \hbox (44.89139pt too wide) in paragraph at lines 17--17
+Overfull \hbox (44.89139pt too wide) in paragraph at lines 18--18
  []\OT1/cmr/m/sc/10 Discrete 
  []
 
 
-Overfull \hbox (33.64421pt too wide) in paragraph at lines 17--17
+Overfull \hbox (33.64421pt too wide) in paragraph at lines 18--18
  \OT1/cmr/m/sc/10 Struc- 
  []
 
 
-Overfull \hbox (29.77765pt too wide) in paragraph at lines 17--17
+Overfull \hbox (29.77765pt too wide) in paragraph at lines 18--18
  \OT1/cmr/m/sc/10 turen 
  []
 
 
-Overfull \hbox (8.44437pt too wide) in paragraph at lines 17--17
+Overfull \hbox (8.44437pt too wide) in paragraph at lines 18--18
  \OT1/cmr/m/sc/10 & 
  []
 
 
-Overfull \hbox (16.54987pt too wide) in paragraph at lines 17--17
+Overfull \hbox (16.54987pt too wide) in paragraph at lines 18--18
  \OT1/cmr/m/sc/10 Ef- 
  []
 
 
-Overfull \hbox (43.06644pt too wide) in paragraph at lines 17--17
+Overfull \hbox (43.06644pt too wide) in paragraph at lines 18--18
  \OT1/cmr/m/sc/10 feci[]ente 
  []
 
 
-Overfull \hbox (17.04985pt too wide) in paragraph at lines 17--17
+Overfull \hbox (17.04985pt too wide) in paragraph at lines 18--18
  \OT1/cmr/m/sc/10 Al- 
  []
 
 
-Overfull \hbox (16.54434pt too wide) in paragraph at lines 17--17
+Overfull \hbox (16.54434pt too wide) in paragraph at lines 18--18
  \OT1/cmr/m/sc/10 go- 
  []
 
 
-Overfull \hbox (32.5776pt too wide) in paragraph at lines 17--17
+Overfull \hbox (32.5776pt too wide) in paragraph at lines 18--18
  \OT1/cmr/m/sc/10 ritmes 
  []
 
 ! Undefined control sequence.
-l.24 { \huge
+l.25 { \huge
              \bfseries Effeci\"entie van het Graaf Isomorfisme Probleem}\\[0...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -163,52 +150,65 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 
-Overfull \hbox (52.1178pt too wide) in paragraph at lines 24--24
+Overfull \hbox (52.1178pt too wide) in paragraph at lines 25--25
  []\OT1/cmr/bx/n/10 Effecientie 
  []
 
 
-Overfull \hbox (17.4096pt too wide) in paragraph at lines 24--24
+Overfull \hbox (17.4096pt too wide) in paragraph at lines 25--25
  \OT1/cmr/bx/n/10 van 
  []
 
 
-Overfull \hbox (16.13187pt too wide) in paragraph at lines 24--24
+Overfull \hbox (16.13187pt too wide) in paragraph at lines 25--25
  \OT1/cmr/bx/n/10 het 
  []
 
 
-Overfull \hbox (28.47203pt too wide) in paragraph at lines 24--24
+Overfull \hbox (28.47203pt too wide) in paragraph at lines 25--25
  \OT1/cmr/bx/n/10 Graaf 
  []
 
 
-Overfull \hbox (18.48044pt too wide) in paragraph at lines 24--24
+Overfull \hbox (18.48044pt too wide) in paragraph at lines 25--25
  \OT1/cmr/bx/n/10 Iso- 
  []
 
 
-Overfull \hbox (23.90266pt too wide) in paragraph at lines 24--24
+Overfull \hbox (23.90266pt too wide) in paragraph at lines 25--25
  \OT1/cmr/bx/n/10 mor- 
  []
 
 
-Overfull \hbox (25.77902pt too wide) in paragraph at lines 24--24
+Overfull \hbox (25.77902pt too wide) in paragraph at lines 25--25
  \OT1/cmr/bx/n/10 fisme 
  []
 
 
-Overfull \hbox (28.5693pt too wide) in paragraph at lines 24--24
+Overfull \hbox (28.5693pt too wide) in paragraph at lines 25--25
  \OT1/cmr/bx/n/10 Prob- 
  []
 
 
-Overfull \hbox (23.31934pt too wide) in paragraph at lines 24--24
+Overfull \hbox (23.31934pt too wide) in paragraph at lines 25--25
  \OT1/cmr/bx/n/10 leem 
  []
 
+Missing character: There is no P in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no j in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no c in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no g in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no p in font nullfont!
+Missing character: There is no 1 in font nullfont!
 ! Undefined control sequence.
-l.32 \begin{flushleft} \large
+l.35 \begin{flushleft} \large
                              
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -256,16 +256,16 @@ Missing character: There is no D in font nullfont!
 Missing character: There is no a in font nullfont!
 Missing character: There is no n in font nullfont!
 Missing character: There is no i in font nullfont!
-LaTeX Font Info:    Try loading font information for +cmr on input line 37.
-LaTeX Font Info:    No file cmr.fd. on input line 37.
+LaTeX Font Info:    Try loading font information for +cmr on input line 40.
+LaTeX Font Info:    No file cmr.fd. on input line 40.
 
 LaTeX Font Warning: Font shape `/cmr/m/n' undefined
-(Font)              using `/cmr/m/n' instead on input line 37.
+(Font)              using `/cmr/m/n' instead on input line 40.
 
 ! Corrupted NFSS tables.
 wrong@fontshape ...message {Corrupted NFSS tables}
                                                   error@fontshape else let f...
-l.37 Dani\"e
+l.40 Dani\"e
             l Schut
 This error message was generated by an \errmessage
 command, so I can't give any explicit help.
@@ -274,7 +274,7 @@ and deduce the truth by order and method.
 
 
 LaTeX Font Warning: Font shape `/cmr/m/n' undefined
-(Font)              using `OT1/cmr/m/n' instead on input line 37.
+(Font)              using `OT1/cmr/m/n' instead on input line 40.
 
 Missing character: There is no l in font nullfont!
 Missing character: There is no S in font nullfont!
@@ -283,11 +283,11 @@ Missing character: There is no h in font nullfont!
 Missing character: There is no u in font nullfont!
 Missing character: There is no t in font nullfont!
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 39.
+(Font)              <7> on input line 42.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 39.
+(Font)              <5> on input line 42.
 ! Undefined control sequence.
-l.42 \begin{flushright} \large
+l.45 \begin{flushright} \large
                               
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -316,17 +316,17 @@ Missing character: There is no P in font nullfont!
 Missing character: There is no o in font nullfont!
 Missing character: There is no l in font nullfont!
 
-Overfull \hbox (3276.74998pt too wide) in paragraph at lines 31--46
+Overfull \hbox (3276.74998pt too wide) in paragraph at lines 34--49
  []$[]$ 
  []
 
 
-Overfull \hbox (3276.74998pt too wide) in paragraph at lines 31--46
+Overfull \hbox (3276.74998pt too wide) in paragraph at lines 34--49
  $[]$ 
  []
 
 ! Undefined control sequence.
-l.52 {\large
+l.55 {\large
              \today}\\[3cm]
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -335,7 +335,7 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 ! Undefined control sequence.
-l.52 {\large \today
+l.55 {\large \today
                    }\\[3cm]
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -350,7 +350,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.52 {\large \today}\\
+l.55 {\large \today}\\
                       [3cm]
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -363,7 +363,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.56 \end{titlepage}
+l.59 \end{titlepage}
                     
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
