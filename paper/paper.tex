@@ -8,6 +8,8 @@
 \usepackage{natbib} 		% Voor de stijl van het document
 \usepackage{amsmath} 		% Nodig voor het gebruik van bepaalde wiskunde-elementen
 \usepackage{wrapfig}		% Nodig voor het 'wrappen' van de tekst om de afbeelding heen
+\usepackage{algorithmic}
+\usepackage[]{algorithm2e}
 
 \setlength\parindent{0pt} 	% Haalt indentaties van paragrafen weg
 
@@ -82,7 +84,22 @@ We controleren de grafen van tevoren op de volgende eigenschappen:
 \subsubsection{Grootte}
 De grootte van de graaf, d.w.z. het aantal vertices en het aantal edges. Als er in de lijst één graaf is met een ander aantal vertices of edges dan de andere grafen, kan deze graaf uit de lijst gehaald worden. Hij kan dan niet meer isomorf zijn met een andere graaf.
 \subsubsection{Connectiviteit}
-Als een graaf als enige in de lijst niet ‘connected’ is (en de andere grafen dus wel), kan deze ook geëlimineerd worden. Met een combinatie van deze eerste twee eigenschappen wordt ook gelijk gecontroleerd op het feit of een graaf een boom is of niet. Als twee ‘connected’ grafen een gelijk aantal vertices en edges hebben, zijn ze namelijk beide een boom of beide niet. Hier hoeft dus niet meer op gecontroleerd te worden.
+Als een graaf als enige in de lijst niet ‘connected’ is (en de andere grafen dus wel), kan deze ook geëlimineerd worden. Met een combinatie van deze eerste twee eigenschappen wordt ook gelijk gecontroleerd op het feit of een graaf een boom is of niet. Als twee ‘connected’ grafen een gelijk aantal vertices en edges hebben, zijn ze namelijk beide een boom of beide niet. Hier hoeft dus niet meer op gecontroleerd te worden. De pseudo-code voor het testen op connectiviteit staat hieronder:\\
+
+\begin{algorithm}[H]
+	\KwData{Een lijst van grafen}
+	\KwResult{Een lijst van grafen die mogelijk isomorf zijn}
+	resultaat = lege lijst\\
+	\For{Elke graaf i in de lijst}{
+		\For{Elke andere graaf j in de lijst}{
+			\If{Grafen i en j zijn beide connected}{
+				Voeg i en j toe aan het resultaat
+			}
+		}
+	}
+	\Return resultaat
+\end{algorithm}
+
 \subsubsection{False twins}
 FALSE TWINS
 

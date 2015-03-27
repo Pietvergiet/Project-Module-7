@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2015.3.22)  27 MAR 2015 12:05
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2015.3.22)  27 MAR 2015 12:34
 entering extended mode
 **C:/Users/Admin/Documents/Universiteit/Year*2*Module*2A*-*Discrete*Structures*
 &*Efficient*Algorithms/Project/Project-Module-7/paper/paper.tex
@@ -138,33 +138,97 @@ LaTeX Info: Redefining \] on input line 2666.
 \WF@everypar=\toks20
 Package: wrapfig 2003/01/31  v 3.6
 )
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\algorithms\algorithmic.sty"
+Package: algorithmic 2009/08/24 v0.1 Document Style `algorithmic'
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\ifthen.sty"
+Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
+)
+\c@ALC@unique=\count102
+\c@ALC@line=\count103
+\c@ALC@rem=\count104
+\c@ALC@depth=\count105
+\ALC@tlm=\skip48
+\algorithmicindent=\skip49
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\algorithm2e\algorithm2e.sty"
+Package: algorithm2e 2013/01/06 v5.00 algorithms environments
+\c@AlgoLine=\count106
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\tools\xspace.sty"
+Package: xspace 2009/10/20 v1.13 Space after command names (DPC,MH)
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\ltxmisc\relsize.sty"
+Package: relsize 2003/07/04 ver 3.1
+)
+********************************************************
+Package `algorithm2e' Release 5.0 -- january 06 2013 --
+- algorithm2e-announce@lirmm.fr mailing list for announcement about releases
+- algorithm2e-discussion@lirmm.fr mailing list for discussion about package
+subscribe by emailing sympa@lirmm.fr with 'subscribe <list> <firstname name>'
+- Author: Christophe Fiorio (cfiorio@um2.fr)
+********************************************************
+\skiptotal=\skip50
+\skiplinenumber=\skip51
+\skiprule=\skip52
+\skiphlne=\skip53
+\skiptext=\skip54
+\skiplength=\skip55
+\algomargin=\skip56
+\skipalgocfslide=\skip57
+\algowidth=\dimen116
+\inoutsize=\dimen117
+\inoutindent=\dimen118
+\interspacetitleruled=\dimen119
+\interspacealgoruled=\dimen120
+\interspacetitleboxruled=\dimen121
+\algocf@inoutbox=\box29
+\algocf@inputbox=\box30
+\AlCapSkip=\skip58
+\AlCapHSkip=\skip59
+\algoskipindent=\skip60
+\algocf@nlbox=\box31
+\algocf@hangingbox=\box32
+\algocf@untilbox=\box33
+\algocf@skipuntil=\skip61
+\algocf@capbox=\box34
+\algoheightruledefault=\skip62
+\algoheightrule=\skip63
+\algotitleheightruledefault=\skip64
+\algotitleheightrule=\skip65
+\c@algocfline=\count107
+\c@algocfproc=\count108
+\c@algocf=\count109
+\algocf@algoframe=\box35
+\algocf@algobox=\box36
+)
 ("C:\Users\Admin\Documents\Universiteit\Year 2 Module 2A - Discrete Structures 
 & Efficient Algorithms\Project\Project-Module-7\paper\paper.aux")
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\context\base\supp-pdf.mkii"
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count102
-\scratchdimen=\dimen116
-\scratchbox=\box29
-\nofMPsegments=\count103
-\nofMParguments=\count104
+\scratchcounter=\count110
+\scratchdimen=\dimen122
+\scratchbox=\box37
+\nofMPsegments=\count111
+\nofMParguments=\count112
 \everyMPshowfont=\toks21
-\MPscratchCnt=\count105
-\MPscratchDim=\dimen117
-\MPnumerator=\count106
-\makeMPintoPDFobject=\count107
+\MPscratchCnt=\count113
+\MPscratchDim=\dimen123
+\MPnumerator=\count114
+\makeMPintoPDFobject=\count115
 \everyMPtoPDFconversion=\toks22
 )
 ("C:\Users\Admin\Documents\Universiteit\Year 2 Module 2A - Discrete Structures 
@@ -175,22 +239,22 @@ LaTeX Font Info:    ... okay on input line 18.
 & Efficient Algorithms\Project\Project-Module-7\paper\paper.toc")
 \tf@toc=\write3
  [1]
-Underfull \hbox (badness 10000) in paragraph at lines 37--38
+Underfull \hbox (badness 10000) in paragraph at lines 39--40
 
  []
 
 <img/isomorphic.png, id=14, 501.875pt x 351.3125pt>
 File: img/isomorphic.png Graphic file (type png)
  <use img/isomorphic.png>
-Package pdftex.def Info: img/isomorphic.png used on input line 41.
+Package pdftex.def Info: img/isomorphic.png used on input line 43.
 (pdftex.def)             Requested size: 165.59853pt x 115.91739pt.
 
-Underfull \hbox (badness 1178) in paragraph at lines 46--47
+Underfull \hbox (badness 1178) in paragraph at lines 48--49
 \OT1/cmr/m/n/10 er-naast. Voor elke node van de
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 46--47
+Underfull \hbox (badness 10000) in paragraph at lines 48--49
 
  []
 
@@ -201,7 +265,7 @@ Missing character: There is no â in font cmr10!
 Missing character: There is no € in font cmr10!
 Missing character: There is no ™ in font cmr10!
 
-Underfull \hbox (badness 10000) in paragraph at lines 52--53
+Underfull \hbox (badness 10000) in paragraph at lines 54--55
 
  []
 
@@ -234,27 +298,33 @@ Missing character: There is no ˜ in font cmr10!
 Missing character: There is no â in font cmr10!
 Missing character: There is no € in font cmr10!
 Missing character: There is no ™ in font cmr10!
- [5] [6] [7]
+
+Underfull \hbox (badness 10000) in paragraph at lines 87--88
+
+ []
+
+[5] [6] [7] [8]
 ("C:\Users\Admin\Documents\Universiteit\Year 2 Module 2A - Discrete Structures 
 & Efficient Algorithms\Project\Project-Module-7\paper\paper.aux") ) 
 Here is how much of TeX's memory you used:
- 2135 strings out of 493921
- 27827 string characters out of 3144876
- 85286 words of memory out of 3000000
- 5442 multiletter control sequences out of 15000+200000
- 7468 words of font info for 27 fonts, out of 3000000 for 9000
+ 3639 strings out of 493921
+ 48926 string characters out of 3144876
+ 129782 words of memory out of 3000000
+ 6927 multiletter control sequences out of 15000+200000
+ 7814 words of font info for 28 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
- 27i,5n,20p,826b,244s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 27i,15n,20p,826b,327s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Program 
 Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Program Fi
 les (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Program File
 s (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><C:/Program Files
  (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files (x
 86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Files (x86)
-/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on paper.pdf (8 pages, 137183 bytes).
+/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Program Files (x86)/M
+iKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti12.pfb>
+Output written on paper.pdf (9 pages, 151860 bytes).
 PDF statistics:
- 54 PDF objects out of 1000 (max. 8388607)
+ 61 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  6 words of extra memory for PDF output out of 10000 (max. 10000000)
 
