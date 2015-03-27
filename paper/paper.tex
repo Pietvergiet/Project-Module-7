@@ -43,9 +43,9 @@ Het Graaf Isomorfisme probleem is het probleem dat gaat over het vaststellen of 
 \caption{Twee isomorfe grafen}
 \end{wrapfigure}
 
-Hoewel het op het eerste gezicht niet zo lijkt te zijn, geldt er een isomorfisme tussen de twee grafen hiernaast. Voor elke node van de eerste graaf geldt dat de buren daarvan exact hetzelfde zijn als de buren van diezelfde node in de tweede graaf.\\
+Hoewel het op het eerste gezicht niet zo lijkt te zijn, geldt er een isomorfisme tussen de twee grafen hiernaast. Voor elke vertice van de eerste graaf geldt dat de buren daarvan exact hetzelfde zijn als de buren van diezelfde vertice in de tweede graaf.\\
 
-Een methode om isomorfisme vast te kunnen stellen tussen deze twee grafen is ‘color refinement’. Dit algoritme kent kleuren toe aan de verschillende nodes, die een indicatie geeft welke buren deze node heeft. De groene node bijvoorbeeld heeft in de eerste graaf drie buren: de lichtblauwe, de roze en de gele. Dit geldt ook voor de tweede graaf. Als dit voor elke node in de twee grafen geldt, zijn ze isomorf. Dit kan als volgt gecontroleerd worden: wanneer de lijst met alle kleuren (zonder duplicaten) van de eerste graaf gelijk is aan die van de tweede graaf, kan er gezegd worden dat ze isomorf zijn ten opzichte van elkaar. In de afbeelding hierboven is dat ook het geval.
+Een methode om isomorfisme vast te kunnen stellen tussen deze twee grafen is ‘color refinement’. Dit algoritme kent kleuren toe aan de verschillende vertices, die een indicatie geeft welke buren deze vertice heeft. De groene vertice bijvoorbeeld heeft in de eerste graaf drie buren: de lichtblauwe, de roze en de gele. Dit geldt ook voor de tweede graaf. Als dit voor elke vertice in de twee grafen geldt, zijn ze isomorf. Dit kan als volgt gecontroleerd worden: wanneer de lijst met alle kleuren (zonder duplicaten) van de eerste graaf gelijk is aan die van de tweede graaf, kan er gezegd worden dat ze isomorf zijn ten opzichte van elkaar. In de afbeelding hierboven is dat ook het geval.
 Dit is een goede manier om isomorfisme te controleren, omdat het op het eerste gezicht bij deze afbeelding lijkt alsof de twee grafen niet isomorf zijn. Ook is deze methode nuttig bij grotere grafen met veel nodes.
 
 \subsection{Relevantie van het GI probleem}
@@ -128,11 +128,13 @@ We hebben 3 preprocessing stappen gemaakt.
 \item Als $|E(G)|\neq|E(H)|$ dan kan er geen isomorfisme bestaan.
 \item Als een graaf wel `connected' is en de andere niet, dan kan er geen isomorfisme bestaan.
 \end{enumerate}
+
 Nu volgt het bewijs dat twee grafen niet isomorf zijn als aan een van de volgende 3 voorwaarden wordt voldaan:
 \begin{enumerate}
 \item Als $|V(G)|\neq|V(H)|$ dan kan je geen bijectie defini\"eren, want een bijectie moet one-to-one zijn, en daarvoor moeten beide sets evenveel elementen bevatten.
 \item Als $|E(G)|\neq|E(H)|$ dan is er een tegenspraak met de eis dat $uv\in E(G)\Leftrightarrow f(u)f(v)\in E(H)$.
-\item Neem aan dat $H$ connected is en $G$ niet. Zonder verlies van algemeenheid kunnen we aannemen dat $G$ bestaat uit twee delen die beide connected zijn, noem ze $G_1$ en $G_2$.\\
+\item Neem aan dat $H$ connected is en $G$ niet. Zonder verlies van algemeenheid kunnen we aannemen dat $G$ bestaat uit twee delen die beide connected zijn, noem ze $G_1$ en $G_2$.
+
 Neem nu aan dat er een isomorfisme tussen $G$ en $H$ bestaat. Deel $H$ op in twee delen, $H_1$ en $H_2$, zodanig dat $\forall g_1\in V(G_1)$ geldt dat $f(g_1)\in V(H_1)$ en $\forall g_2\in V(G_2)$ geldt dat $f(g_2)\in V(H_2)$.
 Dan $\exists g_1\in G_1$ en $g_2\in G_2$ zodanig dat $g_1g_2\in E(G)$, terwijl $f(g_1)f(g_2)\notin E(H)$. Dit levert een tegenspraak op.\\
 Dus de grafen moeten beide wel of beide niet connected zijn.
