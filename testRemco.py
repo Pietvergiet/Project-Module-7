@@ -210,15 +210,19 @@ def getNeighborsColors(node, nodes):
 
 # 	return result
 
-# Gaat verder kleuren toekennen aan de graven tot het niet meer mogelijk is.
 def colorRefinement(colors, nodes):
+	rColors, rNodes = colorRefinement(colors, nodes, -1, -1)
+	return rColors, rNodes
+
+
+# Gaat verder kleuren toekennen aan de graven tot het niet meer mogelijk is.
+def colorRefinement_old(colors, nodes):
 	crColors = copy.deepcopy(colors)
 	for i in range(len(crColors)):				# loop through all the colors
 		nodesOfColor=copy.deepcopy(crColors[i])				# create a copy of the nodesOfColor
 		first = True
 
 		while(len(nodesOfColor) != 0):					# while nodesOfColor have to be recolored
-			# print("MEANWHILE!!!!!!!", i, len(nodesOfColor))
 			if not first:						# if not the first run ----- in the first run the first node doesn't need a new color. After the first run, it does. First node has to be a unique color
 				crColors[i].remove(nodesOfColor[0])			# remove first node
 				nodes[nodesOfColor[0]] = len(crColors)					# give first node new color
@@ -230,7 +234,6 @@ def colorRefinement(colors, nodes):
 				if getNeighborsColors(nodesOfColor[0], nodes) == getNeighborsColors(nodesOfColor[q], nodes):	# if colors of the neighbors of 0 and q are the same
 					crColors[i].remove(nodesOfColor[q])	
 					nodes[nodesOfColor[q]] = nodes[nodesOfColor[0]]			# remove node q from old color index
-					# nodesOfColor[q].colornum = nodesOfColor[0].colornum					# give node q same color as node 0
 					crColors[nodes[nodesOfColor[0]]].append(nodesOfColor[q])				# add node q to new color index
 					colorednodes.append(nodesOfColor[q])							# add node q to list with recolored nodes
 
@@ -239,11 +242,43 @@ def colorRefinement(colors, nodes):
 
 			while [] in crColors:			# remove empty lists in the colorlist
 				crColors.remove([])
-			# print("MEANWHILE!!!!!!!222", i, len(nodesOfColor))
-	# print("YOLOSWAGGINGSLOLROFLLMAOCOPTER", crColors, colors)
+
 	if(crColors != colors):					# while the colors have changed in this function, do colorRefinement again
-		# print("OPNIEUW!!")
 		crColors, nodes = colorRefinement(crColors, nodes)
+
+	return crColors, nodes
+
+# Gaat verder kleuren toekennen aan de graven tot het niet meer mogelijk is.
+def colorRefinement(colors, nodes, graph1, graph2):
+	crColors = copy.deepcopy(colors)
+	for i in range(len(crColors)):				# loop through all the colors
+		nodesOfColor=copy.deepcopy(crColors[i])				# create a copy of the nodesOfColor
+		first = True
+
+		while(len(nodesOfColor) != 0):					# while nodesOfColor have to be recolored
+			if not first:						# if not the first run ----- in the first run the first node doesn't need a new color. After the first run, it does. First node has to be a unique color
+				crColors[i].remove(nodesOfColor[0])			# remove first node
+				nodes[nodesOfColor[0]] = len(crColors)					# give first node new color
+				crColors.append([nodesOfColor[0]])							# add first node to new color index
+			first = False
+			colorednodes=[nodesOfColor[0]]									# node 0 is always recolored
+
+			for q in range(1, len(nodesOfColor)): 									# loop through all the nodesOfColor that have to be recolored
+				if getNeighborsColors(nodesOfColor[0], nodes) == getNeighborsColors(nodesOfColor[q], nodes):	# if colors of the neighbors of 0 and q are the same
+					crColors[i].remove(nodesOfColor[q])	
+					nodes[nodesOfColor[q]] = nodes[nodesOfColor[0]]			# remove node q from old color index
+					crColors[nodes[nodesOfColor[0]]].append(nodesOfColor[q])				# add node q to new color index
+					colorednodes.append(nodesOfColor[q])							# add node q to list with recolored nodes
+
+			for x in range(len(colorednodes)):			# loop through all recolored nodes
+				nodesOfColor.remove(colorednodes[x])			# remove recolored nodes from nodes that need to be recolored
+
+			while [] in crColors:			# remove empty lists in the colorlist
+				crColors.remove([])
+
+	if(crColors != colors):					# while the colors have changed in this function, do colorRefinement again
+		crColors, nodes = colorRefinement(crColors, nodes, graph1, graph2)
+
 	return crColors, nodes
 
 
