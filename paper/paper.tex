@@ -104,7 +104,22 @@ Als een graaf als enige in de lijst niet ‘connected’ is (en de andere grafen
 FALSE TWINS
 
 \subsection{Validatie preprocessing methoden}
---Nog in te vullen--
+
+Een isomorfisme is een bijectieve afbeelding $f:V(G)\rightarrowV(H)$ zodanig dat \forall $u,v\inV(G)$ er geldt dat $uv\inE(G)\Leftrightarrowf(u)f(v)\inE(H)$.
+
+We hebben 3 preprocessing stappen gemaakt.
+1. Als $|V(G)|\neq|V(H)|$ dan kan er geen isomorfisme bestaan.
+2. Als $|E(G)|\neq|E(H)|$ dan kan er geen isomorfisme bestaan.
+3. Als een graaf wel `connected' is en de andere niet, dan kan er geen isomorfisme bestaan.
+
+Nu volgt het bewijs dat twee grafen niet isomorf zijn als aan een van deze 3 voorwaarden niet wordt voldaan.
+Bewijs:
+1. Als $|V(G)|\neq|V(H)|$ dan kan je geen bijectie defini\"eren, want een bijectie moet one-to-one zijn, en daarvoor moeten beide sets evenveel elementen bevatten.
+2. Als $|E(G)|\neq|E(H)|$ dan is er een tegenspraak met de eis dat $uv\inE(G)\Leftrightarrowf(u)f(v)\inE(H)$.
+3. Neem aan dat $H$ connected is en $G$ niet. Zonder verlies van algemeenheid kunnen we aannemen dat $G$ bestaat uit twee delen die beide connected zijn, noem ze $G_1$ en $G_2$.
+Neem nu aan dat er een isomorfisme tussen $G$ en $H$ bestaat. Deel $H$ op in twee delen, $H_1$ en $H_2$, zodanig dat \forall $g_1\inV(G_1)$ geldt dat $f(g_1)\inV(H_1)$ en \forall $g_2\inV(G_2)$ geldt dat $f(g_2)\inV(H_2)$.
+Dan \exists $g_1$\in$G_1$ en $g_2$\in$G_2$ zodanig dat $g_1g_2\inE(G)$, terwijl $f(g_1)f(g_2)\notinE(H)$. Dit levert een tegenspraak op.
+
 \pagebreak
 
 %----------------------------------------------------------------------------------------
