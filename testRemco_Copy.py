@@ -278,7 +278,7 @@ def merge_sort(alist):
 ## MAIN
 
 
-G=loadGraphs('week1/crefBM_4_7.grl')
+G=loadGraphs('week2/cubes4.grl')
 #print("aantal graphs: ", len(G))-
 H = createDisjointUnion(G)
 nbs = H.V()[0].nbs()
