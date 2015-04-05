@@ -75,6 +75,6 @@ def checkConnected(graphs):
 	return result
 
 
-G = loadGraphs('week2/test.grl')
-checkConnected(G)
-# print(G)
+# G = loadGraphs('week2/test.grl')
+# checkConnected(G)
+# # print(G)

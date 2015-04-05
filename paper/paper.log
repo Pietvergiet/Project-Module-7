@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2015.3.22)  5 APR 2015 13:50
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2015.3.22)  5 APR 2015 14:32
 entering extended mode
 **C:/Users/Admin/Documents/Universiteit/Year*2*Module*2A*-*Discrete*Structures*
 &*Efficient*Algorithms/Project/Project-Module-7/paper/paper.tex
@@ -201,6 +201,10 @@ subscribe by emailing sympa@lirmm.fr with 'subscribe <list> <firstname name>'
 \c@algocf=\count109
 \algocf@algoframe=\box35
 \algocf@algobox=\box36
+) ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\cite\cite.sty"
+LaTeX Info: Redefining \cite on input line 302.
+LaTeX Info: Redefining \nocite on input line 332.
+Package: cite 2015/02/27  v 5.5
 )
 ("C:\Users\Admin\Documents\Universiteit\Year 2 Module 2A - Discrete Structures 
 & Efficient Algorithms\Project\Project-Module-7\paper\paper.aux"
@@ -214,24 +218,24 @@ See the natbib package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.20 ...mand\NAT@force@numbers{}\NAT@force@numbers
+l.18 ...mand\NAT@force@numbers{}\NAT@force@numbers
                                                   
 Check the bibliography entries for non-compliant syntax,
 or select author-year BibTeX style, e.g. plainnat
 
 )
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
  ("C:\Program Files (x86)\MiKTeX 2.9\tex\context\base\supp-pdf.mkii"
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count110
@@ -254,17 +258,17 @@ LaTeX Font Info:    ... okay on input line 19.
 & Efficient Algorithms\Project\Project-Module-7\paper\paper.toc")
 \tf@toc=\write3
  [1] [2]
-Underfull \hbox (badness 10000) in paragraph at lines 44--45
+Underfull \hbox (badness 10000) in paragraph at lines 45--46
 
  []
 
 <img/isomorphic.png, id=17, 501.875pt x 351.3125pt>
 File: img/isomorphic.png Graphic file (type png)
  <use img/isomorphic.png>
-Package pdftex.def Info: img/isomorphic.png used on input line 48.
+Package pdftex.def Info: img/isomorphic.png used on input line 50.
 (pdftex.def)             Requested size: 165.59853pt x 115.91739pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 53--54
+Underfull \hbox (badness 10000) in paragraph at lines 55--56
 
  []
 
@@ -275,20 +279,20 @@ Missing character: There is no â in font cmr10!
 Missing character: There is no € in font cmr10!
 Missing character: There is no ™ in font cmr10!
 
-Overfull \hbox (8.47285pt too wide) in paragraph at lines 59--60
+Overfull \hbox (8.47285pt too wide) in paragraph at lines 61--62
 \OT1/cmr/m/n/10 kan wor-den, bli-jft de vraag hoe rel-e-vant dit prob-leem is v
 oor de Dis-crete Wiskunde.
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 59--60
+Underfull \hbox (badness 10000) in paragraph at lines 61--62
 
  []
 
 [3 <C:/Users/Admin/Documents/Universiteit/Year 2 Module 2A - Discrete Structure
 s & Efficient Algorithms/Project/Project-Module-7/paper/img/isomorphic.png>]
 [4]
-Underfull \hbox (badness 10000) in paragraph at lines 74--75
+Underfull \hbox (badness 10000) in paragraph at lines 76--77
 
  []
 
@@ -298,7 +302,7 @@ Missing character: There is no © in font cmr10!
 Missing character: There is no Ã in font cmr10!
 Missing character: There is no © in font cmr10!
 
-Underfull \hbox (badness 10000) in paragraph at lines 92--93
+Underfull \hbox (badness 10000) in paragraph at lines 94--95
 
  []
 
@@ -315,41 +319,14 @@ Missing character: There is no â in font cmr10!
 Missing character: There is no € in font cmr10!
 Missing character: There is no ™ in font cmr10!
 
-Underfull \hbox (badness 10000) in paragraph at lines 111--112
+Underfull \hbox (badness 10000) in paragraph at lines 113--114
 
  []
 
 [6]
-
-! LaTeX Error: There's no line here to end.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.126 \vspace
-             {5mm}
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 128--129
+Underfull \hbox (badness 10000) in paragraph at lines 130--131
 
  []
-
-
-! LaTeX Error: There's no line here to end.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.132 ...rue als hij connected is, anders False}\\
-                                                  
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
 
 Missing character: There is no â in font cmr10!
 Missing character: There is no € in font cmr10!
@@ -364,25 +341,25 @@ Missing character: There is no â in font cmr10!
 Missing character: There is no € in font cmr10!
 Missing character: There is no ™ in font cmr10!
 [7]
-Underfull \hbox (badness 10000) in paragraph at lines 158--159
+Underfull \hbox (badness 10000) in paragraph at lines 159--160
 
  []
 
 [8]
-Overfull \hbox (12.63951pt too wide) in paragraph at lines 185--186
+Overfull \hbox (12.63951pt too wide) in paragraph at lines 186--187
 \OT1/cmr/m/n/10 Natuurlijk gaan we ons color refinement-algoritme en onze prepr
 ocessing-algoritmes
  []
 
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 187.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 188.
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\omscmr.fd"
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 187.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 188.
 
-Overfull \hbox (5.26912pt too wide) in paragraph at lines 187--188
+Overfull \hbox (5.26912pt too wide) in paragraph at lines 188--189
 \OT1/cmr/m/n/10 con-trol-eren op au-to-mor-fisme. Dit zijn ver-plichte on-derde
 -len van het project,
  []
@@ -392,31 +369,27 @@ Missing character: There is no Ã in font cmr10!
 Missing character: There is no ¶ in font cmr10!
  [11]
 ("C:\Users\Admin\Documents\Universiteit\Year 2 Module 2A - Discrete Structures 
-& Efficient Algorithms\Project\Project-Module-7\paper\paper.aux"
-
-Package natbib Warning: Citation(s) may have changed.
-(natbib)                Rerun to get citations correct.
-
-) ) 
+& Efficient Algorithms\Project\Project-Module-7\paper\paper.aux") ) 
 Here is how much of TeX's memory you used:
- 3665 strings out of 493921
- 49343 string characters out of 3144876
- 129839 words of memory out of 3000000
- 6950 multiletter control sequences out of 15000+200000
+ 3741 strings out of 493921
+ 50385 string characters out of 3144876
+ 130748 words of memory out of 3000000
+ 7023 multiletter control sequences out of 15000+200000
  7814 words of font info for 28 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
  27i,18n,23p,2444b,366s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb
-><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><
-C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><C
-:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/
-Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Pro
-gram Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Progra
-m Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Program Fi
-les (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program File
-s (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Program Files 
-(x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on paper.pdf (12 pages, 194298 bytes).
+<C:/Program 
+Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Program Fi
+les (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Program File
+s (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><C:/Program Files
+ (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files (
+x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files (x86
+)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Files (x86)/M
+iKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Program Files (x86)/MiKTe
+X 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files (x86)/MiKTeX 
+2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Program Files (x86)/MiKTeX 2.
+9/fonts/type1/public/amsfonts/cm/cmti12.pfb>
+Output written on paper.pdf (12 pages, 194313 bytes).
 PDF statistics:
  82 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
