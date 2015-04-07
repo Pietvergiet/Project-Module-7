@@ -262,7 +262,9 @@ def colorRefinement(colors, nodes, graph1, graph2):
 			allowedNotes.append(i+(nrOfNodes*graph1))
 			allowedNotes.append(i+(nrOfNodes*graph2))
 	crColors = copy.deepcopy(colors)
-	# print(crColors, allowedNotes)
+	# print(allowedNotes)
+	# log.write(str(allowedNotes) + "\n")
+	print(crColors)
 	for i in range(len(crColors)):				# loop through all the colors
 		nodesOfColor=copy.deepcopy(crColors[i])				# create a copy of the nodesOfColor
 		first = True
@@ -273,6 +275,7 @@ def colorRefinement(colors, nodes, graph1, graph2):
 			# print(i, nodesOfColor)
 			while not allowed and n < len(nodesOfColor):
 				# print(n, nodesOfColor[n])
+				
 				# inp = input("-")
 				if nodesOfColor[n] in allowedNotes:
 					allowed = True
@@ -283,6 +286,8 @@ def colorRefinement(colors, nodes, graph1, graph2):
 			# if(n == 14):
 				# inp = input("-")
 			if allowed:
+				# log.write(str(n) + " ")
+				# log.write(str(nodesOfColor[n]) + str(nodesOfColor) + "\n")
 				# print("in allowed")
 				if not first:						# if not the first run ----- in the first run the first node doesn't need a new color. After the first run, it does. First node has to be a unique color
 					crColors[i].remove(nodesOfColor[n])			# remove first node
@@ -296,6 +301,7 @@ def colorRefinement(colors, nodes, graph1, graph2):
 					# print(q, nodesOfColor[q], allowedNotes)
 					if nodesOfColor[q] in allowedNotes and nodesOfColor[q] != nodesOfColor[n]:
 						if getNeighborsColors(nodesOfColor[n], nodes) == getNeighborsColors(nodesOfColor[q], nodes):	# if colors of the neighbors of 0 and q are the same
+							print("same nbs", nodesOfColor[n], nodesOfColor[q])
 							crColors[i].remove(nodesOfColor[q])	
 							nodes[nodesOfColor[q]] = nodes[nodesOfColor[n]]			# remove node q from old color index
 							crColors[nodes[nodesOfColor[n]]].append(nodesOfColor[q])				# add node q to new color index
@@ -316,10 +322,12 @@ def colorRefinement(colors, nodes, graph1, graph2):
 								nodes[j] -= 1
 			else:
 				noneAllowed = True
+	print(crColors)
+
 
 
 	if(crColors != colors):					# while the colors have changed in this function, do colorRefinement again
-		# print("Redo ClrRef")
+		print("Redo ClrRef")
 		crColors, nodes = colorRefinement(crColors, nodes, graph1, graph2)
 
 	return crColors, nodes
@@ -466,12 +474,17 @@ def individualRef_2(colors, nodes):
 	# for i in range(1, 2):
 	i = 1
 	done = False
+	# log.write("G: ")
+	# log.write(str(graphsWithDup) + "\n")
 	# print("G:", graphsWithDup)
 	# print(rColors)
 	while i < len(graphsWithDup.keys()) and not done:
 	# for i in range(1, len(graphsWithDup.keys())):
 		g = list(graphsWithDup.keys())[i]
-		# print("COMPARE:", g, list(graphsWithDup.keys())[0])
+		# print("COMPARE:", list(graphsWithDup.keys())[0], g)
+		# log.write("COMPARE: ")
+		# log.write(str(list(graphsWithDup.keys())[0]) + " ")
+		# log.write(str(g) + "\n")
 		# print("g:", g)
 		j = 0
 		while j < len(graphsWithDup[g]) and not done:
@@ -480,8 +493,9 @@ def individualRef_2(colors, nodes):
 			# print("rN", rNodes)
 			copyColors = copy.deepcopy(rColors)
 			copyNodes = copy.deepcopy(rNodes)
-
+			
 			g0 = list(graphsWithDup.keys())[0]				# RECOLOR FIRST NODE OF FIRST GRAPH
+			
 			node = graphsWithDup[g0][0]
 			rColors[rNodes[node]].remove(node)
 			rNodes[node] = len(rColors)
@@ -495,7 +509,7 @@ def individualRef_2(colors, nodes):
 			rColors[rNodes[node]].remove(node)
 			rNodes[node] = len(rColors)-1
 			rColors[rNodes[node]].append(node)
-			# print(rColors)
+
 			# print(rNodes[graphsWithDup[g][j]], rNodes)
 
 			# if list(graphsWithDup.keys()) == [1, 2]:
@@ -503,7 +517,17 @@ def individualRef_2(colors, nodes):
 			# print("hallo", i)
 			# print("1", rColors)
 			# print(g)
+			if graphsWithDup[g0][0] == 24:
+				inp = input("hi")
+				print("Mapping ", graphsWithDup[g0][0], " to ", node)
+				print(rColors)
+				print("---")
+			# log.write("Mapping " + str(graphsWithDup[g0][0]) + " to " + str(node) + "\n")
 			rColors, rNodes = colorRefinement(rColors, rNodes, list(graphsWithDup.keys())[0], g)
+			if graphsWithDup[g0][0] == 24:
+				print(rColors)
+			# if graphsWithDup[g0][0] == 24:
+				# print(str(rColors)+"\n")
 			# if list(graphsWithDup.keys()) == [1, 2]:
 			# inp = input("hi")
 			# print("2", rColors)
@@ -710,13 +734,23 @@ def giveColor(graph, nodes):
 
 ## MAIN
 
+global log
+log = open("log.txt", "w")
 global G
 # G = loadGraphs('week1/crefBM_4_7.grl')
+<<<<<<< HEAD
 # G=loadGraphs('week2/products72.grl')
 G=loadGraphs('week2/torus24.grl')
 #print("aantal graphs: ", len(G))-
 # global disjointGraph
 # disjointGraph = createDisjointUnion(G)
+=======
+G=loadGraphs('week2/torus24.grl')
+# G=loadGraphs('week3/cycles175.grl')
+#print("aantal graphs: ", len(G))-
+global disjointGraph
+disjointGraph = createDisjointUnion(G)
+>>>>>>> e22d3a6f4845ce3cb6cc60adc7e2f4ae6c5c2e5e
 # nbs = disjointGraph.V()[0].nbs()
 #print(disjointGraph[nbs[0]._label])
 # graphIO.writeDOT(G[0], 'graph1.dot')
@@ -753,8 +787,29 @@ print("GRAPH 0: ", automorphismCount(G[1]))
 # 	print("Individual Refinement done")
 # 	printIsomorphs(checkIsomorph(nodes))
 
+<<<<<<< HEAD
 # Q = giveColor(disjointGraph, nodes)
 # graphIO.writeDOT(Q, 'graph2.dot')
+=======
+
+
+colors, nodes = setColorAsNrNeighbors2(G)
+print("Nodes colors as Nr of Neighbors")
+colors, nodes = colorRefinement(colors, nodes, -1, -1)
+print("Color Refinement done")
+Q = giveColor(disjointGraph, nodes)
+graphIO.writeDOT(Q, 'graph.dot')
+# print(colors, nodes)
+printIsomorphs(checkIsomorph(nodes))
+if len(checkIsomorph(nodes)[0]) != 0:
+	colors, nodes = individualRef_2(colors, nodes)
+	print("Individual Refinement done1")
+	printIsomorphs(checkIsomorph(nodes))
+
+log.close()
+Q = giveColor(disjointGraph, nodes)
+graphIO.writeDOT(Q, 'graph2.dot')
+>>>>>>> e22d3a6f4845ce3cb6cc60adc7e2f4ae6c5c2e5e
 
 
 # <<<<<<< HEAD
