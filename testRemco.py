@@ -552,129 +552,14 @@ def individualRef_2(colors, nodes):
 	# print("Ret2")
 	return rColors, rNodes	
 
-# def individualRef(colors, nodes):
-	
-# 	isDone = False
-# 	print("COLORS: ", colors)
-# 	rColors = copy.deepcopy(colors)
-# 	rNodes = copy.deepcopy(nodes)
-# 	# print(colorlist)
-# 	while(not isDone):
-# # <<<<<<< HEAD
-# 		# for i in range(nrOfGraphs):
-# 		# for i in range(1):
-# 		# for i in range(1):
-# 		i = 0
-# 		colorlist = getColors(rNodes)
-# 		# print(i, colorlist)
-# 		if len(colorlist[i]) != len(set(colorlist[i])) :					# check for a dub
-# 			# print(colorlist[i], set(colorlist[i]))
+def automorphismCount(graph):
+	G = [graph, copy.deepcopy(graph)]
+	colors = []
+	nodes = []
+	colors, nodes = setColorAsNrNeighbors2(G)
+	colors, nodes = colorRefinement(colors, nodes, -1, -1)
+	genSet = individualRef(colors, nodes, 1) # Hier is waar de magie gebeurt :S
 
-# 			# print("dub i", i)
-# 			j = 0
-# 			dupColor = -1
-# 			# print(colorlist[i])
-# 			while dupColor == -1 and j < len(colorlist[i]) -1:			# finding dup color
-# 				if colorlist[i][j] == colorlist[i][j+1]:
-# 					dupColor = colorlist[i][j]
-# 				j += 1
-
-# 			# print(dupColor, rColors)
-# 			# print("YOLO",rColors[dupColor])
-# 			graphsWithDup = {}
-# 			for x in range(len(rColors[dupColor])):
-# 				# print("rcolors: ", rColors, rColors[dupColor])
-# 				g = (int(rColors[dupColor][x])//nrOfNodes)
-# 				graphsWithDup[g] = []
-# 			for x in range(len(rColors[dupColor])):
-# 				g = (int(rColors[dupColor][x])//nrOfNodes)
-# 				graphsWithDup[g].append(rColors[dupColor][x])
-
-# 			print("Graphs: ", graphsWithDup)
-# 			g = list(graphsWithDup.keys())[0]
-# 			node = graphsWithDup[g][0]
-# 			print("RCOLOR1:", rColors)
-# 			rColors[rNodes[node]].remove(node)
-# 			rNodes[node] = len(rColors)
-# 			rColors.append([node])
-# 			print("RCOLOR:", rColors)
-
-# 			for k in range(1, len(graphsWithDup.keys())):
-# 				g = list(graphsWithDup.keys())[k]
-# 				node = graphsWithDup[2][0]
-# 				print(rNodes, node)
-# 				rColors[rNodes[node]].remove(node)
-# 				rNodes[node] = len(rColors)-1
-# 				rColors[rNodes[node]].append(node)
-# 				print("RCOLOR3:", rColors)
-# 			# print("rColors: ", rColors)
-# 			rColors, rNodes = colorRefinement(rColors, rNodes)
-# 			print("rColors: ", rColors)
-# 			# print("yeey")
-# =======
-
-# 		graphsWithDup = findGraphsWithDup(rColors, rNodes)
-
-# 		print("Graphs: ", graphsWithDup)
-# 		g = list(graphsWithDup.keys())[0]
-# 		node = graphsWithDup[g][0]
-# 		# print("RCOLOR1:", rColors)
-# 		rColors[rNodes[node]].remove(node)
-# 		rNodes[node] = len(rColors)
-# 		rColors.append([node])
-# 		print("NODES", rNodes)
-# 		# print("RCOLOR:", rColors)
-
-
-# 		for k in range(1, len(graphsWithDup.keys())):
-# 			g = list(graphsWithDup.keys())[k]
-# 			m = 0
-# 			isomorph = False
-# 			copyColors = copy.deepcopy(rColors)
-# 			copyNodes = copy.deepcopy(rNodes)
-# 			while m < len(graphsWithDup[g]) and not isomorph:
-# 				print(g, m)
-# 				# print(node, rColors, rNodes)
-# 				node = graphsWithDup[g][m]
-# 				print("cb", rColors)
-# 				print("nb", rNodes)
-# 				rColors[rNodes[node]].remove(node)
-# 				rNodes[node] = len(rColors)-1
-# 				rColors[rNodes[node]].append(node)
-# 				print("ca", rColors)
-# 				print("na", rNodes)
-# 				# inputv = input("hoi")
-# 				rColors, rNodes = colorRefinement(rColors, rNodes)
-# 				print("ccr", rColors)
-# 				print("ncr", rNodes)
-# 				if isIsomorph(list(graphsWithDup.keys())[0], list(graphsWithDup.keys())[k], rNodes):
-# 					isomorph = True
-# 					print("ISOOOOOO")
-# 				else:
-# 					m += 1
-# 					# print("before", rNodes)
-# 					rColors = copy.deepcopy(copyColors)
-# 					rNodes = copy.deepcopy(copyNodes)
-# 					# print("after", rNodes)
-
-# 			# for k in range(1, len(graphsWithDup.keys())):
-# 			# 	g = list(graphsWithDup.keys())[k]
-# 			# 	node = graphsWithDup[g][0]
-# 			# 	print(rNodes, node)
-# 			# 	rColors[rNodes[node]].remove(node)
-# 			# 	rNodes[node] = len(rColors)-1
-# 			# 	rColors[rNodes[node]].append(node)
-# 			# 	print("RCOLOR3:", rColors)
-# 			# # print("rColors: ", rColors)
-# 			# rColors, rNodes = colorRefinement(rColors, rNodes)
-# 			# print("rColors: ", rColors)
-# 			# # print("yeey")
-# >>>>>>> f92ad233749832854e6779db3b534341c56ac66f
-# 		if len(checkIsomorph(rNodes)[0]) < 2:
-# 			isDone = True	
-# 		i += 1
-# 		i%nrOfGraphs
-# 	return rColors, rNodes
 
 # load the graphs into a list
 def loadGraphs(file):
