@@ -2,6 +2,9 @@ import graphIO
 import basicgraphs
 import copy
 import operator
+import math
+import permv2
+import basicpermutationgroup
 
 colors=[]
 nodes=[]
@@ -542,7 +545,13 @@ def automorphismCount(graph):
 	nodes = []
 	colors, nodes = setColorAsNrNeighbors2(G)
 	colors, nodes = colorRefinement(colors, nodes, -1, -1)
-	genSet = individualRef(colors, nodes, 1) # Hier is waar de magie gebeurt :S
+	genSet = individualRef(colors, nodes) # Hier is waar de magie gebeurt :S
+	P = permv2.permutation(nodes/2, genSet)
+	el = basicpermutationgroup.FindNonTrivialOrbit(P)
+	orbit = basicpermutationgroup.Orbit(P, el, False)
+	stabilizer = basicpermutationgroup.Stabilizer(P, el)
+	H0 = math.factorial((nodes/2)-1)
+	return H0*orbit
 
 
 # load the graphs into a list
