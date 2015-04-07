@@ -456,11 +456,11 @@ def individualRef_2(colors, nodes):
 	# print("rN1", rNodes)
 	graphsWithDup = findGraphsWithDup(rColors, rNodes)
 
-	g = list(graphsWithDup.keys())[0]				# RECOLOR FIRST NODE OF FIRST GRAPH
-	node = graphsWithDup[g][0]
-	rColors[rNodes[node]].remove(node)
-	rNodes[node] = len(rColors)
-	rColors.append([node])
+	# g = list(graphsWithDup.keys())[0]				# RECOLOR FIRST NODE OF FIRST GRAPH
+	# node = graphsWithDup[g][0]
+	# rColors[rNodes[node]].remove(node)
+	# rNodes[node] = len(rColors)
+	# rColors.append([node])
 	# for i in range(1, len(graphsWithDup.keys())):
 	# print(graphsWithDup)
 	# for i in range(1, 2):
@@ -471,6 +471,7 @@ def individualRef_2(colors, nodes):
 	while i < len(graphsWithDup.keys()) and not done:
 	# for i in range(1, len(graphsWithDup.keys())):
 		g = list(graphsWithDup.keys())[i]
+		# print("COMPARE:", g, list(graphsWithDup.keys())[0])
 		# print("g:", g)
 		j = 0
 		while j < len(graphsWithDup[g]) and not done:
@@ -479,6 +480,13 @@ def individualRef_2(colors, nodes):
 			# print("rN", rNodes)
 			copyColors = copy.deepcopy(rColors)
 			copyNodes = copy.deepcopy(rNodes)
+
+			g0 = list(graphsWithDup.keys())[0]				# RECOLOR FIRST NODE OF FIRST GRAPH
+			node = graphsWithDup[g0][0]
+			rColors[rNodes[node]].remove(node)
+			rNodes[node] = len(rColors)
+			rColors.append([node])
+
 							# RECOLOR FIRST NODE OF NEXT GRAPHS
 			# g = 1
 			# print(g, j, graphsWithDup[g][j], graphsWithDup)
@@ -490,16 +498,19 @@ def individualRef_2(colors, nodes):
 			# print(rColors)
 			# print(rNodes[graphsWithDup[g][j]], rNodes)
 
-
+			# if list(graphsWithDup.keys()) == [1, 2]:
+			# inp = input("hi")
 			# print("hallo", i)
 			# print("1", rColors)
 			# print(g)
 			rColors, rNodes = colorRefinement(rColors, rNodes, list(graphsWithDup.keys())[0], g)
+			# if list(graphsWithDup.keys()) == [1, 2]:
+			# inp = input("hi")
 			# print("2", rColors)
 			# print(rColors)
 			# print(rNodes)
 			allColors = getColors(rNodes)
-			# inp = input("hi")
+			
 			# print(g, allColors[0], allColors[g])
 			if(allColors[list(graphsWithDup.keys())[0]] == allColors[g]):
 				if len(checkIsomorph(rNodes)[0]) < 2:
@@ -509,21 +520,26 @@ def individualRef_2(colors, nodes):
 					print("RECURSION")
 					rColors, rNodes = individualRef_2(rColors, rNodes)
 					print("---- END RECURSION")
-					allColors2 = getColors(rNodes)
-					if(allColors2[0] == allColors2[g]):
+					# allColors2 = getColors(rNodes)
+					# if(allColors2[list(graphsWithDup.keys())[0]] == allColors2[g]):
 						# print(g, allColors2[0], allColors2[g], rColors)
 						# print(rNodes)
-						print("ISO2")
-						if len(checkIsomorph(rNodes)[0]) < 2:
+						# print("ISO2")
+						# if len(checkIsomorph(rNodes)[0]) < 2:
 							# print("ret")
 							# print(rColors)
-							return rColors, rNodes
-						else:
-							isomorphs = checkIsomorph(rNodes)
-							for x in range(len(isomorphs[0])):
-								# rColors[isomorphs[0][x]] = copy.deepcopy(copyColors[isomorphs[0][x]])
-								for y in range(x*nrOfNodes, (x+1)*nrOfNodes):
-									rNodes[y] = copy.deepcopy(copyNodes[y])
+						# return rColors, rNodes
+						# else:
+						# 	inp = input("hoi")
+						# 	isomorphs = checkIsomorph(rNodes)
+						# 	print(rNodes)
+						# 	print(rColors)
+						# 	for x in range(len(isomorphs[0])):
+						# 		# rColors[isomorphs[0][x]] = copy.deepcopy(copyColors[isomorphs[0][x]])
+						# 		for y in range(x*nrOfNodes, (x+1)*nrOfNodes):
+						# 			rNodes[y] = copy.deepcopy(copyNodes[y])
+						# 	print(rNodes)
+						# 	print(rColors)
 						# return rColors, rNodes
 					# return rColors, rNodes
 			else:
@@ -605,7 +621,7 @@ def giveColor(graph, nodes):
 
 global G
 # G = loadGraphs('week1/crefBM_4_7.grl')
-G=loadGraphs('week2/cographs1.grl')
+G=loadGraphs('week2/products72.grl')
 # G=loadGraphs('week2/bigtrees1.grl')
 #print("aantal graphs: ", len(G))-
 global disjointGraph
@@ -634,12 +650,10 @@ if len(checkIsomorph(nodes)[0]) != 0:
 	print("Individual Refinement done")
 	printIsomorphs(checkIsomorph(nodes))
 
-
-
-
-# print(colors, nodes)
 Q = giveColor(disjointGraph, nodes)
-graphIO.writeDOT(Q, 'graph.dot')
+graphIO.writeDOT(Q, 'graph2.dot')
+
+
 # <<<<<<< HEAD
 # colors, nodes = individualRef(colors, nodes)
 # colors[0].remove(0)
