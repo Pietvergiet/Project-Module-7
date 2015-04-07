@@ -555,20 +555,111 @@ def individualRef_2(colors, nodes):
 	# print("Ret2")
 	return rColors, rNodes	
 
+def gensetGen(colors, nodes, genSet, t):
+	gS = genSet
+	rColors = copy.deepcopy(colors)
+	rNodes = copy.deepcopy(nodes)
+	graphsWithDup = findGraphsWithDup(rColors, rNodes)
+	print(graphsWithDup)
+	done = False
+	g = list(graphsWithDup.keys())[0]
+	if len(graphsWithDup.keys()) == 2:
+		for i in range(len(graphsWithDup[g])):
+			j=i
+			while j < len(graphsWithDup[g]) and not done:
+				copyColors = copy.deepcopy(rColors)
+				copyNodes = copy.deepcopy(rNodes)
+
+				g0 = list(graphsWithDup.keys())[0]				# RECOLOR FIRST NODE OF FIRST GRAPH
+				node = graphsWithDup[0][i]
+				rColors[rNodes[node]].remove(node)
+				rNodes[node] = len(rColors)
+				rColors.append([node])
+
+				node2 = graphsWithDup[1][j]
+				rColors[rNodes[node2]].remove(node2)
+				rNodes[node2] = len(rColors)-1
+				rColors[rNodes[node2]].append(node2)
+
+				rColors, rNodes = colorRefinement(rColors, rNodes, -1, -1)
+				allColors = getColors(rNodes)
+				print("MAPPING:", node, "TO", node2%len(rNodes))
+				# inp = input("kaas")
+				if(allColors[0] == allColors[1]):
+
+					gS[t].append([node, node2])
+					# print("APPEND")
+
+					if len(checkIsomorph(rNodes)[0]) >= 2:
+						print("RECURSION")
+						rColors, rNodes, gS, t = gensetGen(rColors, rNodes, gS, t)
+						print("---- END RECURSION")
+					else:
+						rColors = copy.deepcopy(copyColors)
+						rNodes 	= copy.deepcopy(copyNodes)
+						print("PLUS 1!!")
+						t += 1
+					if len(gS) == t:
+						gS.append([])
+					rColors = copy.deepcopy(copyColors)
+					rNodes 	= copy.deepcopy(copyNodes)
+				else:
+					print("Colors", allColors)
+					rColors = copy.deepcopy(copyColors)
+					rNodes = copy.deepcopy(copyNodes)
+				j += 1
+			rColors = copy.deepcopy(colors)
+			rNodes = copy.deepcopy(nodes)
+	return rColors, rNodes, gS, t
+
+
 def automorphismCount(graph):
+	aNodes = len(graph.V())
 	G = [graph, copy.deepcopy(graph)]
 	colors = []
 	nodes = []
 	colors, nodes = setColorAsNrNeighbors2(G)
 	colors, nodes = colorRefinement(colors, nodes, -1, -1)
-	genSet = individualRef(colors, nodes) # Hier is waar de magie gebeurt :S
-	P = permv2.permutation(nodes/2, genSet)
-	el = basicpermutationgroup.FindNonTrivialOrbit(P)
-	orbit = basicpermutationgroup.Orbit(P, el, False)
-	stabilizer = basicpermutationgroup.Stabilizer(P, el)
-	H0 = math.factorial((nodes/2)-1)
-	return H0*orbit
+	print(colors)
+	genSet = [[]]
+	t = 0
+	colors, nodes, genSet, t = gensetGen(colors, nodes, genSet, 0) # Hier is waar de magie gebeurt :S
+	# print(genSet)
+	# genSet.remove([])
+	# for j in range(len(genSet)):
+	# 	trivialP=[[i for i in range(aNodes)] for j in range(len(genSet))]
+	# 	for i in range(len(genSet[j])):
+	# 		print("SET:", genSet, i, j)
+	# 		genSet[j][i][1] = genSet[j][i][1]%aNodes
+	# 		trivialP[j][genSet[j][i][0]] = genSet[j][i][1]
+	# 		trivialP[j][genSet[j][i][1]] = genSet[j][i][0]
+	# print("AUTO:", genSet, trivialP, aNodes)
+	# P = []
+	# for i in range(len(trivialP)):
+	# 	P.append(permv2.permutation(aNodes, mapping=trivialP[i]))
+	# print(P)
+	# el = basicpermutationgroup.FindNonTrivialOrbit(P)
+	# orbit = basicpermutationgroup.Orbit(P, el, False)
+	# stabilizer = basicpermutationgroup.Stabilizer(P, el)
+	
+	# H0 = stabOrder(stabilizer)
+	# print("order", stabilizer, orbit, H0)
+	return t
 
+def stabOrder(P):
+	sO = 1
+	Orbitss = []
+	stabilizer = P
+	while stabilizer != []:
+		el = el = basicpermutationgroup.FindNonTrivialOrbit(stabilizer)
+		orbit = basicpermutationgroup.Orbit(stabilizer, el, False)
+		print(orbit)
+		Orbitss.append(len(orbit))
+		stabilizer = basicpermutationgroup.Stabilizer(stabilizer, el)
+
+	for i in range(len(Orbitss)):
+		sO = sO*Orbitss[i]
+	return sO
 
 # load the graphs into a list
 def loadGraphs(file):
@@ -621,12 +712,12 @@ def giveColor(graph, nodes):
 
 global G
 # G = loadGraphs('week1/crefBM_4_7.grl')
-G=loadGraphs('week2/products72.grl')
-# G=loadGraphs('week2/bigtrees1.grl')
+# G=loadGraphs('week2/products72.grl')
+G=loadGraphs('week2/torus24.grl')
 #print("aantal graphs: ", len(G))-
-global disjointGraph
-disjointGraph = createDisjointUnion(G)
-nbs = disjointGraph.V()[0].nbs()
+# global disjointGraph
+# disjointGraph = createDisjointUnion(G)
+# nbs = disjointGraph.V()[0].nbs()
 #print(disjointGraph[nbs[0]._label])
 # graphIO.writeDOT(G[0], 'graph1.dot')
 # graphIO.writeDOT(G[1], 'graph2.dot')
@@ -634,24 +725,36 @@ nbs = disjointGraph.V()[0].nbs()
 # graphIO.writeDOT(G[3], 'graph4.dot')
 
 # for i in range(len(G)):
+print("GRAPH 0: ", automorphismCount(G[1]))
+# print("GRAPH 1: ", automorphismCount(G[1]))
+# print("GRAPH 2: ", automorphismCount(G[2]))
 
+# P = permv2.permutation(6, mapping=[1,2,0,3,5,4])
+# print(P.n)
+# Q = permv2.permutation(6, mapping=[0,1,3,2,4,5])
+# W = [P,Q]
+# print(W)
+# el = basicpermutationgroup.FindNonTrivialOrbit(W)
+# orbit = basicpermutationgroup.Orbit(W, el, False)
+# stabilizer = basicpermutationgroup.Stabilizer(W, el)
+# print(orbit, stabilizer)
+# H0 = stabOrder(stabilizer)
+# print("order", stabilizer, orbit, H0)
+# colors, nodes = setColorAsNrNeighbors2(G)
+# print("Nodes colors as Nr of Neighbors")
+# colors, nodes = colorRefinement(colors, nodes, -1, -1)
+# print("Color Refinement done")
+# Q = giveColor(disjointGraph, nodes)
+# graphIO.writeDOT(Q, 'graph.dot')
+# # print(colors, nodes)
+# printIsomorphs(checkIsomorph(nodes))
+# if len(checkIsomorph(nodes)[0]) != 0:
+# 	colors, nodes = individualRef_2(colors, nodes)
+# 	print("Individual Refinement done")
+# 	printIsomorphs(checkIsomorph(nodes))
 
-
-colors, nodes = setColorAsNrNeighbors2(G)
-print("Nodes colors as Nr of Neighbors")
-colors, nodes = colorRefinement(colors, nodes, -1, -1)
-print("Color Refinement done")
-Q = giveColor(disjointGraph, nodes)
-graphIO.writeDOT(Q, 'graph.dot')
-# print(colors, nodes)
-printIsomorphs(checkIsomorph(nodes))
-if len(checkIsomorph(nodes)[0]) != 0:
-	colors, nodes = individualRef_2(colors, nodes)
-	print("Individual Refinement done")
-	printIsomorphs(checkIsomorph(nodes))
-
-Q = giveColor(disjointGraph, nodes)
-graphIO.writeDOT(Q, 'graph2.dot')
+# Q = giveColor(disjointGraph, nodes)
+# graphIO.writeDOT(Q, 'graph2.dot')
 
 
 # <<<<<<< HEAD
