@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2015.3.22)  8 APR 2015 09:54
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2015.3.22)  8 APR 2015 10:02
 entering extended mode
 **C:/Users/Admin/Documents/Universiteit/Year*2*Module*2A*-*Discrete*Structures*
 &*Efficient*Algorithms/Project/Project-Module-7/paper/paper.tex
@@ -204,18 +204,18 @@ subscribe by emailing sympa@lirmm.fr with 'subscribe <list> <firstname name>'
 )
 ("C:\Users\Admin\Documents\Universiteit\Year 2 Module 2A - Discrete Structures 
 & Efficient Algorithms\Project\Project-Module-7\paper\paper.aux")
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\context\base\supp-pdf.mkii"
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -230,26 +230,24 @@ LaTeX Font Info:    ... okay on input line 20.
 \MPnumerator=\count114
 \makeMPintoPDFobject=\count115
 \everyMPtoPDFconversion=\toks22
-)
-("C:\Users\Admin\Documents\Universiteit\Year 2 Module 2A - Discrete Structures 
-& Efficient Algorithms\Project\Project-Module-7\paper\title_page.tex" [1
+) [1
 
-{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}])
+{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}]
 ("C:\Users\Admin\Documents\Universiteit\Year 2 Module 2A - Discrete Structures 
 & Efficient Algorithms\Project\Project-Module-7\paper\paper.toc")
 \tf@toc=\write3
  [1] [2]
-Underfull \hbox (badness 10000) in paragraph at lines 45--46
+Underfull \hbox (badness 10000) in paragraph at lines 99--100
 
  []
 
 <img/isomorphic.png, id=17, 501.875pt x 351.3125pt>
 File: img/isomorphic.png Graphic file (type png)
  <use img/isomorphic.png>
-Package pdftex.def Info: img/isomorphic.png used on input line 50.
+Package pdftex.def Info: img/isomorphic.png used on input line 104.
 (pdftex.def)             Requested size: 165.59853pt x 115.91739pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 55--56
+Underfull \hbox (badness 10000) in paragraph at lines 109--110
 
  []
 
@@ -260,25 +258,25 @@ Missing character: There is no â in font cmr10!
 Missing character: There is no € in font cmr10!
 Missing character: There is no ™ in font cmr10!
 
-Overfull \hbox (8.47285pt too wide) in paragraph at lines 61--62
+Overfull \hbox (8.47285pt too wide) in paragraph at lines 115--116
 \OT1/cmr/m/n/10 kan wor-den, bli-jft de vraag hoe rel-e-vant dit prob-leem is v
 oor de Dis-crete Wiskunde.
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 61--62
+Underfull \hbox (badness 10000) in paragraph at lines 115--116
 
  []
 
 [3 <C:/Users/Admin/Documents/Universiteit/Year 2 Module 2A - Discrete Structure
 s & Efficient Algorithms/Project/Project-Module-7/paper/img/isomorphic.png>]
 [4]
-Underfull \hbox (badness 10000) in paragraph at lines 76--77
+Underfull \hbox (badness 10000) in paragraph at lines 130--131
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 78--80
+Underfull \hbox (badness 10000) in paragraph at lines 132--134
 
  []
 
@@ -288,7 +286,7 @@ Missing character: There is no © in font cmr10!
 Missing character: There is no Ã in font cmr10!
 Missing character: There is no © in font cmr10!
 
-Underfull \hbox (badness 10000) in paragraph at lines 97--98
+Underfull \hbox (badness 10000) in paragraph at lines 151--152
 
  []
 
@@ -305,35 +303,35 @@ Missing character: There is no â in font cmr10!
 Missing character: There is no € in font cmr10!
 Missing character: There is no ™ in font cmr10!
 
-Underfull \hbox (badness 10000) in paragraph at lines 116--117
+Underfull \hbox (badness 10000) in paragraph at lines 170--171
 
  []
 
 [6]
-Underfull \hbox (badness 10000) in paragraph at lines 133--134
+Underfull \hbox (badness 10000) in paragraph at lines 187--188
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 159--160
+Underfull \hbox (badness 10000) in paragraph at lines 213--214
 
  []
 
 [7] [8]
-Overfull \hbox (12.63951pt too wide) in paragraph at lines 186--187
+Overfull \hbox (12.63951pt too wide) in paragraph at lines 240--241
 \OT1/cmr/m/n/10 Natuurlijk gaan we ons color refinement-algoritme en onze prepr
 ocessing-algoritmes
  []
 
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 188.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 242.
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\omscmr.fd"
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 188.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 242.
 
-Overfull \hbox (5.26912pt too wide) in paragraph at lines 188--189
+Overfull \hbox (5.26912pt too wide) in paragraph at lines 242--243
 \OT1/cmr/m/n/10 con-trol-eren op au-to-mor-fisme. Dit zijn ver-plichte on-derde
 -len van het project,
  []
@@ -347,8 +345,8 @@ Missing character: There is no ¶ in font cmr10!
 ("C:\Users\Admin\Documents\Universiteit\Year 2 Module 2A - Discrete Structures 
 & Efficient Algorithms\Project\Project-Module-7\paper\paper.aux") ) 
 Here is how much of TeX's memory you used:
- 3669 strings out of 493921
- 49627 string characters out of 3144876
+ 3666 strings out of 493921
+ 49327 string characters out of 3144876
  129823 words of memory out of 3000000
  6951 multiletter control sequences out of 15000+200000
  7814 words of font info for 28 fonts, out of 3000000 for 9000

@@ -13,13 +13,67 @@
 
 \setlength\parindent{0pt} 				% Haalt indentaties van paragrafen weg
 
+\begin{document}
+
 %----------------------------------------------------------------------------------------
 %	TITELPAGINA
 %----------------------------------------------------------------------------------------
 
-\begin{document}
+\begin{titlepage}
+		\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+		\center 		% Centreer alles op de pagina
+		 
+		%----------------------------------------------------------------------------------------
+		%	HEADER SECTIE
+		%----------------------------------------------------------------------------------------
 
-\input{./title_page.tex}	% Importeert title_page.tex
+		\textsc{\large Universiteit Twente}\\[1.5cm]
+		Module 7 - 201400433\\
+		\vspace{5mm}
+		\textsc{\Large Discrete Structuren \& Effici\"ente Algoritmes}\\[0.5cm]
+		\vspace{15mm}
+
+		%----------------------------------------------------------------------------------------
+		%	TITEL SECTIE
+		%----------------------------------------------------------------------------------------
+
+		\HRule \\[0.4cm]
+		{ \huge \bfseries Preprocessing methoden}\\[0.4cm]
+		{ \large \bfseries Het effici\"ent maken van het Graaf Isormorfisme probleem}\\[0.4cm]
+		\HRule \\[1.5cm]
+		 
+		%----------------------------------------------------------------------------------------
+		%	AUTEUR(S) SECTIE
+		%----------------------------------------------------------------------------------------
+
+		Projectgroep 1\\
+		\vspace{10mm}
+		\begin{minipage}{0.4\textwidth}
+		\begin{flushleft} \large
+		\emph{Auteurs:}\\
+		Joeri Kock\\
+		Remco Brunsveld\\
+		Frank Bruggink\\
+		Dani\"el Schut
+		\end{flushleft}
+		\end{minipage}
+		~
+		\begin{minipage}{0.4\textwidth}
+		\begin{flushright} \large
+		\emph{Projectbegeleider:} \\
+		Prof. Dr. J.C. van de Pol
+		\end{flushright}
+		\end{minipage}\\[4cm]
+
+		%----------------------------------------------------------------------------------------
+		%	DATUM SECTIE
+		%----------------------------------------------------------------------------------------
+
+		{\large \today}\\[3cm]
+
+		\pagebreak 			% Vul de rest van de pagina met witregels
+
+\end{titlepage}
 
 %----------------------------------------------------------------------------------------
 %	INHOUDSOPGAVE
