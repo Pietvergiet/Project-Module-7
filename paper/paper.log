@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2015.3.22)  7 APR 2015 17:44
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2015.3.22)  8 APR 2015 09:54
 entering extended mode
 **C:/Users/Admin/Documents/Universiteit/Year*2*Module*2A*-*Discrete*Structures*
 &*Efficient*Algorithms/Project/Project-Module-7/paper/paper.tex
@@ -277,13 +277,18 @@ Underfull \hbox (badness 10000) in paragraph at lines 76--77
 
  []
 
+
+Underfull \hbox (badness 10000) in paragraph at lines 78--80
+
+ []
+
 [5]
 Missing character: There is no Ã in font cmr10!
 Missing character: There is no © in font cmr10!
 Missing character: There is no Ã in font cmr10!
 Missing character: There is no © in font cmr10!
 
-Underfull \hbox (badness 10000) in paragraph at lines 94--95
+Underfull \hbox (badness 10000) in paragraph at lines 97--98
 
  []
 
@@ -300,35 +305,35 @@ Missing character: There is no â in font cmr10!
 Missing character: There is no € in font cmr10!
 Missing character: There is no ™ in font cmr10!
 
-Underfull \hbox (badness 10000) in paragraph at lines 113--114
+Underfull \hbox (badness 10000) in paragraph at lines 116--117
 
  []
 
 [6]
-Underfull \hbox (badness 10000) in paragraph at lines 130--131
+Underfull \hbox (badness 10000) in paragraph at lines 133--134
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 156--157
+Underfull \hbox (badness 10000) in paragraph at lines 159--160
 
  []
 
 [7] [8]
-Overfull \hbox (12.63951pt too wide) in paragraph at lines 183--184
+Overfull \hbox (12.63951pt too wide) in paragraph at lines 186--187
 \OT1/cmr/m/n/10 Natuurlijk gaan we ons color refinement-algoritme en onze prepr
 ocessing-algoritmes
  []
 
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 185.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 188.
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\omscmr.fd"
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 185.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 188.
 
-Overfull \hbox (5.26912pt too wide) in paragraph at lines 185--186
+Overfull \hbox (5.26912pt too wide) in paragraph at lines 188--189
 \OT1/cmr/m/n/10 con-trol-eren op au-to-mor-fisme. Dit zijn ver-plichte on-derde
 -len van het project,
  []
@@ -348,7 +353,7 @@ Here is how much of TeX's memory you used:
  6951 multiletter control sequences out of 15000+200000
  7814 words of font info for 28 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
- 27i,18n,28p,2444b,366s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 27i,18n,28p,908b,366s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Program 
 Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Program Fi
 les (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Program File
@@ -360,7 +365,7 @@ iKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Program Files (x86)/MiKTe
 X 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files (x86)/MiKTeX 
 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Program Files (x86)/MiKTeX 2.
 9/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on paper.pdf (12 pages, 192602 bytes).
+Output written on paper.pdf (12 pages, 192329 bytes).
 PDF statistics:
  82 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)

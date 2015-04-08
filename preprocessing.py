@@ -87,8 +87,8 @@ def checkConnectedParts(G):
 		K.pop(0)
 		while len(antb) > 0:
 			for i in range(len(K)):
-				if G.adj(G.V()[i], antb[0]) == True:
-					antb.append(i)
+				if G.adj(K[i], antb[0]) == True:
+					antb.append(K[i])
 					K.pop(i)
 			avb.append(antb[0])
 			antb.pop(0)
