@@ -371,18 +371,18 @@ def searchIsomorphs(graphs):
 	print("Done...")
 
 def main():
-	typeinput = input("Choose 1 for GI or 2 for AUT: ")
+	typeinput = input("Choose 1 for GI, 2 for AUT or 3 for both: ")
+	filename = input("Please enter filename: ")
 	global UsedGraphs
-	if typeinput == '1':
-		filename = input("Please enter filename for isomorphism: ")
-		G = loadGraphs(filename)
+	G = loadGraphs(filename)
 		UsedGraphs = G
+	if typeinput == '1':	
 		searchIsomorphs(UsedGraphs)
 	elif typeinput == '2':
-		filename = input("Please enter filename for automorphism counting: ")
-		G = loadGraphs(filename)
-		UsedGraphs = G
 		automorphismCount(UsedGraphs)
+	elif typeinput == '3':
+		searchIsomorphs(UsedGraphs)
+		automorphismCount(UsedGraphs)		
 	else:
 		print("Wrong input")
 
