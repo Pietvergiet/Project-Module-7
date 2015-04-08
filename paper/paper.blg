@@ -1,3 +1,14 @@
 This is BibTeX, Version 0.99dThe top-level auxiliary file: paper.aux
-The style file: apalike.bst
-Database file #1: sample.bib
+The style file: amsplain.bst
+Database file #1: paper.bib
+Too many commas in name 1 of "V. Arvind, Johannes Köbler, Gaurav Rattan, Oleg Verbitsky" for entry colorRefinement
+while executing---line 1149 of file amsplain.bst
+Too many commas in name 1 of "Zemlyachenko, V. N.; Korneenko, N. M.; Tyshkevich, R. I." for entry gi
+while executing---line 1149 of file amsplain.bst
+Too many commas in name 1 of "V. Arvind, Johannes Köbler, Gaurav Rattan, Oleg Verbitsky" for entry colorRefinement
+while executing---line 1233 of file amsplain.bst
+Warning--missing publisher in colorRefinement
+Too many commas in name 1 of "Zemlyachenko, V. N.; Korneenko, N. M.; Tyshkevich, R. I." for entry gi
+while executing---line 1233 of file amsplain.bst
+Warning--missing publisher in gi
+(There were 4 error messages)

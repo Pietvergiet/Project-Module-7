@@ -1,8 +1,18 @@
-\begin{thebibliography}{}
+\providecommand{\bysame}{\leavevmode\hbox to3em{\hrulefill}\thinspace}
+\providecommand{\MR}{\relax\ifhmode\unskip\space\fi MR }
+% \MRhref is called by the amsart/book/proc definition of \MR.
+\providecommand{\MRhref}[2]{%
+  \href{http://www.ams.org/mathscinet-getitem?mr=#1}{#2}
+}
+\providecommand{\href}[2]{#2}
+\begin{thebibliography}{1}
 
-\bibitem[Smith and Jones, 2012]{Smith:2012qr}
-Smith, J.~M. and Jones, A.~B. (2012).
-\newblock {\em Chemistry}.
-\newblock Publisher, 7th edition.
+\bibitem{colorRefinement}
+Gaurav Rattan Oleg~Verbitsky V.~Arvind, Johannes~Köbler, \emph{Graph
+  isomorphism, color refinement, and compactness}, 2015.
+
+\bibitem{gi}
+N.~M.; Tyshkevich R.~I. Zemlyachenko, V. N.;~Korneenko, \emph{Graph isomorphism
+  problem}, 1985.
 
 \end{thebibliography}
