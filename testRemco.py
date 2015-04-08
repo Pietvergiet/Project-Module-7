@@ -486,9 +486,9 @@ def individualRef_2(colors, nodes):
 					print("ISO1")
 					return rColors, rNodes
 				else:
-					print("RECURSION")
+					# print("RECURSION")
 					rColors, rNodes = individualRef_2(rColors, rNodes)
-					print("---- END RECURSION")
+					# print("---- END RECURSION")
 			else:
 				rColors = copy.deepcopy(copyColors)
 				rNodes = copy.deepcopy(copyNodes)
@@ -501,7 +501,7 @@ def gensetGen(colors, nodes, genSet, t):
 	rColors = copy.deepcopy(colors)
 	rNodes = copy.deepcopy(nodes)
 	graphsWithDup = findGraphsWithDup(rColors, rNodes)
-	print(graphsWithDup)
+	# print(graphsWithDup)
 	done = False
 	g = list(graphsWithDup.keys())[0]
 	if len(graphsWithDup.keys()) == 2:
@@ -524,7 +524,7 @@ def gensetGen(colors, nodes, genSet, t):
 
 			rColors, rNodes = colorRefinement(rColors, rNodes, -1, -1)
 			allColors = getColors(rNodes)
-			print("MAPPING:", node, "TO", node2%len(rNodes))
+			# print("MAPPING:", node, "TO", node2%len(rNodes))
 			# inp = input("kaas")
 			if(allColors[0] == allColors[1]):
 
@@ -532,13 +532,13 @@ def gensetGen(colors, nodes, genSet, t):
 				# print("APPEND")
 
 				if len(checkIsomorph(rNodes)[0]) >= 2:
-					print("RECURSION")
+					# print("RECURSION")
 					rColors, rNodes, gS, t = gensetGen(rColors, rNodes, gS, t)
-					print("---- END RECURSION")
+					# print("---- END RECURSION")
 				else:
 					rColors = copy.deepcopy(copyColors)
 					rNodes 	= copy.deepcopy(copyNodes)
-					print("PLUS 1!!")
+					# print("PLUS 1!!")
 					t += 1
 				if len(gS) == t:
 					gS.append([])
@@ -560,7 +560,7 @@ def automorphismCount(graph):
 	nodes = []
 	colors, nodes = setColorAsNrNeighbors2(G)
 	colors, nodes = colorRefinement(colors, nodes, -1, -1)
-	print(colors)
+	# print(colors)
 	genSet = [[]]
 	t = 0
 	colors, nodes, genSet, t = gensetGen(colors, nodes, genSet, 0)
@@ -573,7 +573,7 @@ def stabOrder(P):
 	while stabilizer != []:
 		el = el = basicpermutationgroup.FindNonTrivialOrbit(stabilizer)
 		orbit = basicpermutationgroup.Orbit(stabilizer, el, False)
-		print(orbit)
+		# print(orbit)
 		Orbitss.append(len(orbit))
 		stabilizer = basicpermutationgroup.Stabilizer(stabilizer, el)
 
@@ -630,30 +630,18 @@ def giveColor(graph, nodes):
 
 ## MAIN
 
-global log
-log = open("log.txt", "w")
 global G
-# G = loadGraphs('week1/crefBM_4_7.grl')
-G=loadGraphs('week2/torus24.grl')
-# G=loadGraphs('week3/cycles175.grl')
-#print("aantal graphs: ", len(G))-
+G=loadGraphs('week2/cubes6.grl')
 
-global disjointGraph
-disjointGraph = createDisjointUnion([G[0],G[0]])
+colors, nodes = setColorAsNrNeighbors2(G)
+print("-- Nodes colors as Nr of Neighbors")
+colors, nodes = colorRefinement(colors, nodes, -1, -1)
+print("-- Color Refinement done")
+if len(checkIsomorph(nodes)[0]) != 0:
+	colors, nodes = individualRef_2(colors, nodes)
+	print("-- Individual Refinement done")
+	
 
-print("GRAPH 0: ", automorphismCount(G[0]))
-
-# colors, nodes = setColorAsNrNeighbors2([G[0], G[0]])
-# print("Nodes colors as Nr of Neighbors")
-# colors, nodes = colorRefinement(colors, nodes, -1, -1)
-# print("Color Refinement done")
-# Q = giveColor(disjointGraph, nodes)
-# graphIO.writeDOT(Q, 'graph.dot')
-# # print(colors, nodes)
-# printIsomorphs(checkIsomorph(nodes))
-# if len(checkIsomorph(nodes)[0]) != 0:
-# 	colors, nodes = individualRef_2(colors, nodes)
-# 	print("Individual Refinement done1")
-# 	printIsomorphs(checkIsomorph(nodes))
-
-
+print("-- Count Isomorphs")
+printIsomorphs(checkIsomorph(nodes))
+print("Isomorphs: ", automorphismCount(G[0]))
