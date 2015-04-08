@@ -366,7 +366,7 @@ def searchIsomorphs(graphs):
 	print("-- Individual Refinement done")
 	printIsomorphs(checkIsomorph(nodes))
 	drawGraph = input("Create .dot file? Y/N ")
-	if drawGraph is 'Y':
+	if drawGraph is 'Y' or drawGraph is 'y':
 		createDOT(nodes)
 	print("Done...")
 
