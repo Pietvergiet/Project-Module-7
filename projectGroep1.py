@@ -212,10 +212,10 @@ def individualRef(colors, nodes):
 				if len(checkIsomorph(rNodes)[0]) < 2:
 					return rColors, rNodes, True
 				else:
-					print("RECURSION")
+					# print("RECURSION")
 					rColors, rNodes, found = individualRef(rColors, rNodes)
 					if found:
-						print("---------FOUND!")
+						# print("---------FOUND!")
 						return rColors, rNodes, found
 					else:
 						rColors = copy.deepcopy(copyColors)
@@ -382,4 +382,5 @@ def main():
 
 ## MAIN
 
-main()
+if __name__ == "__main__":
+	main()
