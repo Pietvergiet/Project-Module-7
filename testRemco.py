@@ -2,6 +2,9 @@ import graphIO
 import basicgraphs
 import copy
 import operator
+import math
+import permv2
+import basicpermutationgroup
 
 colors=[]
 nodes=[]
@@ -54,7 +57,6 @@ def checkIsomorph(nodes):
 	colors= getColors(nodes)
 
 	isomorphs = [[]]					# list for the (possible) isomorphs
-
 	for i in range(len(colors)):						# loop through all lists with the colors of the graph
 		if len(colors[i]) != len(set(colors[i])):		# Check for duplicates. A set can not contain duplicates
 				isomorphs[0].append(i)
@@ -66,7 +68,6 @@ def checkIsomorph(nodes):
 					added = True
 			if not added:								# add graph at new index if no matching colors are found
 				isomorphs.append([i])
-
 	return isomorphs
 
 def isIsomorph(graph1, graph2, nodes):
@@ -210,15 +211,15 @@ def getNeighborsColors(node, nodes):
 
 # 	return result
 
+
 # Gaat verder kleuren toekennen aan de graven tot het niet meer mogelijk is.
-def colorRefinement(colors, nodes):
+def colorRefinement_old(colors, nodes):
 	crColors = copy.deepcopy(colors)
 	for i in range(len(crColors)):				# loop through all the colors
 		nodesOfColor=copy.deepcopy(crColors[i])				# create a copy of the nodesOfColor
 		first = True
 
 		while(len(nodesOfColor) != 0):					# while nodesOfColor have to be recolored
-			# print("MEANWHILE!!!!!!!", i, len(nodesOfColor))
 			if not first:						# if not the first run ----- in the first run the first node doesn't need a new color. After the first run, it does. First node has to be a unique color
 				crColors[i].remove(nodesOfColor[0])			# remove first node
 				nodes[nodesOfColor[0]] = len(crColors)					# give first node new color
@@ -230,20 +231,102 @@ def colorRefinement(colors, nodes):
 				if getNeighborsColors(nodesOfColor[0], nodes) == getNeighborsColors(nodesOfColor[q], nodes):	# if colors of the neighbors of 0 and q are the same
 					crColors[i].remove(nodesOfColor[q])	
 					nodes[nodesOfColor[q]] = nodes[nodesOfColor[0]]			# remove node q from old color index
-					# nodesOfColor[q].colornum = nodesOfColor[0].colornum					# give node q same color as node 0
 					crColors[nodes[nodesOfColor[0]]].append(nodesOfColor[q])				# add node q to new color index
 					colorednodes.append(nodesOfColor[q])							# add node q to list with recolored nodes
 
 			for x in range(len(colorednodes)):			# loop through all recolored nodes
 				nodesOfColor.remove(colorednodes[x])			# remove recolored nodes from nodes that need to be recolored
 
+			print("---- REMOVING []")
+			print(crColors)
+			print(nodes)
 			while [] in crColors:			# remove empty lists in the colorlist
 				crColors.remove([])
-			# print("MEANWHILE!!!!!!!222", i, len(nodesOfColor))
-	# print("YOLOSWAGGINGSLOLROFLLMAOCOPTER", crColors, colors)
+			print(crColors)
+			print(nodes)
+			print("----")
+
 	if(crColors != colors):					# while the colors have changed in this function, do colorRefinement again
-		# print("OPNIEUW!!")
 		crColors, nodes = colorRefinement(crColors, nodes)
+
+	return crColors, nodes
+
+# Gaat verder kleuren toekennen aan de graven tot het niet meer mogelijk is.
+def colorRefinement(colors, nodes, graph1, graph2):
+	allowedNotes = []
+	if graph1 == -1 or graph2 == -1:
+		for i in range(nrOfNodes*nrOfGraphs):
+			allowedNotes.append(i)
+	else:
+		for i in range(nrOfNodes):
+			allowedNotes.append(i+(nrOfNodes*graph1))
+			allowedNotes.append(i+(nrOfNodes*graph2))
+	crColors = copy.deepcopy(colors)
+	# print(crColors)
+	for i in range(len(crColors)):				# loop through all the colors
+		nodesOfColor=copy.deepcopy(crColors[i])				# create a copy of the nodesOfColor
+		first = True
+		noneAllowed = False
+		while(len(nodesOfColor) != 0 and not noneAllowed):					# while nodesOfColor have to be recolored
+			n = 0
+			allowed = False
+			while not allowed and n < len(nodesOfColor):
+				# print(n, nodesOfColor[n])
+				
+				# inp = input("-")
+				if nodesOfColor[n] in allowedNotes:
+					allowed = True
+					# print("allowed!")
+				else:
+					n += 1
+			# print("exit while")
+			# if(n == 14):
+				# inp = input("-")
+			if allowed:
+				# log.write(str(n) + " ")
+				# log.write(str(nodesOfColor[n]) + str(nodesOfColor) + "\n")
+				# print("in allowed")
+				if not first:						# if not the first run ----- in the first run the first node doesn't need a new color. After the first run, it does. First node has to be a unique color
+					crColors[i].remove(nodesOfColor[n])			# remove first node
+					nodes[nodesOfColor[n]] = len(crColors)					# give first node new color
+					crColors.append([nodesOfColor[n]])							# add first node to new color index
+				first = False
+				colorednodes=[nodesOfColor[n]]									# node 0 is always recolored
+
+				# print(nodesOfColor)
+				for q in range(len(nodesOfColor)): 									# loop through all the nodesOfColor that have to be recolored
+					# print(q, nodesOfColor[q], allowedNotes)
+					if nodesOfColor[q] in allowedNotes and nodesOfColor[q] != nodesOfColor[n]:
+						if getNeighborsColors(nodesOfColor[n], nodes) == getNeighborsColors(nodesOfColor[q], nodes):	# if colors of the neighbors of 0 and q are the same
+							# print("same nbs", nodesOfColor[n], nodesOfColor[q])
+							crColors[i].remove(nodesOfColor[q])	
+							nodes[nodesOfColor[q]] = nodes[nodesOfColor[n]]			# remove node q from old color index
+							crColors[nodes[nodesOfColor[n]]].append(nodesOfColor[q])				# add node q to new color index
+							colorednodes.append(nodesOfColor[q])							# add node q to list with recolored nodes
+
+				for x in range(len(colorednodes)):			# loop through all recolored nodes
+					nodesOfColor.remove(colorednodes[x])			# remove recolored nodes from nodes that need to be recolored
+
+				# while [] in crColors:			# remove empty lists in the colorlist
+				# 	crColors.remove([])
+				
+				if [] in crColors:
+					while [] in crColors:
+						i = crColors.index([])
+						crColors.pop(i)
+						for j in range(len(nodes)):
+							if nodes[j] > i:
+								nodes[j] -= 1
+			else:
+				noneAllowed = True
+	# print(crColors)
+
+
+
+	if(crColors != colors):					# while the colors have changed in this function, do colorRefinement again
+		# print("Redo ClrRef")
+		crColors, nodes = colorRefinement(crColors, nodes, graph1, graph2)
+
 	return crColors, nodes
 
 
@@ -374,202 +457,129 @@ def findGraphsWithDup(colors, nodes):
 def individualRef_2(colors, nodes):
 	rColors = copy.deepcopy(colors)
 	rNodes = copy.deepcopy(nodes)
-
-	print(rNodes)
-	print(rColors)
 	graphsWithDup = findGraphsWithDup(rColors, rNodes)
-
-	g = list(graphsWithDup.keys())[0]				# RECOLOR FIRST NODE OF FIRST GRAPH
-	node = graphsWithDup[g][0]
-	rColors[rNodes[node]].remove(node)
-	rNodes[node] = len(rColors)
-	rColors.append([node])
-	# for i in range(1, len(graphsWithDup.keys())):
-	# print(graphsWithDup)
-	# for i in range(1, 2):
 	i = 1
 	done = False
-	print("GRAPHS!", graphsWithDup)
 	while i < len(graphsWithDup.keys()) and not done:
-	# for i in range(1, len(graphsWithDup.keys())):
 		g = list(graphsWithDup.keys())[i]
 		j = 0
 		while j < len(graphsWithDup[g]) and not done:
-			print()
-			print(list(graphsWithDup.keys())[i], j, "------------------")
-			print(graphsWithDup)
 			copyColors = copy.deepcopy(rColors)
 			copyNodes = copy.deepcopy(rNodes)
+			
+			g0 = list(graphsWithDup.keys())[0]				# RECOLOR FIRST NODE OF FIRST GRAPH
+			
+			node = graphsWithDup[g0][0]
+			rColors[rNodes[node]].remove(node)
+			rNodes[node] = len(rColors)
+			rColors.append([node])
+
 							# RECOLOR FIRST NODE OF NEXT GRAPHS
-			# g = 1
 			node = graphsWithDup[g][j]
 			rColors[rNodes[node]].remove(node)
 			rNodes[node] = len(rColors)-1
 			rColors[rNodes[node]].append(node)
-
-			
-			print("B", rColors, rNodes)
-			rColors, rNodes = colorRefinement(rColors, rNodes)
-			print("A", rColors, rNodes)
+			rColors, rNodes = colorRefinement(rColors, rNodes, list(graphsWithDup.keys())[0], g)
 			allColors = getColors(rNodes)
-			print(g, allColors[0], allColors[g])
-			# inp = input("hi")
-
-			if(allColors[0] == allColors[g]):
+			if(allColors[list(graphsWithDup.keys())[0]] == allColors[g]):
 				if len(checkIsomorph(rNodes)[0]) < 2:
 					print("ISO1")
 					return rColors, rNodes
 				else:
-					print("RECURSION")
+					# print("RECURSION")
 					rColors, rNodes = individualRef_2(rColors, rNodes)
-					print("---- END RECURSION")
-					if(allColors[0] == allColors[g]):
-						print("ISO2")
-						if len(checkIsomorph(rNodes)[0]) < 2:
-							return rColors, rNodes
-						else:
-							isomorphs = checkIsomorph(rNodes)
-							for x in range(len(isomorphs[0])):
-								# rColors[isomorphs[0][x]] = copy.deepcopy(copyColors[isomorphs[0][x]])
-								for y in range(x*nrOfNodes, (x+1)*nrOfNodes):
-									rNodes[y] = copy.deepcopy(copyNodes[y])
-						# return rColors, rNodes
-					# return rColors, rNodes
+					# print("---- END RECURSION")
 			else:
-				print("NOT RECURSION!")
-				if len(checkIsomorph(rNodes)[0]) >= 2:
-					rColors = copy.deepcopy(copyColors)
-					rNodes = copy.deepcopy(copyNodes)
+				rColors = copy.deepcopy(copyColors)
+				rNodes = copy.deepcopy(copyNodes)
 			j += 1
 		i += 1
-	# if len(checkIsomorph(rNodes)[0]) >= 2:
-
-
 	return rColors, rNodes	
 
-# def individualRef(colors, nodes):
-	
-# 	isDone = False
-# 	print("COLORS: ", colors)
-# 	rColors = copy.deepcopy(colors)
-# 	rNodes = copy.deepcopy(nodes)
-# 	# print(colorlist)
-# 	while(not isDone):
-# # <<<<<<< HEAD
-# 		# for i in range(nrOfGraphs):
-# 		# for i in range(1):
-# 		# for i in range(1):
-# 		i = 0
-# 		colorlist = getColors(rNodes)
-# 		# print(i, colorlist)
-# 		if len(colorlist[i]) != len(set(colorlist[i])) :					# check for a dub
-# 			# print(colorlist[i], set(colorlist[i]))
+def gensetGen(colors, nodes, genSet, t):
+	gS = genSet
+	rColors = copy.deepcopy(colors)
+	rNodes = copy.deepcopy(nodes)
+	graphsWithDup = findGraphsWithDup(rColors, rNodes)
+	# print(graphsWithDup)
+	done = False
+	g = list(graphsWithDup.keys())[0]
+	if len(graphsWithDup.keys()) == 2:
+		# for i in range(len(graphsWithDup[g])):
+		j=0
+		while j < len(graphsWithDup[g]) and not done:
+			copyColors = copy.deepcopy(rColors)
+			copyNodes = copy.deepcopy(rNodes)
 
-# 			# print("dub i", i)
-# 			j = 0
-# 			dupColor = -1
-# 			# print(colorlist[i])
-# 			while dupColor == -1 and j < len(colorlist[i]) -1:			# finding dup color
-# 				if colorlist[i][j] == colorlist[i][j+1]:
-# 					dupColor = colorlist[i][j]
-# 				j += 1
+			g0 = list(graphsWithDup.keys())[0]				# RECOLOR FIRST NODE OF FIRST GRAPH
+			node = graphsWithDup[0][0]
+			rColors[rNodes[node]].remove(node)
+			rNodes[node] = len(rColors)
+			rColors.append([node])
 
-# 			# print(dupColor, rColors)
-# 			# print("YOLO",rColors[dupColor])
-# 			graphsWithDup = {}
-# 			for x in range(len(rColors[dupColor])):
-# 				# print("rcolors: ", rColors, rColors[dupColor])
-# 				g = (int(rColors[dupColor][x])//nrOfNodes)
-# 				graphsWithDup[g] = []
-# 			for x in range(len(rColors[dupColor])):
-# 				g = (int(rColors[dupColor][x])//nrOfNodes)
-# 				graphsWithDup[g].append(rColors[dupColor][x])
+			node2 = graphsWithDup[1][j]
+			rColors[rNodes[node2]].remove(node2)
+			rNodes[node2] = len(rColors)-1
+			rColors[rNodes[node2]].append(node2)
 
-# 			print("Graphs: ", graphsWithDup)
-# 			g = list(graphsWithDup.keys())[0]
-# 			node = graphsWithDup[g][0]
-# 			print("RCOLOR1:", rColors)
-# 			rColors[rNodes[node]].remove(node)
-# 			rNodes[node] = len(rColors)
-# 			rColors.append([node])
-# 			print("RCOLOR:", rColors)
+			rColors, rNodes = colorRefinement(rColors, rNodes, -1, -1)
+			allColors = getColors(rNodes)
+			# print("MAPPING:", node, "TO", node2%len(rNodes))
+			# inp = input("kaas")
+			if(allColors[0] == allColors[1]):
 
-# 			for k in range(1, len(graphsWithDup.keys())):
-# 				g = list(graphsWithDup.keys())[k]
-# 				node = graphsWithDup[2][0]
-# 				print(rNodes, node)
-# 				rColors[rNodes[node]].remove(node)
-# 				rNodes[node] = len(rColors)-1
-# 				rColors[rNodes[node]].append(node)
-# 				print("RCOLOR3:", rColors)
-# 			# print("rColors: ", rColors)
-# 			rColors, rNodes = colorRefinement(rColors, rNodes)
-# 			print("rColors: ", rColors)
-# 			# print("yeey")
-# =======
+				gS[t].append([node, node2])
+				# print("APPEND")
 
-# 		graphsWithDup = findGraphsWithDup(rColors, rNodes)
-
-# 		print("Graphs: ", graphsWithDup)
-# 		g = list(graphsWithDup.keys())[0]
-# 		node = graphsWithDup[g][0]
-# 		# print("RCOLOR1:", rColors)
-# 		rColors[rNodes[node]].remove(node)
-# 		rNodes[node] = len(rColors)
-# 		rColors.append([node])
-# 		print("NODES", rNodes)
-# 		# print("RCOLOR:", rColors)
+				if len(checkIsomorph(rNodes)[0]) >= 2:
+					# print("RECURSION")
+					rColors, rNodes, gS, t = gensetGen(rColors, rNodes, gS, t)
+					# print("---- END RECURSION")
+				else:
+					rColors = copy.deepcopy(copyColors)
+					rNodes 	= copy.deepcopy(copyNodes)
+					# print("PLUS 1!!")
+					t += 1
+				if len(gS) == t:
+					gS.append([])
+				rColors = copy.deepcopy(copyColors)
+				rNodes 	= copy.deepcopy(copyNodes)
+			else:
+				rColors = copy.deepcopy(copyColors)
+				rNodes = copy.deepcopy(copyNodes)
+			j += 1
+		rColors = copy.deepcopy(colors)
+		rNodes = copy.deepcopy(nodes)
+	return rColors, rNodes, gS, t
 
 
-# 		for k in range(1, len(graphsWithDup.keys())):
-# 			g = list(graphsWithDup.keys())[k]
-# 			m = 0
-# 			isomorph = False
-# 			copyColors = copy.deepcopy(rColors)
-# 			copyNodes = copy.deepcopy(rNodes)
-# 			while m < len(graphsWithDup[g]) and not isomorph:
-# 				print(g, m)
-# 				# print(node, rColors, rNodes)
-# 				node = graphsWithDup[g][m]
-# 				print("cb", rColors)
-# 				print("nb", rNodes)
-# 				rColors[rNodes[node]].remove(node)
-# 				rNodes[node] = len(rColors)-1
-# 				rColors[rNodes[node]].append(node)
-# 				print("ca", rColors)
-# 				print("na", rNodes)
-# 				# inputv = input("hoi")
-# 				rColors, rNodes = colorRefinement(rColors, rNodes)
-# 				print("ccr", rColors)
-# 				print("ncr", rNodes)
-# 				if isIsomorph(list(graphsWithDup.keys())[0], list(graphsWithDup.keys())[k], rNodes):
-# 					isomorph = True
-# 					print("ISOOOOOO")
-# 				else:
-# 					m += 1
-# 					# print("before", rNodes)
-# 					rColors = copy.deepcopy(copyColors)
-# 					rNodes = copy.deepcopy(copyNodes)
-# 					# print("after", rNodes)
+def automorphismCount(graph):
+	aNodes = len(graph.V())
+	G = [graph, copy.deepcopy(graph)]
+	colors = []
+	nodes = []
+	colors, nodes = setColorAsNrNeighbors2(G)
+	colors, nodes = colorRefinement(colors, nodes, -1, -1)
+	# print(colors)
+	genSet = [[]]
+	t = 0
+	colors, nodes, genSet, t = gensetGen(colors, nodes, genSet, 0)
+	return t
 
-# 			# for k in range(1, len(graphsWithDup.keys())):
-# 			# 	g = list(graphsWithDup.keys())[k]
-# 			# 	node = graphsWithDup[g][0]
-# 			# 	print(rNodes, node)
-# 			# 	rColors[rNodes[node]].remove(node)
-# 			# 	rNodes[node] = len(rColors)-1
-# 			# 	rColors[rNodes[node]].append(node)
-# 			# 	print("RCOLOR3:", rColors)
-# 			# # print("rColors: ", rColors)
-# 			# rColors, rNodes = colorRefinement(rColors, rNodes)
-# 			# print("rColors: ", rColors)
-# 			# # print("yeey")
-# >>>>>>> f92ad233749832854e6779db3b534341c56ac66f
-# 		if len(checkIsomorph(rNodes)[0]) < 2:
-# 			isDone = True	
-# 		i += 1
-# 		i%nrOfGraphs
-# 	return rColors, rNodes
+def stabOrder(P):
+	sO = 1
+	Orbitss = []
+	stabilizer = P
+	while stabilizer != []:
+		el = el = basicpermutationgroup.FindNonTrivialOrbit(stabilizer)
+		orbit = basicpermutationgroup.Orbit(stabilizer, el, False)
+		# print(orbit)
+		Orbitss.append(len(orbit))
+		stabilizer = basicpermutationgroup.Stabilizer(stabilizer, el)
+
+	for i in range(len(Orbitss)):
+		sO = sO*Orbitss[i]
+	return sO
 
 # load the graphs into a list
 def loadGraphs(file):
@@ -621,86 +631,17 @@ def giveColor(graph, nodes):
 ## MAIN
 
 global G
-G = loadGraphs('week1/crefBM_4_9.grl')
-# G=loadGraphs('week2/cubes3.grl')
-#print("aantal graphs: ", len(G))-
-global disjointGraph
-disjointGraph = createDisjointUnion(G)
-nbs = disjointGraph.V()[0].nbs()
-#print(disjointGraph[nbs[0]._label])
-# graphIO.writeDOT(G[0], 'graph1.dot')
-# graphIO.writeDOT(G[1], 'graph2.dot')
-# graphIO.writeDOT(G[2], 'graph3.dot')
-# graphIO.writeDOT(G[3], 'graph4.dot')
+G=loadGraphs('week2/cubes6.grl')
 
-# for i in range(len(G)):
-colors, nodes = setColorAsNrNeighbors(disjointGraph)
-colors2, nodes2 = setColorAsNrNeighbors2(G)
-T = (colors == colors2)
-T2 = (nodes == nodes2)
-print(colors)
-print(colors2)
-print(nodes)
-print(nodes2)
-print(T, T2)
-nbc = getNeighborsColors(16, nodes)
-nbc2 = getNeighborsColors2(16, nodes)
-print(nbc)
-print(nbc2)
-# colors, nodes = colorRefinement(colors, nodes)
-# printIsomorphs(checkIsomorph(nodes))
+colors, nodes = setColorAsNrNeighbors2(G)
+print("-- Nodes colors as Nr of Neighbors")
+colors, nodes = colorRefinement(colors, nodes, -1, -1)
+print("-- Color Refinement done")
+if len(checkIsomorph(nodes)[0]) != 0:
+	colors, nodes = individualRef_2(colors, nodes)
+	print("-- Individual Refinement done")
+	
 
-# colors, nodes = individualRef_2(colors, nodes)
-# print(colors, nodes)
-# Q = giveColor(disjointGraph, nodes)
-# graphIO.writeDOT(Q, 'graph.dot')
-# <<<<<<< HEAD
-# colors, nodes = individualRef(colors, nodes)
-# colors[0].remove(0)
-# colors[0].remove(16)
-# colors.append([0])
-# colors[-1].append(16)
-# nodes[0] = len(colors)-1
-# nodes[16] = len(colors)-1
-# colors, nodes = colorRefinement(colors, nodes)
-# printIsomorphs(checkIsomorph(nodes))
-# colors[0].remove(1)
-# colors[0].remove(19)
-# colors.append([1])
-# colors[-1].append(19)
-# nodes[1] = len(colors)-1
-# nodes[19] = len(colors)-1
-# colors, nodes = colorRefinement(colors, nodes)
-# printIsomorphs(checkIsomorph(nodes))
-# colors[0].remove(4)
-# colors[0].remove(21)
-# colors.append([4])
-# colors[-1].append(21)
-# nodes[4] = len(colors)-1
-# nodes[21] = len(colors)-1
-# colors, nodes = colorRefinement(colors, nodes)
-# printIsomorphs(checkIsomorph(nodes))
-# colors, nodes = individualRef(colors, nodes)
-# =======
-# >>>>>>> f92ad233749832854e6779db3b534341c56ac66f
-# printIsomorphs(checkIsomorph(nodes))
-
-# colors, nodes = individualRef_2(colors, nodes)
-# print(Isomorphs(checkIsomorph(nodes)))
-# print(colors, nodes)
-# Q = giveColor(disjointGraph, nodes)
-# graphIO.writeDOT(Q, 'graphinf.dot')
-# print("COLOR: ", colors, "NODES: ", nodes)
-
-# print("Colors: ", colors)
-# colors = colorRefinement(colors)
-# # print("rColors: ", len(colors))
-# # print("NODE 22", disjointGraph.V()[22].colornum)
-
-# printIsomorphs(checkIsomorph(disjointGraph))
-# graphIO.writeDOT(disjointGraph, 'graph_colors.dot')
-# individualRef(disjointGraph, colors)
-# printIsomorphs(checkIsomorph(disjointGraph))
-# graphIO.writeDOT(disjointGraph, 'graph_colors_2.dot')
-#print("Colors: \n",colors)
-
+print("-- Count Isomorphs")
+printIsomorphs(checkIsomorph(nodes))
+print("Isomorphs: ", automorphismCount(G[0]))
