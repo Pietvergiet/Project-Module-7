@@ -74,7 +74,27 @@ def checkConnected(graphs):
 	print(indices)
 	return result
 
+def checkConnectedParts(G):
+	K = G.V()
+	antb = []		# antb staat voor array nog te behandelen
+	avb = []		# avb staat voor array volledig behandeld
+	teller = 0
+	result = []
 
-# G = loadGraphs('week2/test.grl')
-# checkConnected(G)
-# # print(G)
+	while len(K) > 0:
+		teller += 1
+		antb.append(K[0])
+		K.pop(0)
+		while len(antb) > 0:
+			for i in range(len(K)):
+				if G.adj(G.V()[i], antb[0]) == True:
+					antb.append(i)
+					K.pop(i)
+			avb.append(antb[0])
+			antb.pop(0)
+		result.append(avb)
+		avb = []
+	return result
+
+G = loadGraphs('week2/test.grl')
+print(checkConnectedParts(G[0]))

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2015.3.22)  5 APR 2015 14:32
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2015.3.22)  7 APR 2015 17:44
 entering extended mode
 **C:/Users/Admin/Documents/Universiteit/Year*2*Module*2A*-*Discrete*Structures*
 &*Efficient*Algorithms/Project/Project-Module-7/paper/paper.tex
@@ -201,29 +201,9 @@ subscribe by emailing sympa@lirmm.fr with 'subscribe <list> <firstname name>'
 \c@algocf=\count109
 \algocf@algoframe=\box35
 \algocf@algobox=\box36
-) ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\cite\cite.sty"
-LaTeX Info: Redefining \cite on input line 302.
-LaTeX Info: Redefining \nocite on input line 332.
-Package: cite 2015/02/27  v 5.5
 )
 ("C:\Users\Admin\Documents\Universiteit\Year 2 Module 2A - Discrete Structures 
-& Efficient Algorithms\Project\Project-Module-7\paper\paper.aux"
-
-! Package natbib Error: Bibliography not compatible with author-year citations.
-
-(natbib)                Press <return> to continue in numerical citation style.
-
-
-See the natbib package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.18 ...mand\NAT@force@numbers{}\NAT@force@numbers
-                                                  
-Check the bibliography entries for non-compliant syntax,
-or select author-year BibTeX style, e.g. plainnat
-
-)
+& Efficient Algorithms\Project\Project-Module-7\paper\paper.aux")
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 20.
 LaTeX Font Info:    ... okay on input line 20.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 20.
@@ -236,7 +216,8 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 20.
 LaTeX Font Info:    ... okay on input line 20.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 20.
 LaTeX Font Info:    ... okay on input line 20.
- ("C:\Program Files (x86)\MiKTeX 2.9\tex\context\base\supp-pdf.mkii"
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\context\base\supp-pdf.mkii"
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count110
 \scratchdimen=\dimen122
@@ -328,56 +309,46 @@ Underfull \hbox (badness 10000) in paragraph at lines 130--131
 
  []
 
-Missing character: There is no â in font cmr10!
-Missing character: There is no € in font cmr10!
-Missing character: There is no ˜ in font cmr10!
-Missing character: There is no â in font cmr10!
-Missing character: There is no € in font cmr10!
-Missing character: There is no ™ in font cmr10!
-Missing character: There is no â in font cmr10!
-Missing character: There is no € in font cmr10!
-Missing character: There is no ˜ in font cmr10!
-Missing character: There is no â in font cmr10!
-Missing character: There is no € in font cmr10!
-Missing character: There is no ™ in font cmr10!
-[7]
-Underfull \hbox (badness 10000) in paragraph at lines 159--160
+
+Underfull \hbox (badness 10000) in paragraph at lines 156--157
 
  []
 
-[8]
-Overfull \hbox (12.63951pt too wide) in paragraph at lines 186--187
+[7] [8]
+Overfull \hbox (12.63951pt too wide) in paragraph at lines 183--184
 \OT1/cmr/m/n/10 Natuurlijk gaan we ons color refinement-algoritme en onze prepr
 ocessing-algoritmes
  []
 
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 188.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 185.
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\omscmr.fd"
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 188.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 185.
 
-Overfull \hbox (5.26912pt too wide) in paragraph at lines 188--189
+Overfull \hbox (5.26912pt too wide) in paragraph at lines 185--186
 \OT1/cmr/m/n/10 con-trol-eren op au-to-mor-fisme. Dit zijn ver-plichte on-derde
 -len van het project,
  []
 
 [9] [10]
+("C:\Users\Admin\Documents\Universiteit\Year 2 Module 2A - Discrete Structures 
+& Efficient Algorithms\Project\Project-Module-7\paper\paper.bbl"
 Missing character: There is no Ã in font cmr10!
 Missing character: There is no ¶ in font cmr10!
- [11]
+) [11]
 ("C:\Users\Admin\Documents\Universiteit\Year 2 Module 2A - Discrete Structures 
 & Efficient Algorithms\Project\Project-Module-7\paper\paper.aux") ) 
 Here is how much of TeX's memory you used:
- 3741 strings out of 493921
- 50385 string characters out of 3144876
- 130748 words of memory out of 3000000
- 7023 multiletter control sequences out of 15000+200000
+ 3669 strings out of 493921
+ 49627 string characters out of 3144876
+ 129823 words of memory out of 3000000
+ 6951 multiletter control sequences out of 15000+200000
  7814 words of font info for 28 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
- 27i,18n,23p,2444b,366s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 27i,18n,28p,2444b,366s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Program 
 Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Program Fi
 les (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Program File
@@ -389,7 +360,7 @@ iKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Program Files (x86)/MiKTe
 X 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files (x86)/MiKTeX 
 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Program Files (x86)/MiKTeX 2.
 9/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on paper.pdf (12 pages, 194313 bytes).
+Output written on paper.pdf (12 pages, 192602 bytes).
 PDF statistics:
  82 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)

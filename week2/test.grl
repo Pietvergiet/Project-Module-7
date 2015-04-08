@@ -1,5 +1,5 @@
 # Number of vertices:
-16
+18
 # Edge list:
 0,8
 10,5
@@ -33,6 +33,7 @@
 11,8
 11,12
 1,8
+16,17
 --- Next graph:
 # Number of vertices:
 16
