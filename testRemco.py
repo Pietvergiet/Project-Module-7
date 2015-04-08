@@ -191,11 +191,13 @@ def getNeighborsColors(node, nodes):
 	g = node//nrOfNodes
 	n = node%nrOfNodes
 
-	nbs = G[g][n].nbs()
+	nbs = UsedGraphs[g][n].nbs()
+	# print("Node", g, n, node, nbs, UsedGraphs[g][n])
+
 
 	for i in range(len(nbs)):
 		result.append(nodes[nbs[i]._label+(g*nrOfNodes)])
-
+	# print("node", node, result)
 	merge_sort(result)
 
 	return result
@@ -268,7 +270,8 @@ def colorRefinementNew(colors, nodes, graph1, graph2):
 			allowedNodes.append(i+(nrOfNodes*graph2))
 	# for i in range(len(allowedNodes)):
 	i = 0
-	colorsDone = list(cNodes)
+	colorsDone = set(cNodes)
+	# print("--", colorsDone)
 	while i < len(allowedNodes) and len(colorsDone) != 0:
 		if cNodes[allowedNodes[i]] in colorsDone:
 			colorsDone.remove(cNodes[allowedNodes[i]])
@@ -277,12 +280,14 @@ def colorRefinementNew(colors, nodes, graph1, graph2):
 			nrOfColors = copy.deepcopy(len(cColors))
 			
 			neighbourColors = {}
+			# print(i, colorsDone, cNodes[allowedNodes[i]])
 			while j < len(cColors[cNodes[allowedNodes[i]]]):
 				node = cColors[cNodes[allowedNodes[i]]][j]
 
 				allowedNodesNbs = getNeighborsColors(allowedNodes[i], nodes)
 				neighbourColors[node] = getNeighborsColors(node, nodes)
-				
+
+				# print(allowedNodes[i], allowedNodesNbs, node, neighbourColors[node])
 				if neighbourColors[node] != allowedNodesNbs:				
 					q = nrOfColors
 					nbsFound = False
@@ -301,7 +306,10 @@ def colorRefinementNew(colors, nodes, graph1, graph2):
 					j += 1
 		i += 1
 	if cColors != colors:
-		print("Recursie")
+		# print("Recursie")
+		# inp = input("hi")
+		# print(cColors)
+
 		cColors, cNodes = colorRefinementNew(cColors, cNodes, graph1, graph2)
 	return cColors, cNodes
 
@@ -535,9 +543,9 @@ def individualRef_2(colors, nodes):
 			rColors[rNodes[node]].remove(node)
 			rNodes[node] = len(rColors)-1
 			rColors[rNodes[node]].append(node)
-			print("In ClrRef", j)
+			# print("In ClrRef", j)
 			rColors, rNodes = colorRefinementNew(rColors, rNodes, list(graphsWithDup.keys())[0], g)
-			print("Uit ClrRef")
+			# print("Uit ClrRef")
 			allColors = getColors(rNodes)
 			if(allColors[list(graphsWithDup.keys())[0]] == allColors[g]):
 				if len(checkIsomorph(rNodes)[0]) < 2:
@@ -688,32 +696,33 @@ def giveColor(graph, nodes):
 
 ## MAIN
 
-global G
-# G=loadGraphs('week2/cubes3.grl')
-G=loadGraphs('week1/crefBM_4_7.grl')
+G=loadGraphs('toets/basicGI2.grl')
+# G=loadGraphs('week1/crefBM_4_7.grl')
+global UsedGraphs
+UsedGraphs = G
 
 global disjointGraph
-disjointGraph = createDisjointUnion(G)
+disjointGraph = createDisjointUnion(UsedGraphs)
 
-colors, nodes = setColorAsNrNeighbors2(G)
-Q = giveColor(disjointGraph, nodes)
-graphIO.writeDOT(Q, 'graph.dot')
+colors, nodes = setColorAsNrNeighbors2(UsedGraphs)
+
 print("-- Nodes colored as Nr of Neighbors")
 # colors, nodes = colorRefinement(colors, nodes, -1, -1)
 
 
 # print(colors)
 # print(nodes)
-cColors, cNodes = colorRefinementNew(colors, nodes, -1, -1)
+colors, nodes = colorRefinementNew(colors, nodes, -1, -1)
 print("-- Color Refinement done")
-# print(cColors)
-# print(cNodes)
-printIsomorphs(checkIsomorph(cNodes))
-colors, nodes = individualRef_2(cColors, cNodes)
-print("-- Individual Refinement done")
+
 printIsomorphs(checkIsomorph(nodes))
 
-
+colors, nodes = individualRef_2(colors, nodes)
+print("-- Individual Refinement done")
+printIsomorphs(checkIsomorph(nodes))
+Q = giveColor(disjointGraph, nodes)
+graphIO.writeDOT(Q, 'graph.dot')
+print(getColors(nodes))
 
 # if len(checkIsomorph(nodes)[0]) != 0:
 	
