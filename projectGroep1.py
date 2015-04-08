@@ -6,10 +6,10 @@ import math
 import permv2
 import basicpermutationgroup
 
-colors=[]
-nodes=[]
-nrOfGraphs = 0;
-nrOfNodes = 0;
+# colors=[]
+# nodes=[]
+# nrOfGraphs = 0;
+# nrOfNodes = 0;
 
 # Maakt de disjoint union van een lijst met graven
 def createDisjointUnion(graphs):
@@ -29,7 +29,6 @@ def createDisjointUnion(graphs):
 					G.addedge(G[j+index], G[nbs[x]._label+index])	
 				except basicgraphs.GraphError:
 					pass
-	print("Disjoint created!")
 	return G
 
 # returns a list with the colors of the nodes of the graph, grouped by the graph and sorted. Graph 0 at index 0
@@ -276,18 +275,6 @@ def gensetGen(colors, nodes, genSet, t):
 		rNodes = copy.deepcopy(nodes)
 	return rColors, rNodes, gS, t
 
-def automorphismCount(graph):
-	aNodes = len(graph.V())
-	G = [graph, copy.deepcopy(graph)]
-	colors = []
-	nodes = []
-	colors, nodes = setColorAsNrNeighbors2(G)
-	colors, nodes = colorRefinement(colors, nodes, -1, -1)
-	genSet = [[]]
-	t = 0
-	colors, nodes, genSet, t = gensetGen(colors, nodes, genSet, 0)
-	return t
-
 def stabOrder(P):
 	sO = 1
 	Orbitss = []
@@ -349,6 +336,26 @@ def giveColor(graph, nodes):
 
 	return cGraph
 
+def createDOT(nodes):
+	disjointGraph = createDisjointUnion(UsedGraphs)
+	filename = input("Enter filename for .dot file: ")
+	Q = giveColor(disjointGraph, nodes)
+	string = filename + ".dot"
+	graphIO.writeDOT(Q, string)
+	print(".dot file created")
+
+def automorphismCount(graph):
+	aNodes = len(graph.V())
+	G = [graph, copy.deepcopy(graph)]
+	colors = []
+	nodes = []
+	colors, nodes = setColorAsNrNeighbors2(G)
+	colors, nodes = colorRefinement(colors, nodes, -1, -1)
+	genSet = [[]]
+	t = 0
+	colors, nodes, genSet, t = gensetGen(colors, nodes, genSet, 0)
+	return t
+
 def searchIsomorphs(graphs):
 	print("Starting...")
 	colors, nodes = setColorAsNrNeighbors(graphs)
@@ -358,34 +365,26 @@ def searchIsomorphs(graphs):
 	colors, nodes, found = individualRef(colors, nodes)
 	print("-- Individual Refinement done")
 	printIsomorphs(checkIsomorph(nodes))
-	drawGraph = input("Create .dot file? Y/N")
-	if drawGraph = Y:
+	drawGraph = input("Create .dot file? Y/N ")
+	if drawGraph is 'Y':
 		createDOT(nodes)
 	print("Done...")
 
 def main():
-	typeinput = input("Choose 1 for GI or 2 for AUT:")
+	typeinput = input("Choose 1 for GI or 2 for AUT: ")
 	global UsedGraphs
-	if typeinput == 1:
+	if typeinput == '1':
 		filename = input("Please enter filename for isomorphism: ")
 		G = loadGraphs(filename)
 		UsedGraphs = G
 		searchIsomorphs(UsedGraphs)
-	else if typeinput == 2:
+	elif typeinput == '2':
 		filename = input("Please enter filename for automorphism counting: ")
 		G = loadGraphs(filename)
 		UsedGraphs = G
 		automorphismCount(UsedGraphs)
 	else:
 		print("Wrong input")
-
-def createDOT(nodes):
-	disjointGraph = createDisjointUnion(UsedGraphs)
-	filename = input("Enter filename for .dot file: ")
-	Q = giveColor(disjointGraph, nodes)
-	string = filename + ".dot"
-	graphIO.writeDOT(Q, string)
-	print(".dot file created")
 
 
 ## MAIN
