@@ -102,10 +102,11 @@ def getNeighborsColors(node, nodes):
 	result=[]
 	
 	g = node//nrOfNodes
-	n = node%nrOfNodes
-
-	nbs = UsedGraphs[g][n].nbs()
-
+	n = node%len(UsedGraphs[g].V())
+	try:
+		nbs = UsedGraphs[g][n].nbs()
+	except IndexError:
+		print(g, n)
 	for i in range(len(nbs)):
 		result.append(nodes[nbs[i]._label+(g*nrOfNodes)])
 	merge_sort(result)
