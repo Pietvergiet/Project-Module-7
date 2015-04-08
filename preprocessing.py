@@ -47,8 +47,11 @@ def checkLength(graphs):
 	indices = []
 	for i in range(len(graphs)):
 		for j in range(i+1, len(graphs)):
-			print(i,j)
+			print(len(graphs[i].E()))
+			print(len(graphs[j].E()))
 			if len(graphs[i].V()) == len(graphs[j].V()) and len(graphs[i].E()) == len(graphs[j].E()):
+				print("i: ", i)
+				print("j: ", j)
 				indices.append(i)
 				indices.append(j)
 
@@ -71,7 +74,6 @@ def checkConnected(graphs):
 	indices = list(set(indices))
 	for i in range(len(indices)):
 		result.append(graphs[i])
-	print(indices)
 	return result
 
 def checkConnectedParts(G):
@@ -96,5 +98,7 @@ def checkConnectedParts(G):
 		avb = []
 	return result
 
-G = loadGraphs('week2/test.grl')
-print(checkConnectedParts(G[0]))
+# G = loadGraphs('test/test.grl')
+# # print(G)
+# print(checkLength(G))
+# # print(checkConnectedParts(G[0]))
