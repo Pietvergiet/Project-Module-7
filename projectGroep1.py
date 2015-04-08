@@ -165,7 +165,9 @@ def colorRefinement(colors, nodes, graph1, graph2):
 	return cColors, cNodes	
 
 def findGraphsWithDup(colors, nodes):
-	for i in range(nrOfGraphs):
+	graphsWithDup = {}
+	i = 0
+	while i < nrOfGraphs and graphsWithDup == {}:
 		colorlist = getColors(nodes)
 		if len(colorlist[i]) != len(set(colorlist[i])) :					# check for a dub
 			j = 0
@@ -174,13 +176,14 @@ def findGraphsWithDup(colors, nodes):
 				if colorlist[i][j] == colorlist[i][j+1]:
 					dupColor = colorlist[i][j]
 				j += 1
-			graphsWithDup = {}
+			
 			for x in range(len(colors[dupColor])):
 				g = (int(colors[dupColor][x])//nrOfNodes)
 				graphsWithDup[g] = []
 			for x in range(len(colors[dupColor])):
 				g = (int(colors[dupColor][x])//nrOfNodes)
 				graphsWithDup[g].append(colors[dupColor][x])
+		i += 1
 	return graphsWithDup
 
 def individualRef(colors, nodes):
@@ -188,36 +191,36 @@ def individualRef(colors, nodes):
 	rNodes = copy.deepcopy(nodes)
 	graphsWithDup = findGraphsWithDup(rColors, rNodes)
 	i = 1
-	done = False
-	while i < len(graphsWithDup.keys()) and not done:
+	while i < len(graphsWithDup.keys()):
 		g = list(graphsWithDup.keys())[i]
 		j = 0
-		while j < len(graphsWithDup[g]) and not done:
+		while j < len(graphsWithDup[g]):
 			copyColors = copy.deepcopy(rColors)
 			copyNodes = copy.deepcopy(rNodes)
 			
 			g0 = list(graphsWithDup.keys())[0]				# RECOLOR FIRST NODE OF FIRST GRAPH
-			
 			node = graphsWithDup[g0][0]
 			rColors[rNodes[node]].remove(node)
 			rNodes[node] = len(rColors)
 			rColors.append([node])
-
 			node = graphsWithDup[g][j]
 			rColors[rNodes[node]].remove(node)
 			rNodes[node] = len(rColors)-1
 			rColors[rNodes[node]].append(node)
-			rColors, rNodes = colorRefinement(rColors, rNodes, list(graphsWithDup.keys())[0], g)
+			rColors, rNodes = colorRefinement(rColors, rNodes, g0, g)
 			allColors = getColors(rNodes)
-			if(allColors[list(graphsWithDup.keys())[0]] == allColors[g]):
+			if(allColors[g0] == allColors[g]):
 				if len(checkIsomorph(rNodes)[0]) < 2:
 					return rColors, rNodes, True
 				else:
 					print("RECURSION")
 					rColors, rNodes, found = individualRef(rColors, rNodes)
 					if found:
+						print("---------FOUND!")
 						return rColors, rNodes, found
-					print("---- END RECURSION")
+					else:
+						rColors = copy.deepcopy(copyColors)
+						rNodes = copy.deepcopy(copyNodes)
 			else:
 				rColors = copy.deepcopy(copyColors)
 				rNodes = copy.deepcopy(copyNodes)
@@ -355,16 +358,28 @@ def searchIsomorphs(graphs):
 	colors, nodes, found = individualRef(colors, nodes)
 	print("-- Individual Refinement done")
 	printIsomorphs(checkIsomorph(nodes))
+	drawGraph = input("Create .dot file? Y/N")
+	if drawGraph = Y:
+		createDOT(nodes)
 	print("Done...")
 
 def main():
-	filename = input("Please enter file for isomorphism: ")
-	G = loadGraphs(filename)
+	typeinput = input("Choose 1 for GI or 2 for AUT:")
 	global UsedGraphs
-	UsedGraphs = G
-	searchIsomorphs(UsedGraphs)
+	if typeinput == 1:
+		filename = input("Please enter filename for isomorphism: ")
+		G = loadGraphs(filename)
+		UsedGraphs = G
+		searchIsomorphs(UsedGraphs)
+	else if typeinput == 2:
+		filename = input("Please enter filename for automorphism counting: ")
+		G = loadGraphs(filename)
+		UsedGraphs = G
+		automorphismCount(UsedGraphs)
+	else:
+		print("Wrong input")
 
-def createDOT():
+def createDOT(nodes):
 	disjointGraph = createDisjointUnion(UsedGraphs)
 	filename = input("Enter filename for .dot file: ")
 	Q = giveColor(disjointGraph, nodes)
