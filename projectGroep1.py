@@ -227,53 +227,45 @@ def individualRef(colors, nodes):
 		i += 1
 	return rColors, rNodes, False	
 
-def gensetGen(colors, nodes, genSet, t):
-	gS = genSet
+def gensetGen(colors, nodes, t):
+	count = t
 	rColors = copy.deepcopy(colors)
 	rNodes = copy.deepcopy(nodes)
 	graphsWithDup = findGraphsWithDup(rColors, rNodes)
-	done = False
-	g = list(graphsWithDup.keys())[0]
-	if len(graphsWithDup.keys()) == 2:
-		j=0
-		while j < len(graphsWithDup[g]) and not done:
+	i = 1
+	while i < len(graphsWithDup.keys()):
+		g = list(graphsWithDup.keys())[i]
+		j = 0
+		while j < len(graphsWithDup[g]):
 			copyColors = copy.deepcopy(rColors)
 			copyNodes = copy.deepcopy(rNodes)
-
+			
 			g0 = list(graphsWithDup.keys())[0]				# RECOLOR FIRST NODE OF FIRST GRAPH
-			node = graphsWithDup[0][0]
+			node = graphsWithDup[g0][0]
 			rColors[rNodes[node]].remove(node)
 			rNodes[node] = len(rColors)
 			rColors.append([node])
-
-			node2 = graphsWithDup[1][j]
-			rColors[rNodes[node2]].remove(node2)
-			rNodes[node2] = len(rColors)-1
-			rColors[rNodes[node2]].append(node2)
-
-			rColors, rNodes = colorRefinement(rColors, rNodes, -1, -1)
+			node = graphsWithDup[g][j]
+			rColors[rNodes[node]].remove(node)
+			rNodes[node] = len(rColors)-1
+			rColors[rNodes[node]].append(node)
+			rColors, rNodes = colorRefinement(rColors, rNodes, g0, g)
 			allColors = getColors(rNodes)
-			if(allColors[0] == allColors[1]):
-
-				gS[t].append([node, node2])
-
-				if len(checkIsomorph(rNodes)[0]) >= 2:
-					rColors, rNodes, gS, t = gensetGen(rColors, rNodes, gS, t)
-				else:
+			if(allColors[g0] == allColors[g]):
+				if len(checkIsomorph(rNodes)[0]) == 0:
+					count += 1
 					rColors = copy.deepcopy(copyColors)
-					rNodes 	= copy.deepcopy(copyNodes)
-					t += 1
-				if len(gS) == t:
-					gS.append([])
-				rColors = copy.deepcopy(copyColors)
-				rNodes 	= copy.deepcopy(copyNodes)
+					rNodes = copy.deepcopy(copyNodes)
+				else:
+					print("RECURSION")
+					rColors, rNodes, count = gensetGen(rColors, rNodes, count)
+					print("--- END RECURSION")
 			else:
 				rColors = copy.deepcopy(copyColors)
 				rNodes = copy.deepcopy(copyNodes)
 			j += 1
-		rColors = copy.deepcopy(colors)
-		rNodes = copy.deepcopy(nodes)
-	return rColors, rNodes, gS, t
+		i += 1
+	return rColors, rNodes, count
 
 def stabOrder(P):
 	sO = 1
@@ -345,16 +337,17 @@ def createDOT(nodes):
 	print(".dot file created")
 
 def automorphismCount(graph):
-	aNodes = len(graph.V())
-	G = [graph, copy.deepcopy(graph)]
-	colors = []
-	nodes = []
-	colors, nodes = setColorAsNrNeighbors2(G)
-	colors, nodes = colorRefinement(colors, nodes, -1, -1)
-	genSet = [[]]
-	t = 0
-	colors, nodes, genSet, t = gensetGen(colors, nodes, genSet, 0)
-	return t
+	autos= []
+	for i in range(len(graph)):		
+		G = [graph[i], copy.deepcopy(graph[i])]
+		colors = []
+		nodes = []
+		colors, nodes = setColorAsNrNeighbors(G)
+		colors, nodes = colorRefinement(colors, nodes, -1, -1)
+		t = 0
+		colors, nodes, t = gensetGen(colors, nodes, 0)
+		autos.append(t)
+	return autos
 
 def searchIsomorphs(graphs):
 	print("Starting...")
@@ -375,14 +368,14 @@ def main():
 	filename = input("Please enter filename: ")
 	global UsedGraphs
 	G = loadGraphs(filename)
-		UsedGraphs = G
+	UsedGraphs = G
 	if typeinput == '1':	
 		searchIsomorphs(UsedGraphs)
 	elif typeinput == '2':
-		automorphismCount(UsedGraphs)
+		print(automorphismCount(UsedGraphs))
 	elif typeinput == '3':
 		searchIsomorphs(UsedGraphs)
-		automorphismCount(UsedGraphs)		
+		print(automorphismCount(UsedGraphs))	
 	else:
 		print("Wrong input")
 
