@@ -102,10 +102,11 @@ def getNeighborsColors(node, nodes):
 	result=[]
 	
 	g = node//nrOfNodes
-	n = node%nrOfNodes
-
-	nbs = UsedGraphs[g][n].nbs()
-
+	n = node%len(UsedGraphs[g].V())
+	try:
+		nbs = UsedGraphs[g][n].nbs()
+	except IndexError:
+		print(g, n)
 	for i in range(len(nbs)):
 		result.append(nodes[nbs[i]._label+(g*nrOfNodes)])
 	merge_sort(result)
@@ -212,10 +213,10 @@ def individualRef(colors, nodes):
 				if len(checkIsomorph(rNodes)[0]) < 2:
 					return rColors, rNodes, True
 				else:
-					print("RECURSION")
+					# print("RECURSION")
 					rColors, rNodes, found = individualRef(rColors, rNodes)
 					if found:
-						print("---------FOUND!")
+						# print("---------FOUND!")
 						return rColors, rNodes, found
 					else:
 						rColors = copy.deepcopy(copyColors)
@@ -382,4 +383,5 @@ def main():
 
 ## MAIN
 
-main()
+if __name__ == "__main__":
+	main()
