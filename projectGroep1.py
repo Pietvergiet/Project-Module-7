@@ -3,13 +3,6 @@ import basicgraphs
 import copy
 import operator
 import math
-import permv2
-import basicpermutationgroup
-
-# colors=[]
-# nodes=[]
-# nrOfGraphs = 0;
-# nrOfNodes = 0;
 
 # Maakt de disjoint union van een lijst met graven
 def createDisjointUnion(graphs):
@@ -213,10 +206,8 @@ def individualRef(colors, nodes):
 				if len(checkIsomorph(rNodes)[0]) < 2:
 					return rColors, rNodes, True
 				else:
-					# print("RECURSION")
 					rColors, rNodes, found = individualRef(rColors, rNodes)
 					if found:
-						# print("---------FOUND!")
 						return rColors, rNodes, found
 					else:
 						rColors = copy.deepcopy(copyColors)
@@ -255,12 +246,16 @@ def gensetGen(colors, nodes, t):
 			if(allColors[g0] == allColors[g]):
 				if len(checkIsomorph(rNodes)[0]) == 0:
 					count += 1
-					rColors = copy.deepcopy(copyColors)
-					rNodes = copy.deepcopy(copyNodes)
+					if count <= 100:
+						if count%10 == 0:
+							print(count)
+					elif count > 100:
+						if count%100 ==0:
+							print(count)
 				else:
-					print("RECURSION")
 					rColors, rNodes, count = gensetGen(rColors, rNodes, count)
-					print("--- END RECURSION")
+				rColors = copy.deepcopy(copyColors)
+				rNodes = copy.deepcopy(copyNodes)
 			else:
 				rColors = copy.deepcopy(copyColors)
 				rNodes = copy.deepcopy(copyNodes)
@@ -338,47 +333,56 @@ def createDOT(nodes):
 	print(".dot file created")
 
 def automorphismCount(graph):
-	autos= []
-	for i in range(len(graph)):		
-		G = [graph[i], copy.deepcopy(graph[i])]
-		colors = []
-		nodes = []
-		colors, nodes = setColorAsNrNeighbors(G)
-		colors, nodes = colorRefinement(colors, nodes, -1, -1)
-		t = 0
-		colors, nodes, t = gensetGen(colors, nodes, 0)
-		autos.append(t)
-	return autos
+	global UsedGraphs
+	
+	G = [graph, copy.deepcopy(graph)]
+	UsedGraphs = G	
+	colors = []
+	nodes = []
+	colors, nodes = setColorAsNrNeighbors(G)
+	colors, nodes = colorRefinement(colors, nodes, -1, -1)
+	t = 0
+	colors, nodes, t = gensetGen(colors, nodes, 0)
+	return t
 
 def searchIsomorphs(graphs):
+	global UsedGraphs
+	UsedGraphs = graphs
 	print("Starting...")
-	colors, nodes = setColorAsNrNeighbors(graphs)
+	colors, nodes = setColorAsNrNeighbors(UsedGraphs)
 	print("-- Nodes colored as Nr of Neighbors")
 	colors, nodes = colorRefinement(colors, nodes, -1, -1)
 	print("-- Color Refinement done")
 	colors, nodes, found = individualRef(colors, nodes)
 	print("-- Individual Refinement done")
-	printIsomorphs(checkIsomorph(nodes))
-	drawGraph = input("Create .dot file? Y/N ")
-	if drawGraph is 'Y' or drawGraph is 'y':
-		createDOT(nodes)
 	print("Done...")
+	return checkIsomorph(nodes)
+
+def AutGI(graphs):
+	iso = searchIsomorphs(graphs)
+	retVal = {}
+	for i in range(len(iso)):
+		print("Graphs: ", str(iso[i]))
+		retVal[str(iso[i])] = automorphismCount(graphs[iso[i][0]])
+	return retVal
 
 def main():
 	typeinput = input("Choose 1 for GI, 2 for AUT or 3 for both: ")
+	if typeinput != '1' and typeinput != '2' and typeinput != '3':
+		print(" Wrong input")
+		return
 	filename = input("Please enter filename: ")
-	global UsedGraphs
 	G = loadGraphs(filename)
-	UsedGraphs = G
 	if typeinput == '1':	
-		searchIsomorphs(UsedGraphs)
+		print(searchIsomorphs(G))
 	elif typeinput == '2':
-		print(automorphismCount(UsedGraphs))
+		for i in range(len(G)):
+			print(" Graph", i, ":", automorphismCount(G[i]))
 	elif typeinput == '3':
-		searchIsomorphs(UsedGraphs)
-		print(automorphismCount(UsedGraphs))	
-	else:
-		print("Wrong input")
+		auto = AutGI(G)
+		print("Isomorphs, Automorphs")
+		for i in range(len(auto.keys())):
+			print(list(auto.keys())[i], ":", auto[list(auto.keys())[i]])
 
 
 ## MAIN
