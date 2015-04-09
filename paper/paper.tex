@@ -10,6 +10,7 @@
 \usepackage{wrapfig}					% Nodig voor het 'wrappen' van de tekst om de afbeelding heen
 \usepackage{algorithmic}				% Voor het schrijven van pseudo-code
 \usepackage[]{algorithm2e}				% "
+\usepackage{courier}					% Voor het schrijven van code in de tekst
 
 \setlength\parindent{0pt} 				% Haalt indentaties van paragrafen weg
 
@@ -71,7 +72,7 @@
 
 		{\large \today}\\[3cm]
 
-		\pagebreak 						% Vul de rest van de pagina met witregels
+		\pagebreak
 
 \end{titlepage}
 
@@ -237,11 +238,14 @@ Dus de grafen moeten beide wel of beide niet connected zijn.
 %----------------------------------------------------------------------------------------
 
 \section{Testen}
-Natuurlijk gaan we ons color refinement-algoritme en onze preprocessing-algoritmes ook nog testen. Er worden verschillende testinstanties (lijsten van grafen) aangeleverd die we kunnen gebruiken, en we kunnen ook onze eigen grafen ontwerpen om onze code op te testen. We testen ons project op twee delen:
-\begin{itemize}
-\item De werking van het color refinement-algoritme en het algoritme voor het controleren op automorfisme. Dit zijn verplichte onderdelen van het project, dus we zullen met verschillende grafen gaan testen of deze algoritmes ook naar behoren werken.
-\item Het preprocessing. We testen hierbij eerst of de verschillende manieren van preprocessing werken, en vervolgens gaan we een experiment doen dat (hopelijk) aan gaat tonen dat preprocessing ook het gehele proces sneller en effici\"enter maakt.
-\end{itemize}
+We hebben onze code uitvoerig getest op verschillende delen. Als eerste hebben we testklassen gemaakt in Python die uitgevoerd kunnen worden en (met behulp van wat randgevallen) testen of onze preprocessing-methoden naar behoren werken. Dit zijn zogenaamde `unittests' die als volgt werken: we testen eerst of onze functie \texttt{isConnected} werkt. Dit doen we door deze functie uit te voeren op vier grafen, waarvan er \'e\'en niet connected is. Hier voeren we dus een drietal \texttt{assertTrue}- en \'e\'en \texttt{assertFalse}-functie(s) op uit.\\
+Bovendien kijken we of het aanpassen van de lijsten werkt. Immers, als er \'e\'en graaf als enige niet connected is of een ander aantal vertices of edges heeft, moet deze uit de lijst gehaald worden. We voeren hiervoor de betreffende methoden uit, en we controleren naderhand of de aangepaste lijst overeenkomt met de lijst die we voorspeld hadden.\\
+
+We hebben naast de werking ook het effect van onze algoritmes getest. Met behulp van verschillende lijsten van grafen (waaronder we er een aantal zelf geschreven hebben) hebben we experimenten uitgevoerd waar we hebben gekeken of de preprocessing-methoden ook daadwerkelijk effect hadden op de tijd die het algoritme erover doet. Het resultaat van dit experiment is te zien in de grafiek hieronder.
+\begin{center}
+\includegraphics[width=1\textwidth]{img/test.png}
+\end{center}
+De waarden in de grafiek staan voor hoeveel sneller of langzamer het algoritme er procentueel over doet t.o.v. zonder de preprocessing. Wat erg duidelijk te zien is, is dat als we \'e\'en grafiek een ander aantal vertices geven, we een significante verbetering zien wanneer we hierop controleren d.m.v. preprocessing. Dit is bij de connectiviteit ook het geval. Wanneer de grafen al isomorf zijn, heeft het natuurlijk enkel een negatief effect. Je voert namelijk extra controles uit op eigenschappen waarvan je weet dat dit niet hoeft, aangezien de grafen al isomorf zijn.
 \pagebreak
 
 %----------------------------------------------------------------------------------------
@@ -249,7 +253,7 @@ Natuurlijk gaan we ons color refinement-algoritme en onze preprocessing-algoritm
 %----------------------------------------------------------------------------------------
 
 \section{Conclusie}
---Volgt nog--
+Op basis van de gemeten testresultaten kunnen we een conclusie trekken over de gebruikte methoden van preprocessing. Dat is dat ze wel degelijk verschil maken in de uiteindelijke tijd, mits het ook noodzakelijk is deze controles uit te voeren. Als er in de lijst een graaf is die als enige connected is, wordt deze uit de lijst gehaald. Dit scheelt het Color Refinement-algoritme erg veel tijd. Heb je echter een lijst van grafen die allemaal evenveel vertices en edges hebben \`en allemaal connected of niet connected zijn, kost het algoritme een (klein) beetje extra tijd, omdat je controles uitvoert die niet nodig zijn.
 \pagebreak
 
 %----------------------------------------------------------------------------------------
