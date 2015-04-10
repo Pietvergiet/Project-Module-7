@@ -141,43 +141,56 @@ Hier zullen we een korte uitleg geven over de implementatie van ons color refine
 
 
 Voordat we color refinement toepassen, geven we eerst elke vertex van de graaf een kleur die gelijk staat aan zijn degree. Het kleuren gebeurt niet in de graaf zelf, maar wordt apart bijgehouden door 2 arrays. De eerste array houdt voor elke kleur bij welke vertices die kleur hebben. De tweede array houdt voor elke vertex bij welke kleur hij heeft. Op deze manier hebben we de graaf zelf (bijna) niet meer nodig en kunnen we alle bewerkingen op de twee arrays uitvoeren, wat het proces sneller en overzichtelijker maakt.\\
-Na de initi\"ele kleuring voeren we color refinement uit over de lijsten. Als blijkt dat er nu geen duplicate kleuren meer zijn binnen elke graaf (d.w.z. binnen een graaf bestaan er geen twee vertices met dezelfde kleur) is het klaar en kunnen we controleren welke graven isomorf zijn. Zijn er wel duplicate kleuren, dan moet `individual refiment' toegepast worden.\\
+Na de initi\"ele kleuring voeren we color refinement uit over de lijsten. Als blijkt dat er nu geen duplicate kleuren meer zijn binnen elke graaf (d.w.z. binnen een graaf bestaan er geen twee vertices met dezelfde kleur) is het klaar en kunnen we controleren welke graven isomorf zijn. Zijn er wel duplicate kleuren, dan moet `individual refiment' toegepast worden. De pseudo-code voor het eerste deel staat hieronder:\\
+
 \begin{algorithm}[H]
 	\KwData{Een lijst met initiele kleuring van de vertices en een lijst met vertices per kleur}
 	\KwResult{Een lijst met stabiele kleuring van de vertices en een lijst met vertices per kleur}
-	\For{Alle vertices v in de lijst}
-		\For{Alle vertices k van de kleur van de node}
-			Nieuwekleuren = []\\
-			\If{De kleuren van de neighbors van v ongelijk zijn aan de neigbors van k}
-				\For{Alle nieuwe kleuren}
-					\If{De neighbors van k gelijk zijn aan die van een van de nieuwe kleuren}
-						Verander de kleur van k in die kleur\\
-					\Else
-						Maak een nieuwe kleur voor k aan\\
-						Voeg de kleur toe aan de lijst Nieuwekleuren\\
-	\If{De nieuwe lijsten ongelijk zijn aan de oude lijsten}
+	\For{Alle vertices v}{
+		\For{Alle vertices k die de kleur van v hebben}{
+			nieuweKleuren = []\\
+			\If{De kleuren van de neighbors van v ongelijk zijn aan de neigbors van k}{
+				\For{Alle elementen q in nieuweKleuren}{
+					\eIf{De neighbors van k gelijk zijn aan die van q}{
+						Kleur van k = q\\
+					}{	Maak een nieuwe kleur voor k aan\\
+						Voeg de kleur toe aan de lijst nieuweKleuren\\
+					}
+				}
+			}
+		}
+	}
+	\If{De nieuwe lijsten ongelijk zijn aan de oude lijsten}{
 		Recursie van het algoritme met nieuwe lijsten als data\\
+	}
 	\Return De twee aangepaste lijsten
 \end{algorithm}
+\vspace{5mm}
 
-Individual refinement wordt alleen toegepast op de graven met duplicate kleuren. Het algoritme werkt als volgt: hij zoekt eerst een kleur op die bezet wordt door meerdere vertices. Vervolgens neemt hij \'e\'en van deze vertices, en vervangt zijn kleur. Bij beide grafen wordt hiervoor een andere (nieuwe) kleur gekozen.Hierna wordt color refinement opnieuw toegepast. Als er nog steeds duplicate kleuren bestaan wordt color refinement nogmaals toegepast. Als er een isomorfisme aangetoond kan worden, wordt individual refinement over een ander koppel graven toegepast. Is er geen isomorfisme dan wordt de herkleuring van graaf 1 en graaf 2 teruggedraaid en wordt er een andere duplicate kleur van graaf 2 vervangen, waarna het algoritme zich weer herhaalt. 
+Individual refinement wordt alleen toegepast op de graven met duplicate kleuren. Het algoritme werkt als volgt: hij zoekt eerst een kleur op die bezet wordt door meerdere vertices. Vervolgens neemt hij \'e\'en van deze vertices, en vervangt zijn kleur. Bij beide grafen wordt hiervoor een andere (nieuwe) kleur gekozen.Hierna wordt color refinement opnieuw toegepast. Als er nog steeds duplicate kleuren bestaan wordt color refinement nogmaals toegepast. Als er een isomorfisme aangetoond kan worden, wordt individual refinement over een ander koppel graven toegepast. Is er geen isomorfisme dan wordt de herkleuring van graaf 1 en graaf 2 teruggedraaid en wordt er een andere duplicate kleur van graaf 2 vervangen, waarna het algoritme zich weer herhaalt.\\
+
 \begin{algorithm}[H]
 	\KwData{Een lijst met stabiele kleuring van de vertices en een lijst met vertices per kleur}
 	\KwResult{Een lijst met unieke kleuring van de vertices per graaf en een lijst met vertices per kleur}
 	dupVertices = dictionary met alle vertices van een dubbele kleur per graaf\\
-	\For{Alle graven g in dupVertices}
-		\For{Alle vertices v van g}
+	\For{Alle graven g in dupVertices}{
+		\For{Alle vertices v van g}{
 			Verander de eerste kleur van de eerste graaf in dupVertices in een nieuwe kleur\\
-			Verander de kleur van v van graaf g in een nieuwe kleur\\
+			Verander de kleur van v in een nieuwe kleur\\
 			Pas colorrefinement toe op de twee lijsten\\
-			\If{De kleuren van de twee aangepaste grafen gelijk zijn}
-				\If{Er geen grafen zonder unieke kleuring meer zijn}
+			\If{De kleuren van de twee aangepaste grafen zijn gelijk}{
+				\eIf{Er zijn geen grafen zonder unieke kleuring meer}{
 					\Return de nieuwe lijsten
-				\Else 
-					Pas individual refinement opnieuw toe
-					\If{Er geen isomorfisme gevonden is}
+				}{	Pas individual refinement opnieuw toe\\
+					\If{Er is geen isomorfisme gevonden}{
 						Zet de staat van de lijsten terug naar het origineel
+					}
+				}
+			}
+		}
+	}
 	\Return De lijsten met unieke kleuring
+\end{algorithm}
 \pagebreak
 
 %----------------------------------------------------------------------------------------
