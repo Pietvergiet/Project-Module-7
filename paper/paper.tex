@@ -23,7 +23,7 @@
 \begin{titlepage}
 		\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
 		\center 						% Centreer alles op de pagina
-		 
+
 		%----------------------------------------------------------------------------------------
 		%	HEADER SECTIE
 		%----------------------------------------------------------------------------------------
@@ -89,7 +89,9 @@
 %----------------------------------------------------------------------------------------
 
 \section{Inleiding}
-Dit paper zal gaan over het Graaf Isomorfisme probleem, en hoe dit effici\"ent gemaakt kan worden door middel van preprocessing. Het Graaf Isomorfisme probleem is een bekend probleem in de wiskunde en de informatica, wat het belangrijk maakt om dit op een zo snel mogelijke manier op te lossen. Als eerste wordt hierover (en over het algoritme wat wij hiervoor gebruiken) het een en ander uitgelegd. We zullen ook verschillende manieren van preprocessing bespreken, en toelichten waarom deze methoden geldig zijn binnen dit probleem. Daarna zullen we door middel van een experiment testen of deze methoden werken en wat het effect hiervan is op de snelheid en effici\"entie van ons algoritme. We sluiten dit document af met de conclusie.
+Dit paper zal gaan over het Graaf Isomorfisme probleem, en hoe dit effici\"ent gemaakt kan worden door middel van preprocessing. Het Graaf Isomorfisme probleem is een bekend probleem in de wiskunde en de informatica, wat het belangrijk maakt om dit op een zo snel mogelijke manier op te lossen. Als eerste wordt hierover (en over het algoritme wat wij hiervoor gebruiken) het een en ander uitgelegd. We zullen ook verschillende manieren van preprocessing bespreken, en toelichten waarom deze methoden geldig zijn binnen dit probleem. Daarna zullen we door middel van een experiment testen of deze methoden werken en wat het effect hiervan is op de snelheid en effici\"entie van ons algoritme. We sluiten dit document af met de conclusie.\\
+
+We hebben in dit paper als hoofdvraag: ``In hoeverre heeft het gebruik van preprocessing invloed op de tijdsduur van het vinden van isomorfe grafen met het Color Refinement-algoritme?''. We hopen natuurlijk dat het gebruik van preprocessing van positieve invloed is op de tijdsduur, d.w.z. dat het geheel minder lang duurt.
 \pagebreak
 
 %----------------------------------------------------------------------------------------
@@ -97,7 +99,11 @@ Dit paper zal gaan over het Graaf Isomorfisme probleem, en hoe dit effici\"ent g
 %----------------------------------------------------------------------------------------
 
 \section{Het Graaf Isomorfisme (GI) probleem}
-Het Graaf Isomorfisme probleem is het probleem dat gaat over het vaststellen of twee grafen isomorf zijn, dat wil zeggen structureel gelijk aan elkaar. Als twee wiskundige objecten isomorf zijn, dan is elke eigenschap, waarvan de structuur bewaard blijft door een isomorfisme en die geldt voor een van de twee wiskundige objecten, ook geldt voor het andere wiskundige object.\\
+Een graaf bestaat uit een verzameling punten, vertices genoemd, waarvan sommige verbonden zijn door lijnen, de edges. Afhankelijk van de toepassing kunnen de lijnen gericht zijn, dan worden ze ook wel pijlen genoemd, men spreekt dan van een gerichte graaf. Ook worden wel gewichten aan de lijnen toegekend door middel van getallen, deze stellen dan bijvoorbeeld de afstand tussen twee punten voor. Een graaf met gewichten noemt men een gewogen graaf. Wanneer we in dit paper een graaf noemen, hebben we het over een ongewogen ongerichte enkelzijdige graaf.\\
+
+Een isomorfisme is een bijectieve afbeelding $f:V(G) \rightarrow V(H)$ zodanig dat $\forall u,v \in V(G)$ er geldt dat $uv \in E(G) \Leftrightarrow f(u)f(v)\in E(H)$.\\
+
+Het Graaf Isomorfisme probleem is het probleem dat gaat over het vaststellen of twee grafen isomorf zijn, dat wil zeggen structureel gelijk aan elkaar. Als twee wiskundige objecten isomorf zijn, dan is elke eigenschap, waarvan de structuur bewaard blijft door een isomorfisme en die geldt voor een van de twee wiskundige objecten, ook geldig voor het andere wiskundige object.\\
 
 \begin{wrapfigure}{r}{0.5\textwidth}
 \renewcommand{\figurename}{Figuur}
@@ -109,18 +115,20 @@ Het Graaf Isomorfisme probleem is het probleem dat gaat over het vaststellen of 
 
 Hoewel het op het eerste gezicht niet zo lijkt te zijn, geldt er een isomorfisme tussen de twee grafen hiernaast. Voor elke vertex van de eerste graaf geldt dat de buren daarvan exact hetzelfde zijn als de buren van diezelfde vertex in de tweede graaf.\\
 
-Een methode om isomorfisme vast te kunnen stellen tussen deze twee grafen is ‘color refinement’. Dit algoritme kent kleuren toe aan de verschillende vertices, die een indicatie geeft welke buren deze vertex heeft. De groene vertex bijvoorbeeld heeft in de eerste graaf drie buren: de lichtblauwe, de roze en de gele. Dit geldt ook voor de tweede graaf. Als dit voor elke vertex in de twee grafen geldt, zijn ze isomorf. Dit kan als volgt gecontroleerd worden: wanneer de lijst met alle kleuren (zonder duplicaten) van de eerste graaf gelijk is aan die van de tweede graaf, kan er gezegd worden dat ze isomorf zijn ten opzichte van elkaar. In de afbeelding hierboven is dat ook het geval.
+Een methode om isomorfisme vast te kunnen stellen tussen deze twee grafen is ‘color refinement’. Dit algoritme kent kleuren toe aan de verschillende vertices, die een indicatie geeft welke buren deze vertex heeft. De groene vertex bijvoorbeeld heeft in de eerste graaf drie buren: de lichtblauwe, de roze en de gele. Dit geldt ook voor de tweede graaf. Als dit voor elke vertex in de twee grafen geldt \`en elke vertex heeft een unieke kleur, zijn de twee grafen isomorf. Dit kan als volgt gecontroleerd worden: wanneer de lijst met alle kleuren (zonder duplicaten) van de eerste graaf gelijk is aan die van de tweede graaf, kan er gezegd worden dat ze isomorf zijn ten opzichte van elkaar. In de afbeelding hierboven is dat ook het geval.
 Dit is een goede manier om isomorfisme te controleren, omdat het op het eerste gezicht bij deze afbeelding lijkt alsof de twee grafen niet isomorf zijn. Ook is deze methode nuttig bij grotere grafen met veel vertices.
 
 \subsection{Relevantie van het GI probleem}
 Nu duidelijk gemaakt is wat het GI probleem inhoudt en hoe het gecontroleerd kan worden, blijft de vraag hoe relevant dit probleem is voor de Discrete Wiskunde. Waarom willen we weten of twee grafen (of zelfs wiskundige problemen in het algemeen) isomorf zijn ten opzichte van elkaar?\\
 
 Isomorfisme heeft al voor het oplossen van vele wiskundige problemen gezorgd. Dat kan als volgt gedaan worden: een nog op te lossen wiskundig probleem X kan herleid worden tot een eenvoudiger probleem Y, wat makkelijker te begrijpen is. Neem een reeds opgelost probleem Z. Als aangetoond kan worden dat Y en Z isomorf zijn ten opzichte van elkaar, kan de conclusie getrokken worden dat op dat moment probleem X ook opgelost is (omdat probleem X, Y en Z structureel hetzelfde zijn). In de Discrete Wiskunde zijn er al veel problemen met deze methode opgelost, wat het controleren op isomorfisme erg relevant maakt.
-Naast de wiskunde is het ook nuttig voor de informatica, omdat daar veel structuren als grafen weergegeven worden (denk aan netwerksystemen).
+Naast de wiskunde is het ook nuttig voor de informatica, omdat daar veel structuren als grafen weergegeven worden (denk aan netwerksystemen).\\
+
+Een goed voorbeeld hiervan in de informatica zijn vingerafdrukscanners. Wanneer een computer een vingerafdruk scant, wordt deze versimpeld naar enkele lijnen. Elke lijn representeert een vertex in de graaf, en elke edge representeert een relatie in de omgeving van deze lijn(en). Met deze techniek wordt een vingerafdruk versimpeld naar een graaf met vertices en edges. Als men wil controleren of twee vingerafdrukken gelijk zijn aan elkaar, moet men een isomorfisme bewijzen tussen de twee grafen die bij die vingerafdrukken horen.
 
 \subsection{Speciale gevallen}
-Er zijn een aantal speciale gevallen waarvan bewezen is dat het in polynomiale tijd opgelost kan worden. Het eerste geval is een graaf die een boomstructuur heeft, dat wil zeggen: elk punt is met een ander punt verbonden, zonder cycli.\\
-De tweede zijn de planaire grafen, dat zijn de grafen die zo in het platte vlak getekend kunnen worden dat geen van de randen een andere rand kruist. Ook als je een restrictie legt op het aantal keren dat de randen elkaar minimaal kruisen, of als je een restrictie legt op de maximale graad van alle hoekpunten is het in polynomiale tijd op te lossen.
+Er is een aantal speciale gevallen waarvan bewezen is dat het in polynomiale tijd opgelost kan worden. Het eerste geval is een graaf die een boomstructuur heeft, dat wil zeggen: elk punt is met een ander punt verbonden, zonder cycli.\\
+De tweede is een planaire graaf, dat is een graaf die zo in het platte vlak getekend kan worden dat geen van de randen een andere rand kruist. Ook als je een restrictie legt op het aantal keren dat de randen elkaar minimaal kruisen, of als je een restrictie legt op de maximale graad van alle hoekpunten is het in polynomiale tijd op te lossen.
 \pagebreak
 
 %----------------------------------------------------------------------------------------
@@ -170,7 +178,6 @@ Individual refinement wordt alleen toegepast op de graven met duplicate kleuren.
 					\If{Er geen isomorfisme gevonden is}
 						Zet de staat van de lijsten terug naar het origineel
 	\Return De lijsten met unieke kleuring
-
 \pagebreak
 
 %----------------------------------------------------------------------------------------
@@ -222,10 +229,10 @@ Als een graaf als enige in de lijst niet ‘connected’ is (en de andere grafen
 \end{algorithm}
 \vspace{5mm}
 
-In de If-statement staat dat we controleren of beide grafen i en j connected zijn. Hier is geen standaard functie voor beschikbaar, dus we hebben zelf een algoritme geschreven (dat je op een graaf kunt uitroepen) dat teruggeeft of een graaf connected is of niet. De pseudo-code hiervan staat hieronder beschreven:\\
+In de If-statement staat dat we controleren of beide grafen i en j connected zijn. We hebben een algoritme geschreven (dat je op een graaf kunt aanroepen) dat teruggeeft of een graaf connected is of niet. De pseudo-code hiervan staat hieronder beschreven:\\
 
 \begin{algorithm}[H]
-	\KwData{De graaf zelf}
+	\KwData{De graaf G}
 	\KwResult{True als hij connected is, anders False}
 	x = een willekeurige vertex\\
 	L = een lijst van vertices bereikbaar vanaf x\\
@@ -240,11 +247,20 @@ In de If-statement staat dat we controleren of beide grafen i en j connected zij
 			}
 		}
 	}
-	\eIf{L heeft minder dan n elementen}{
+	\eIf{L heeft minder elementen dan het aantal vertices van G}{
 		\Return False
 	}{\Return True}
 
 \end{algorithm}
+\vspace{5mm}
+
+Nog een extra mogelijkheid bij het controleren op connectiviteit is het splitsen van grafen. Als een graaf niet connected is, kan deze opgesplitst worden in een connected deel en de rest van de graaf. Het eerste deel is nu wel connected, en kan om die reden dus vergeleken worden met andere connected grafen in de lijst (mits het aantal vertices en edges gelijk zijn aan die van de andere grafen). Helaas is het niet gelukt om deze functionaliteit te implementeren in onze code.
+
+\subsubsection{False twins}
+Een andere mogelijkheid is het controleren of een graaf `False Twins' heeft. False twins zijn twee vertices die exact dezelfde buren hebben, maar niet met elkaar verbonden zijn. Als het aantal false twins in graaf G ongelijk is aan het aantal false twins in graaf H, kunnen G en H niet meer isomorf zijn. Helaas is het hier ook niet gelukt om deze methode binnen de tijd te implementeren, maar het bewijs voor de validatie is wel in de volgende sectie te vinden.
+
+\subsubsection{Modules}
+Een module is een groep vertices die buiten de module dezelfde buren hebben. Als een vertex X (buiten de module) verbonden is met een vertex in een bepaalde module, zijn alle vertices in die module verbonden met X. Natuurlijk is elke vertex zelf ook een module, net als de gehele graaf. Als graaf G een ongelijk aantal modules heeft aan graaf H, kunnen G en H niet meer isomorf zijn. Dit hebben we niet ge\"implementeerd in onze code en ook niet bewezen in de volgende sectie (vanwege de tijd).
 
 \subsection{Validatie preprocessing methoden}
 
@@ -255,6 +271,7 @@ We hebben 3 preprocessing stappen gemaakt.
 \item Als $|V(G)|\neq|V(H)|$ dan kan er geen isomorfisme bestaan.
 \item Als $|E(G)|\neq|E(H)|$ dan kan er geen isomorfisme bestaan.
 \item Als een graaf wel `connected' is en de andere niet, dan kan er geen isomorfisme bestaan.
+\item Als het aantal `false twins' van $G$ een $H$ niet gelijk is, kan er geen isomorfisme bestaan.
 \end{enumerate}
 
 Nu volgt het bewijs dat twee grafen niet isomorf zijn als aan een van de volgende 3 voorwaarden wordt voldaan:
@@ -262,7 +279,9 @@ Nu volgt het bewijs dat twee grafen niet isomorf zijn als aan een van de volgend
 \item Als $|V(G)|\neq|V(H)|$ dan kan je geen bijectie defini\"eren, want een bijectie moet one-to-one zijn, en daarvoor moeten beide sets evenveel elementen bevatten.
 \item Als $|E(G)|\neq|E(H)|$ dan is er een tegenspraak met de eis dat $uv\in E(G)\Leftrightarrow f(u)f(v)\in E(H)$.
 \item Neem aan dat $H$ connected is en $G$ niet. Zonder verlies van algemeenheid kunnen we aannemen dat $G$ bestaat uit twee delen die beide connected zijn, noem ze $G_1$ en $G_2$.
+\item Twee vertices $u, v \in V(G)$ zijn false twins als $N(u)=N(v)$. Als graaf $G$ en graaf $H$ niet hetzelfde aantal false twins hebben, dan kan er geen isomorfisme bestaan tussen $G$ en $H$, omdat een isomorfisme de edges behoudt, en dus ook de neighborhood.
 
+\vspace{5mm}
 Neem nu aan dat er een isomorfisme tussen $G$ en $H$ bestaat. Deel $H$ op in twee delen, $H_1$ en $H_2$, zodanig dat $\forall g_1\in V(G_1)$ geldt dat $f(g_1)\in V(H_1)$ en $\forall g_2\in V(G_2)$ geldt dat $f(g_2)\in V(H_2)$.
 Dan $\exists g_1\in G_1$ en $g_2\in G_2$ zodanig dat $g_1g_2\in E(G)$, terwijl $f(g_1)f(g_2)\notin E(H)$. Dit levert een tegenspraak op.\\
 Dus de grafen moeten beide wel of beide niet connected zijn.
