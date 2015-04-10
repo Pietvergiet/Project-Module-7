@@ -23,7 +23,7 @@
 \begin{titlepage}
 		\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
 		\center 						% Centreer alles op de pagina
-		 
+
 		%----------------------------------------------------------------------------------------
 		%	HEADER SECTIE
 		%----------------------------------------------------------------------------------------
@@ -90,6 +90,7 @@
 
 \section{Inleiding}
 Dit paper zal gaan over het Graaf Isomorfisme probleem, en hoe dit effici\"ent gemaakt kan worden door middel van preprocessing. Het Graaf Isomorfisme probleem is een bekend probleem in de wiskunde en de informatica, wat het belangrijk maakt om dit op een zo snel mogelijke manier op te lossen. Als eerste wordt hierover (en over het algoritme wat wij hiervoor gebruiken) het een en ander uitgelegd. We zullen ook verschillende manieren van preprocessing bespreken, en toelichten waarom deze methoden geldig zijn binnen dit probleem. Daarna zullen we door middel van een experiment testen of deze methoden werken en wat het effect hiervan is op de snelheid en effici\"entie van ons algoritme. We sluiten dit document af met de conclusie.\\
+
 We hebben in dit paper als hoofdvraag: ``In hoeverre heeft het gebruik van preprocessing invloed op de tijdsduur van het vinden van isomorfe grafen met het Color Refinement-algoritme?''. We hopen natuurlijk dat het gebruik van preprocessing van positieve invloed is op de tijdsduur, d.w.z. dat het geheel minder lang duurt.
 \pagebreak
 
@@ -99,6 +100,8 @@ We hebben in dit paper als hoofdvraag: ``In hoeverre heeft het gebruik van prepr
 
 \section{Het Graaf Isomorfisme (GI) probleem}
 Een graaf bestaat uit een verzameling punten, vertices genoemd, waarvan sommige verbonden zijn door lijnen, de edges. Afhankelijk van de toepassing kunnen de lijnen gericht zijn, dan worden ze ook wel pijlen genoemd, men spreekt dan van een gerichte graaf. Ook worden wel gewichten aan de lijnen toegekend door middel van getallen, deze stellen dan bijvoorbeeld de afstand tussen twee punten voor. Een graaf met gewichten noemt men een gewogen graaf. Wanneer we in dit paper een graaf noemen, hebben we het over een ongewogen ongerichte enkelzijdige graaf.\\
+
+Een isomorfisme is een bijectieve afbeelding $f:V(G) \rightarrow V(H)$ zodanig dat $\forall u,v \in V(G)$ er geldt dat $uv \in E(G) \Leftrightarrow f(u)f(v)\in E(H)$.\\
 
 Het Graaf Isomorfisme probleem is het probleem dat gaat over het vaststellen of twee grafen isomorf zijn, dat wil zeggen structureel gelijk aan elkaar. Als twee wiskundige objecten isomorf zijn, dan is elke eigenschap, waarvan de structuur bewaard blijft door een isomorfisme en die geldt voor een van de twee wiskundige objecten, ook geldig voor het andere wiskundige object.\\
 
@@ -190,10 +193,10 @@ Als een graaf als enige in de lijst niet ‘connected’ is (en de andere grafen
 \end{algorithm}
 \vspace{5mm}
 
-In de If-statement staat dat we controleren of beide grafen i en j connected zijn. Hier is geen standaard functie voor beschikbaar, dus we hebben zelf een algoritme geschreven (dat je op een graaf kunt aanroepen) dat teruggeeft of een graaf connected is of niet. De pseudo-code hiervan staat hieronder beschreven:\\
+In de If-statement staat dat we controleren of beide grafen i en j connected zijn. We hebben een algoritme geschreven (dat je op een graaf kunt aanroepen) dat teruggeeft of een graaf connected is of niet. De pseudo-code hiervan staat hieronder beschreven:\\
 
 \begin{algorithm}[H]
-	\KwData{De graaf zelf}
+	\KwData{De graaf G}
 	\KwResult{True als hij connected is, anders False}
 	x = een willekeurige vertex\\
 	L = een lijst van vertices bereikbaar vanaf x\\
@@ -208,14 +211,20 @@ In de If-statement staat dat we controleren of beide grafen i en j connected zij
 			}
 		}
 	}
-	\eIf{L heeft minder elementen dan het aantal vertices van de graaf zelf}{
+	\eIf{L heeft minder elementen dan het aantal vertices van G}{
 		\Return False
 	}{\Return True}
 
 \end{algorithm}
+\vspace{5mm}
+
+Nog een extra mogelijkheid bij het controleren op connectiviteit is het splitsen van grafen. Als een graaf niet connected is, kan deze opgesplitst worden in een connected deel en de rest van de graaf. Het eerste deel is nu wel connected, en kan om die reden dus vergeleken worden met andere connected grafen in de lijst (mits het aantal vertices en edges gelijk zijn aan die van de andere grafen). Helaas is het niet gelukt om deze functionaliteit te implementeren in onze code.
 
 \subsubsection{False twins}
-Een andere mogelijkheid is het controleren of een graaf `False Twins' heeft. False twins zijn twee vertices die exact dezelfde buren hebben, maar niet met elkaar verbonden zijn. Als graaf G een paar false twins heeft en graaf H niet, kunnen G en H niet meer isomorf zijn met elkaar. Helaas is het niet gelukt om deze methode binnen de tijd te implementeren, om die reden is hij ook niet gevalideerd in de volgende sectie.
+Een andere mogelijkheid is het controleren of een graaf `False Twins' heeft. False twins zijn twee vertices die exact dezelfde buren hebben, maar niet met elkaar verbonden zijn. Als het aantal false twins in graaf G ongelijk is aan het aantal false twins in graaf H, kunnen G en H niet meer isomorf zijn. Helaas is het hier ook niet gelukt om deze methode binnen de tijd te implementeren, maar het bewijs voor de validatie is wel in de volgende sectie te vinden.
+
+\subsubsection{Modules}
+Een module is een groep vertices die buiten de module dezelfde buren hebben. Als een vertex X (buiten de module) verbonden is met een vertex in een bepaalde module, zijn alle vertices in die module verbonden met X. Natuurlijk is elke vertex zelf ook een module, net als de gehele graaf. Als graaf G een ongelijk aantal modules heeft aan graaf H, kunnen G en H niet meer isomorf zijn. Dit hebben we niet ge\"implementeerd in onze code en ook niet bewezen in de volgende sectie (vanwege de tijd).
 
 \subsection{Validatie preprocessing methoden}
 
@@ -226,6 +235,7 @@ We hebben 3 preprocessing stappen gemaakt.
 \item Als $|V(G)|\neq|V(H)|$ dan kan er geen isomorfisme bestaan.
 \item Als $|E(G)|\neq|E(H)|$ dan kan er geen isomorfisme bestaan.
 \item Als een graaf wel `connected' is en de andere niet, dan kan er geen isomorfisme bestaan.
+\item Als het aantal `false twins' van $G$ een $H$ niet gelijk is, kan er geen isomorfisme bestaan.
 \end{enumerate}
 
 Nu volgt het bewijs dat twee grafen niet isomorf zijn als aan een van de volgende 3 voorwaarden wordt voldaan:
@@ -233,7 +243,9 @@ Nu volgt het bewijs dat twee grafen niet isomorf zijn als aan een van de volgend
 \item Als $|V(G)|\neq|V(H)|$ dan kan je geen bijectie defini\"eren, want een bijectie moet one-to-one zijn, en daarvoor moeten beide sets evenveel elementen bevatten.
 \item Als $|E(G)|\neq|E(H)|$ dan is er een tegenspraak met de eis dat $uv\in E(G)\Leftrightarrow f(u)f(v)\in E(H)$.
 \item Neem aan dat $H$ connected is en $G$ niet. Zonder verlies van algemeenheid kunnen we aannemen dat $G$ bestaat uit twee delen die beide connected zijn, noem ze $G_1$ en $G_2$.
+\item Twee vertices $u, v \in V(G)$ zijn false twins als $N(u)=N(v)$. Als graaf $G$ en graaf $H$ niet hetzelfde aantal false twins hebben, dan kan er geen isomorfisme bestaan tussen $G$ en $H$, omdat een isomorfisme de edges behoudt, en dus ook de neighborhood.
 
+\vspace{5mm}
 Neem nu aan dat er een isomorfisme tussen $G$ en $H$ bestaat. Deel $H$ op in twee delen, $H_1$ en $H_2$, zodanig dat $\forall g_1\in V(G_1)$ geldt dat $f(g_1)\in V(H_1)$ en $\forall g_2\in V(G_2)$ geldt dat $f(g_2)\in V(H_2)$.
 Dan $\exists g_1\in G_1$ en $g_2\in G_2$ zodanig dat $g_1g_2\in E(G)$, terwijl $f(g_1)f(g_2)\notin E(H)$. Dit levert een tegenspraak op.\\
 Dus de grafen moeten beide wel of beide niet connected zijn.
