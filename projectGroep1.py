@@ -179,19 +179,80 @@ def findGraphsWithDup(colors, nodes):
 		i += 1
 	return graphsWithDup
 
-def individualRef(colors, nodes):
+def findGraphsWithDup_2(colors, nodes, graph1, graph2):
+	graphsWithDup = {}
+	i = 0
+
+	colorlist = getColors(nodes)
+	if len(colorlist[graph1]) != len(set(colorlist[graph1])) :					# check for a dub
+		j = 0
+		dupColor = -1
+		while dupColor == -1 and j < len(colorlist[graph1]) -1:			# finding dup color
+			if colorlist[graph1][j] == colorlist[graph1][j+1]:
+				dupColor = colorlist[graph1][j]
+			j += 1
+
+		graphsWithDup[graph1] = []
+		graphsWithDup[graph2] = []
+		for x in range(len(colors[dupColor])):
+			g = (int(colors[dupColor][x])//nrOfNodes)
+			if g == graph1 or g == graph2:
+				graphsWithDup[g].append(colors[dupColor][x])
+
+	return graphsWithDup
+
+# def individualRef(colors, nodes):
+# 	rColors = copy.deepcopy(colors)
+# 	rNodes = copy.deepcopy(nodes)
+# 	graphsWithDup = findGraphsWithDup(rColors, rNodes)
+# 	i = 1
+# 	while i < len(graphsWithDup.keys()):
+# 		g = list(graphsWithDup.keys())[i]
+# 		j = 0
+# 		while j < len(graphsWithDup[g]):
+# 			copyColors = copy.deepcopy(rColors)
+# 			copyNodes = copy.deepcopy(rNodes)
+			
+# 			g0 = list(graphsWithDup.keys())[0]				# RECOLOR FIRST NODE OF FIRST GRAPH
+# 			node = graphsWithDup[g0][0]
+# 			rColors[rNodes[node]].remove(node)
+# 			rNodes[node] = len(rColors)
+# 			rColors.append([node])
+# 			node = graphsWithDup[g][j]
+# 			rColors[rNodes[node]].remove(node)
+# 			rNodes[node] = len(rColors)-1
+# 			rColors[rNodes[node]].append(node)
+# 			rColors, rNodes = colorRefinement(rColors, rNodes, g0, g)
+# 			allColors = getColors(rNodes)
+# 			if(allColors[g0] == allColors[g]):
+# 				if len(checkIsomorph(rNodes)[0]) < 2:
+# 					return rColors, rNodes, True
+# 				else:
+# 					rColors, rNodes, found = individualRef(rColors, rNodes)
+# 					if found:
+# 						return rColors, rNodes, found
+# 					else:
+# 						rColors = copy.deepcopy(copyColors)
+# 						rNodes = copy.deepcopy(copyNodes)
+# 			else:
+# 				rColors = copy.deepcopy(copyColors)
+# 				rNodes = copy.deepcopy(copyNodes)
+# 			j += 1
+# 		i += 1
+# 	return rColors, rNodes, False
+
+def individualRef_2(colors, nodes, graph1, graph2):
 	rColors = copy.deepcopy(colors)
 	rNodes = copy.deepcopy(nodes)
-	graphsWithDup = findGraphsWithDup(rColors, rNodes)
-	i = 1
-	while i < len(graphsWithDup.keys()):
-		g = list(graphsWithDup.keys())[i]
+	graphsWithDup = findGraphsWithDup_2(rColors, rNodes, graph1, graph2)
+	if graph1 in graphsWithDup and graph2 in graphsWithDup:
+		g = graph2
 		j = 0
 		while j < len(graphsWithDup[g]):
 			copyColors = copy.deepcopy(rColors)
 			copyNodes = copy.deepcopy(rNodes)
 			
-			g0 = list(graphsWithDup.keys())[0]				# RECOLOR FIRST NODE OF FIRST GRAPH
+			g0 = graph1							# RECOLOR FIRST NODE OF FIRST GRAPH
 			node = graphsWithDup[g0][0]
 			rColors[rNodes[node]].remove(node)
 			rNodes[node] = len(rColors)
@@ -203,10 +264,10 @@ def individualRef(colors, nodes):
 			rColors, rNodes = colorRefinement(rColors, rNodes, g0, g)
 			allColors = getColors(rNodes)
 			if(allColors[g0] == allColors[g]):
-				if len(checkIsomorph(rNodes)[0]) < 2:
+				if len(allColors[g0]) == len(set(allColors[g0])):
 					return rColors, rNodes, True
 				else:
-					rColors, rNodes, found = individualRef(rColors, rNodes)
+					rColors, rNodes, found = individualRef_2(rColors, rNodes, graph1, graph2)
 					if found:
 						return rColors, rNodes, found
 					else:
@@ -216,7 +277,6 @@ def individualRef(colors, nodes):
 				rColors = copy.deepcopy(copyColors)
 				rNodes = copy.deepcopy(copyNodes)
 			j += 1
-		i += 1
 	return rColors, rNodes, False	
 
 def gensetGen(colors, nodes, t):
@@ -332,38 +392,81 @@ def createDOT(nodes):
 	graphIO.writeDOT(Q, string)
 	print(".dot file created")
 
-def automorphismCount(graph):
+def doIndRef(colors, nodes, graphs):
+	iso = []
+	toDo = []
+	for i in range(len(graphs)):
+		toDo.append(i)
+	for i in range(len(graphs)):
+		for j in range(i+1, len(graphs)):
+			
+			if j in toDo and getColors(nodes)[i] == getColors(nodes)[j]:
+				print(i, j)
+				cColors = copy.deepcopy(colors)
+				cNodes = copy.deepcopy(nodes)
+				colors, nodes, found = individualRef_2(cColors, cNodes, i, j)
+				if found:
+					added = False
+					print("Iso's:", i, j)
+					if i in toDo:
+						toDo.remove(i)
+					if j in toDo:
+						toDo.remove(j)
+					x = 0
+					while x < len(iso) and not added:
+						if i in iso[x]:
+							iso[x].append(j)
+							added = True
+						elif j in iso[x]:
+							iso[x].append(i)
+							added = True
+						x += 1
+					if not added:
+						iso.append([i, j])
+
+				colors = cColors
+				nodes = cNodes
+	return iso
+
+def automorphismCount(graphs):
 	global UsedGraphs
-	
-	G = [graph, copy.deepcopy(graph)]
-	UsedGraphs = G	
-	colors = []
-	nodes = []
-	colors, nodes = setColorAsNrNeighbors(G)
-	colors, nodes = colorRefinement(colors, nodes, -1, -1)
-	t = 0
-	colors, nodes, t = gensetGen(colors, nodes, 0)
-	return t
+	retVal = {}
+	for i in range(len(graphs)):
+		print("Graph", i)
+		G = [graphs[i], copy.deepcopy(graphs[i])]
+		UsedGraphs = G	
+		colors = []
+		nodes = []
+		colors, nodes = setColorAsNrNeighbors(G)
+		colors, nodes = colorRefinement(colors, nodes, -1, -1)
+		t = 0
+		colors, nodes, t = gensetGen(colors, nodes, 0)
+		retVal[i] = t
+	return retVal
 
 def searchIsomorphs(graphs):
 	global UsedGraphs
 	UsedGraphs = graphs
-	print("Starting...")
 	colors, nodes = setColorAsNrNeighbors(UsedGraphs)
 	print("-- Nodes colored as Nr of Neighbors")
 	colors, nodes = colorRefinement(colors, nodes, -1, -1)
 	print("-- Color Refinement done")
-	colors, nodes, found = individualRef(colors, nodes)
+	isomorphs = doIndRef(colors, nodes, UsedGraphs)
+	# colors, nodes, found = individualRef(colors, nodes)
 	print("-- Individual Refinement done")
-	print("Done...")
-	return checkIsomorph(nodes)
+	return isomorphs
 
 def AutGI(graphs):
 	iso = searchIsomorphs(graphs)
+	uniqueGraphs = []
 	retVal = {}
 	for i in range(len(iso)):
-		print("Graphs: ", str(iso[i]))
-		retVal[str(iso[i])] = automorphismCount(graphs[iso[i][0]])
+		uniqueGraphs.append(graphs[iso[i][0]])
+		# print("Graphs: ", str(iso[i]))
+	autos = automorphismCount(uniqueGraphs)
+	for i in range(len(iso)):
+		retVal[str(iso[i])] = autos[i]
+		# retVal[str(iso[i])] = automorphismCount(graphs[iso[i][0]])
 	return retVal
 
 def main():
@@ -373,14 +476,20 @@ def main():
 		return
 	filename = input("Please enter filename: ")
 	G = loadGraphs(filename)
-	if typeinput == '1':	
-		print(searchIsomorphs(G))
+	if typeinput == '1':
+		print("Isomorphs:")	
+		iso = searchIsomorphs(G)
+		for i in range(len(iso)):
+			print(iso[i])
 	elif typeinput == '2':
-		for i in range(len(G)):
-			print(" Graph", i, ":", automorphismCount(G[i]))
+		print("Counting....")
+		retVal = automorphismCount(G)
+		print("Automorphs:")
+		for i in range(len(retVal.keys())):
+			print(list(retVal.keys())[i], ":", retVal[list(retVal.keys())[i]])
 	elif typeinput == '3':
 		auto = AutGI(G)
-		print("Isomorphs, Automorphs")
+		print("Isomorphs, Automorphs:")
 		for i in range(len(auto.keys())):
 			print(list(auto.keys())[i], ":", auto[list(auto.keys())[i]])
 
