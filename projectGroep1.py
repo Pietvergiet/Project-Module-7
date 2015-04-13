@@ -398,34 +398,35 @@ def doIndRef(colors, nodes, graphs):
 	for i in range(len(graphs)):
 		toDo.append(i)
 	for i in range(len(graphs)):
-		for j in range(i+1, len(graphs)):
-			
-			if j in toDo and getColors(nodes)[i] == getColors(nodes)[j]:
-				print(i, j)
-				cColors = copy.deepcopy(colors)
-				cNodes = copy.deepcopy(nodes)
-				colors, nodes, found = individualRef_2(cColors, cNodes, i, j)
-				if found:
-					added = False
-					print("Iso's:", i, j)
-					if i in toDo:
-						toDo.remove(i)
-					if j in toDo:
-						toDo.remove(j)
-					x = 0
-					while x < len(iso) and not added:
-						if i in iso[x]:
-							iso[x].append(j)
-							added = True
-						elif j in iso[x]:
-							iso[x].append(i)
-							added = True
-						x += 1
-					if not added:
-						iso.append([i, j])
+		if i in toDo:
+			for j in range(i+1, len(graphs)):
+				
+				if j in toDo and getColors(nodes)[i] == getColors(nodes)[j]:
+					print(i, j)
+					cColors = copy.deepcopy(colors)
+					cNodes = copy.deepcopy(nodes)
+					colors, nodes, found = individualRef_2(cColors, cNodes, i, j)
+					if found:
+						added = False
+						print("Iso's:", i, j)
+						if i in toDo:
+							toDo.remove(i)
+						if j in toDo:
+							toDo.remove(j)
+						x = 0
+						while x < len(iso) and not added:
+							if i in iso[x]:
+								iso[x].append(j)
+								added = True
+							elif j in iso[x]:
+								iso[x].append(i)
+								added = True
+							x += 1
+						if not added:
+							iso.append([i, j])
 
-				colors = cColors
-				nodes = cNodes
+					colors = cColors
+					nodes = cNodes
 	return iso
 
 def automorphismCount(graphs):
