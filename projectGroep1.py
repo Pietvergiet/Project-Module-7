@@ -201,47 +201,7 @@ def findGraphsWithDup_2(colors, nodes, graph1, graph2):
 
 	return graphsWithDup
 
-# def individualRef(colors, nodes):
-# 	rColors = copy.deepcopy(colors)
-# 	rNodes = copy.deepcopy(nodes)
-# 	graphsWithDup = findGraphsWithDup(rColors, rNodes)
-# 	i = 1
-# 	while i < len(graphsWithDup.keys()):
-# 		g = list(graphsWithDup.keys())[i]
-# 		j = 0
-# 		while j < len(graphsWithDup[g]):
-# 			copyColors = copy.deepcopy(rColors)
-# 			copyNodes = copy.deepcopy(rNodes)
-			
-# 			g0 = list(graphsWithDup.keys())[0]				# RECOLOR FIRST NODE OF FIRST GRAPH
-# 			node = graphsWithDup[g0][0]
-# 			rColors[rNodes[node]].remove(node)
-# 			rNodes[node] = len(rColors)
-# 			rColors.append([node])
-# 			node = graphsWithDup[g][j]
-# 			rColors[rNodes[node]].remove(node)
-# 			rNodes[node] = len(rColors)-1
-# 			rColors[rNodes[node]].append(node)
-# 			rColors, rNodes = colorRefinement(rColors, rNodes, g0, g)
-# 			allColors = getColors(rNodes)
-# 			if(allColors[g0] == allColors[g]):
-# 				if len(checkIsomorph(rNodes)[0]) < 2:
-# 					return rColors, rNodes, True
-# 				else:
-# 					rColors, rNodes, found = individualRef(rColors, rNodes)
-# 					if found:
-# 						return rColors, rNodes, found
-# 					else:
-# 						rColors = copy.deepcopy(copyColors)
-# 						rNodes = copy.deepcopy(copyNodes)
-# 			else:
-# 				rColors = copy.deepcopy(copyColors)
-# 				rNodes = copy.deepcopy(copyNodes)
-# 			j += 1
-# 		i += 1
-# 	return rColors, rNodes, False
-
-def individualRef_2(colors, nodes, graph1, graph2):
+def individualRef(colors, nodes, graph1, graph2):
 	rColors = copy.deepcopy(colors)
 	rNodes = copy.deepcopy(nodes)
 	graphsWithDup = findGraphsWithDup_2(rColors, rNodes, graph1, graph2)
@@ -267,7 +227,7 @@ def individualRef_2(colors, nodes, graph1, graph2):
 				if len(allColors[g0]) == len(set(allColors[g0])):
 					return rColors, rNodes, True
 				else:
-					rColors, rNodes, found = individualRef_2(rColors, rNodes, graph1, graph2)
+					rColors, rNodes, found = individualRef(rColors, rNodes, graph1, graph2)
 					if found:
 						return rColors, rNodes, found
 					else:
@@ -279,7 +239,7 @@ def individualRef_2(colors, nodes, graph1, graph2):
 			j += 1
 	return rColors, rNodes, False	
 
-def gensetGen(colors, nodes, t):
+def autCounter(colors, nodes, t):
 	count = t
 	rColors = copy.deepcopy(colors)
 	rNodes = copy.deepcopy(nodes)
@@ -322,20 +282,6 @@ def gensetGen(colors, nodes, t):
 			j += 1
 		i += 1
 	return rColors, rNodes, count
-
-def stabOrder(P):
-	sO = 1
-	Orbitss = []
-	stabilizer = P
-	while stabilizer != []:
-		el = el = basicpermutationgroup.FindNonTrivialOrbit(stabilizer)
-		orbit = basicpermutationgroup.Orbit(stabilizer, el, False)
-		Orbitss.append(len(orbit))
-		stabilizer = basicpermutationgroup.Stabilizer(stabilizer, el)
-
-	for i in range(len(Orbitss)):
-		sO = sO*Orbitss[i]
-	return sO
 
 # load the graphs into a list
 def loadGraphs(file):
@@ -405,7 +351,7 @@ def doIndRef(colors, nodes, graphs):
 					print(i, j)
 					cColors = copy.deepcopy(colors)
 					cNodes = copy.deepcopy(nodes)
-					colors, nodes, found = individualRef_2(cColors, cNodes, i, j)
+					colors, nodes, found = individualRef(cColors, cNodes, i, j)
 					if found:
 						added = False
 						print("Iso's:", i, j)
@@ -441,7 +387,7 @@ def automorphismCount(graphs):
 		colors, nodes = setColorAsNrNeighbors(G)
 		colors, nodes = colorRefinement(colors, nodes, -1, -1)
 		t = 0
-		colors, nodes, t = gensetGen(colors, nodes, 0)
+		colors, nodes, t = autCounter(colors, nodes, 0)
 		retVal[i] = t
 	return retVal
 
@@ -453,7 +399,6 @@ def searchIsomorphs(graphs):
 	colors, nodes = colorRefinement(colors, nodes, -1, -1)
 	print("-- Color Refinement done")
 	isomorphs = doIndRef(colors, nodes, UsedGraphs)
-	# colors, nodes, found = individualRef(colors, nodes)
 	print("-- Individual Refinement done")
 	return isomorphs
 
